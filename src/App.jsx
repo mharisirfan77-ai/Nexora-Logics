@@ -4,6 +4,9 @@ import { Navbar } from './components/public/Navbar';
 import { Footer } from './components/public/Footer';
 import { ProjectModal } from './components/public/ProjectModal';
 import { Toast } from './components/public/Toast';
+import { CustomCursor } from './components/public/CustomCursor';
+import { MarqueeTicker } from './components/public/MarqueeTicker';
+import { ClientLogos } from './components/public/ClientLogos';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ServicesPage } from './pages/ServicesPage';
@@ -17,7 +20,7 @@ import { AdminLogin } from './components/admin/AdminLogin';
 const MainRouter = () => {
   const { currentPath, isAdminAuthenticated } = useCMS();
 
-  // Normalize path for secret admin slug check (case-insensitive & trailing slash trim)
+  // Normalize path for secret admin slug check
   const normalizedPath = currentPath.replace(/\/$/, '').toLowerCase();
   const isAdminPath = normalizedPath === '/nexora_logics_admin';
 
@@ -62,10 +65,13 @@ const MainRouter = () => {
 
   return (
     <div className="public-app">
+      <CustomCursor />
       <Navbar />
       <main style={{ minHeight: '80vh' }}>
         {renderCurrentPage()}
       </main>
+      <MarqueeTicker />
+      <ClientLogos />
       <Footer />
       <ProjectModal />
       <Toast />

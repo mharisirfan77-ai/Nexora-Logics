@@ -1,9 +1,9 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Compass } from 'lucide-react';
 
 export const Hero = () => {
-  const { data } = useCMS();
+  const { data, navigate } = useCMS();
   const { hero } = data;
 
   return (
@@ -18,16 +18,16 @@ export const Hero = () => {
         <line x1="460" y1="440" x2="700" y2="560" stroke="rgba(75,78,255,.35)" strokeWidth="1" />
         <line x1="700" y1="560" x2="960" y2="480" stroke="rgba(75,78,255,.35)" strokeWidth="1" />
         <line x1="960" y1="480" x2="1120" y2="600" stroke="rgba(75,78,255,.35)" strokeWidth="1" />
-        <circle cx="120" cy="140" r="3" fill="#4B4EFF" />
-        <circle cx="340" cy="240" r="3" fill="#FF8A3D" />
-        <circle cx="580" cy="150" r="3" fill="#4B4EFF" />
-        <circle cx="860" cy="220" r="3" fill="#4B4EFF" />
-        <circle cx="1080" cy="120" r="3" fill="#FF8A3D" />
-        <circle cx="220" cy="520" r="3" fill="#4B4EFF" />
-        <circle cx="460" cy="440" r="3" fill="#4B4EFF" />
-        <circle cx="700" cy="560" r="3" fill="#FF8A3D" />
-        <circle cx="960" cy="480" r="3" fill="#4B4EFF" />
-        <circle cx="1120" cy="600" r="3" fill="#4B4EFF" />
+        <circle cx="120" cy="140" r="3.5" fill="#4B4EFF" />
+        <circle cx="340" cy="240" r="3.5" fill="#FF8A3D" />
+        <circle cx="580" cy="150" r="3.5" fill="#4B4EFF" />
+        <circle cx="860" cy="220" r="3.5" fill="#4B4EFF" />
+        <circle cx="1080" cy="120" r="3.5" fill="#FF8A3D" />
+        <circle cx="220" cy="520" r="3.5" fill="#4B4EFF" />
+        <circle cx="460" cy="440" r="3.5" fill="#4B4EFF" />
+        <circle cx="700" cy="560" r="3.5" fill="#FF8A3D" />
+        <circle cx="960" cy="480" r="3.5" fill="#4B4EFF" />
+        <circle cx="1120" cy="600" r="3.5" fill="#4B4EFF" />
       </svg>
 
       <div className="hero-inner">
@@ -43,10 +43,18 @@ export const Hero = () => {
         <p>{hero.description}</p>
 
         <div className="hero-btns">
-          <a href={hero.primaryCtaLink || "#contact"} className="btn-hero-primary">
+          <a
+            href={hero.primaryCtaLink || "/contact"}
+            onClick={(e) => { e.preventDefault(); navigate('/contact'); }}
+            className="btn-hero-primary"
+          >
             {hero.primaryCtaText} <ArrowRight size={18} />
           </a>
-          <a href={hero.secondaryCtaLink || "#services"} className="btn-hero-ghost">
+          <a
+            href={hero.secondaryCtaLink || "/services"}
+            onClick={(e) => { e.preventDefault(); navigate('/services'); }}
+            className="btn-hero-ghost"
+          >
             {hero.secondaryCtaText}
           </a>
         </div>

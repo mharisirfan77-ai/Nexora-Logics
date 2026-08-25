@@ -4,7 +4,7 @@ import { ExternalLink, ArrowRight } from 'lucide-react';
 
 export const Portfolio = () => {
   const { data, setActiveProjectModal } = useCMS();
-  const { portfolio, sectionsConfig } = data;
+  const { portfolio, portfolioHeader, sectionsConfig } = data;
   const [activeCategory, setActiveCategory] = useState('All');
 
   if (!sectionsConfig.portfolio?.enabled) return null;
@@ -16,13 +16,13 @@ export const Portfolio = () => {
     : portfolio.filter(p => p.category === activeCategory);
 
   return (
-    <section id="portfolio" style={{ background: '#EFEBE2' }}>
+    <section id="portfolio" style={{ background: '#07090E' }}>
       <div className="section-padding">
         <div className="section-header centered-header">
-          <div className="section-label">Selected Work</div>
-          <h2 className="section-title">Creative portfolio showcase</h2>
+          <div className="section-label">{portfolioHeader?.sectionLabel || "Selected Work"}</div>
+          <h2 className="section-title">{portfolioHeader?.title || "Creative portfolio showcase"}</h2>
           <p className="section-sub">
-            Explore our recent projects spanning web engineering, publishing, brand strategies, and high-conversion ad campaigns.
+            {portfolioHeader?.subtitle || "Explore our recent projects spanning web engineering, publishing, brand strategies, and high-conversion ad campaigns."}
           </p>
         </div>
 
@@ -39,9 +39,9 @@ export const Portfolio = () => {
           ))}
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid (Xstar Style with Index Numbers) */}
         <div className="portfolio-grid">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <div
               key={project.id}
               className="project-card"
@@ -50,10 +50,13 @@ export const Portfolio = () => {
               <div className="project-img-wrapper">
                 <img src={project.thumbnail} alt={project.title} />
                 <span className="project-category-badge">{project.category}</span>
+                <span className="project-number">{index + 1 < 10 ? `0${index + 1}` : index + 1}</span>
               </div>
+
               <div className="project-info">
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
+
                 {project.tags && project.tags.length > 0 && (
                   <div className="project-tags">
                     {project.tags.map((tag, i) => (
@@ -61,7 +64,8 @@ export const Portfolio = () => {
                     ))}
                   </div>
                 )}
-                <div style={{ marginTop: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#4B4EFF', fontWeight: 600, fontSize: '0.88rem' }}>
+
+                <div style={{ marginTop: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#FF8A3D', fontWeight: 600, fontSize: '0.9rem' }}>
                   View Case Study <ArrowRight size={16} />
                 </div>
               </div>
