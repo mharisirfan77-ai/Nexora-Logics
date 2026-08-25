@@ -12,7 +12,7 @@ import { WhyUs } from '../components/public/WhyUs';
 import { Testimonials } from '../components/public/Testimonials';
 import { Contact } from '../components/public/Contact';
 import { PageHeader } from '../components/public/PageHeader';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Play } from 'lucide-react';
 
 export const DynamicPage = ({ page }) => {
   const { data, navigate } = useCMS();
@@ -54,19 +54,21 @@ export const DynamicPage = ({ page }) => {
             <div
               key={`${secId}-${index}`}
               style={{
-                background: customSec.bgGradient || 'linear-gradient(135deg, #12162B 0%, #1B2140 100%)',
-                padding: '6rem 2rem',
+                position: 'relative',
+                background: `linear-gradient(180deg, rgba(7,9,14,0.7) 0%, rgba(7,9,14,0.95) 100%), url(${customSec.imageUrl || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80'}) center/cover no-repeat`,
+                padding: '7rem 2.5rem',
                 margin: '4rem 0',
                 borderRadius: '16px',
                 textAlign: 'center',
-                color: '#fff'
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,0.1)'
               }}
             >
-              <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                <h2 style={{ fontFamily: 'Space Grotesk', fontSize: '2.4rem', fontWeight: 800, marginBottom: '1rem' }}>
+              <div style={{ maxWidth: '850px', margin: '0 auto' }}>
+                <h2 className="section-title-xstar" style={{ marginBottom: '1.2rem' }}>
                   {customSec.title}
                 </h2>
-                <p style={{ color: '#B7BCDA', fontSize: '1.1rem', marginBottom: '2rem' }}>
+                <p style={{ color: '#B7BCDA', fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '2.5rem' }}>
                   {customSec.subtitle}
                 </p>
                 <a
@@ -80,6 +82,38 @@ export const DynamicPage = ({ page }) => {
               </div>
             </div>
           );
+        } else if (customSec.type === 'textBlock') {
+          return (
+            <div key={`${secId}-${index}`} className="section-padding" style={{ background: '#0B0E17', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)', margin: '3rem 0' }}>
+              <div style={{ maxWidth: '900px' }}>
+                <span style={{ fontFamily: 'JetBrains Mono', fontSize: '0.82rem', color: '#D2F535', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
+                  ✦ {customSec.subtitle || "Information Block"}
+                </span>
+                <h2 className="section-title-xstar" style={{ marginTop: '0.4rem', marginBottom: '1.5rem' }}>
+                  {customSec.title}
+                </h2>
+                <p style={{ color: '#D4D7EC', fontSize: '1.15rem', lineHeight: '1.85' }}>
+                  {customSec.content}
+                </p>
+              </div>
+            </div>
+          );
+        } else if (customSec.type === 'videoEmbed') {
+          return (
+            <div key={`${secId}-${index}`} className="section-padding" style={{ textAlign: 'center' }}>
+              <h2 className="section-title-xstar">{customSec.title}</h2>
+              {customSec.subtitle && <p style={{ color: '#888888', marginTop: '0.6rem', marginBottom: '2rem' }}>{customSec.subtitle}</p>}
+              <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <iframe
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
+                  src={customSec.videoUrl || "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"}
+                  title={customSec.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          );
         } else if (customSec.type === 'html') {
           return (
             <div
@@ -90,12 +124,7 @@ export const DynamicPage = ({ page }) => {
           );
         }
 
-        return (
-          <div key={`${secId}-${index}`} className="section-padding" style={{ background: '#0B0E17' }}>
-            <h2 className="section-title-xstar">{customSec.title}</h2>
-            <p style={{ color: '#B7BCDA', fontSize: '1.1rem', marginTop: '1rem' }}>{customSec.subtitle || customSec.content}</p>
-          </div>
-        );
+        return null;
     }
   };
 
