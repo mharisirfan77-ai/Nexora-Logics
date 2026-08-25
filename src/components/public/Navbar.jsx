@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCMS } from '../../context/CMSContext';
-import { Search, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
+import logoImg from '../../assets/logo.jpg';
 
 export const Navbar = () => {
   const { data, currentPath, navigate } = useCMS();
@@ -16,13 +17,12 @@ export const Navbar = () => {
   return (
     <nav className="xstar-nav">
       <div className="xstar-nav-container">
-        {/* Logo using attached image */}
+        {/* Logo with bundled static asset */}
         <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo">
           <img
-            src={siteInfo.logoUrl || '/logo.jpg'}
+            src={logoImg}
             alt={siteInfo.brandName}
-            style={{ height: '40px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }}
-            onError={(e) => { e.target.style.display = 'none'; }}
+            style={{ height: '38px', width: 'auto', objectFit: 'contain', borderRadius: '4px', background: '#ffffff', padding: '2px' }}
           />
           <span style={{ marginLeft: '0.4rem' }}>
             {siteInfo.brandName.split(' ')[0]}
@@ -30,7 +30,7 @@ export const Navbar = () => {
           </span>
         </a>
 
-        {/* XSTAR Signature Navigation Links with ↗ arrows */}
+        {/* XSTAR Navigation Links with ↗ arrows */}
         <ul className="xstar-nav-links">
           <li>
             <a
@@ -98,14 +98,14 @@ export const Navbar = () => {
           )}
         </ul>
 
-        {/* Action CTAs: Search Icon & Outlined ↗ Get In Touch Box */}
+        {/* Action CTAs */}
         <div className="xstar-nav-actions">
           <button
             onClick={() => navigate('/contact')}
             style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
             title="Search"
           >
-            <Search size={20} />
+            <Search size={19} />
           </button>
 
           <a

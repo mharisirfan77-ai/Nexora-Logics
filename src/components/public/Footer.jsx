@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
+import logoImg from '../../assets/logo.jpg';
 
 export const Footer = () => {
   const { data } = useCMS();
@@ -11,11 +12,11 @@ export const Footer = () => {
         <div className="footer-grid">
           <div className="footer-col">
             <div className="footer-brand">
-              <svg width="28" height="28" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="40" height="40" rx="10" fill="#12162B" />
-                <path d="M12 28V12L22 28V12" stroke="#4B4EFF" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M28 12V28" stroke="#FF8A3D" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <img
+                src={logoImg}
+                alt={siteInfo.brandName}
+                style={{ height: '34px', borderRadius: '4px', background: '#ffffff', padding: '2px' }}
+              />
               <span>{siteInfo.brandName}</span>
             </div>
             <p>{siteInfo.footerBio}</p>
@@ -80,8 +81,8 @@ export const Footer = () => {
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} {siteInfo.brandName}. All rights reserved.</p>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <a href="#" style={{ color: '#525873' }}>Privacy Policy</a>
-            <a href="#" style={{ color: '#525873' }}>Terms of Service</a>
+            <a href="#" style={{ color: '#8F95B2' }}>Privacy Policy</a>
+            <a href="#" style={{ color: '#8F95B2' }}>Terms of Service</a>
           </div>
         </div>
       </div>
