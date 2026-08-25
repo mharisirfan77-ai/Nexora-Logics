@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useCMS } from '../../context/CMSContext';
 import { AdminDashboard } from './AdminDashboard';
+import { PageManager } from './PageManager';
+import { SectionBuilder } from './SectionBuilder';
+import { ThemeCustomizer } from './ThemeCustomizer';
 import { SectionManager } from './SectionManager';
 import { PortfolioManager } from './PortfolioManager';
 import { ServicesManager } from './ServicesManager';
@@ -10,6 +13,9 @@ import { SectionTextEditor } from './SectionTextEditor';
 import { BackupManager } from './BackupManager';
 import {
   LayoutDashboard,
+  FileText,
+  PlusCircle,
+  Palette,
   Layers,
   Briefcase,
   Wrench,
@@ -47,10 +53,10 @@ export const AdminLayout = () => {
           <img
             src={siteInfo.logoUrl || '/logo.jpg'}
             alt="Logo"
-            style={{ height: '34px', borderRadius: '4px', objectFit: 'contain' }}
+            style={{ height: '34px', borderRadius: '4px', objectFit: 'contain', background: '#fff', padding: '2px' }}
             onError={(e) => { e.target.style.display = 'none'; }}
           />
-          <span>{siteInfo.brandName} — Admin CMS Panel</span>
+          <span>{siteInfo.brandName} — Full CMS & Page Builder</span>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
@@ -88,6 +94,27 @@ export const AdminLayout = () => {
             onClick={() => setActiveTab('dashboard')}
           >
             <LayoutDashboard size={18} /> Dashboard
+          </button>
+
+          <button
+            className={`admin-nav-item ${activeTab === 'pageManager' ? 'active' : ''}`}
+            onClick={() => setActiveTab('pageManager')}
+          >
+            <FileText size={18} /> Page Builder
+          </button>
+
+          <button
+            className={`admin-nav-item ${activeTab === 'sectionBuilder' ? 'active' : ''}`}
+            onClick={() => setActiveTab('sectionBuilder')}
+          >
+            <PlusCircle size={18} /> Section Builder
+          </button>
+
+          <button
+            className={`admin-nav-item ${activeTab === 'themeCustomizer' ? 'active' : ''}`}
+            onClick={() => setActiveTab('themeCustomizer')}
+          >
+            <Palette size={18} /> Theme Customizer
           </button>
 
           <button
@@ -147,6 +174,9 @@ export const AdminLayout = () => {
 
         <main className="admin-content">
           {activeTab === 'dashboard' && <AdminDashboard setActiveTab={setActiveTab} />}
+          {activeTab === 'pageManager' && <PageManager />}
+          {activeTab === 'sectionBuilder' && <SectionBuilder />}
+          {activeTab === 'themeCustomizer' && <ThemeCustomizer />}
           {activeTab === 'sectionText' && <SectionTextEditor />}
           {activeTab === 'sections' && <SectionManager />}
           {activeTab === 'portfolio' && <PortfolioManager />}

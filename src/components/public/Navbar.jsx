@@ -5,7 +5,7 @@ import logoImg from '../../assets/logo.jpg';
 
 export const Navbar = () => {
   const { data, currentPath, navigate } = useCMS();
-  const { siteInfo, sectionsConfig } = data;
+  const { siteInfo, pages = [] } = data;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleNavClick = (e, path) => {
@@ -13,6 +13,9 @@ export const Navbar = () => {
     navigate(path);
     setMobileMenuOpen(false);
   };
+
+  // Filter pages configured to show in Top Navbar
+  const navPages = pages.filter((p) => p.inNavbar !== false);
 
   return (
     <nav className="xstar-nav">
@@ -26,76 +29,28 @@ export const Navbar = () => {
           />
           <span style={{ marginLeft: '0.4rem' }}>
             {siteInfo.brandName.split(' ')[0]}
-            <span style={{ color: '#D2F535' }}>{siteInfo.brandName.split(' ')[1] || ''}</span>
+            <span style={{ color: data.themeConfig?.primaryAccent || '#D2F535' }}>
+              {siteInfo.brandName.split(' ')[1] || ''}
+            </span>
           </span>
         </a>
 
-        {/* XSTAR Navigation Links with ↗ arrows */}
+        {/* XSTAR Navigation Links (Dynamically list system & custom pages) */}
         <ul className="xstar-nav-links">
-          <li>
-            <a
-              href="/"
-              onClick={(e) => handleNavClick(e, '/')}
-              className={currentPath === '/' ? 'active-link' : ''}
-            >
-              <span className="arrow">↗</span> Home
-            </a>
-          </li>
-          {sectionsConfig.about?.enabled && (
-            <li>
-              <a
-                href="/about"
-                onClick={(e) => handleNavClick(e, '/about')}
-                className={currentPath === '/about' ? 'active-link' : ''}
-              >
-                <span className="arrow">↗</span> About
-              </a>
-            </li>
-          )}
-          {sectionsConfig.services?.enabled && (
-            <li>
-              <a
-                href="/services"
-                onClick={(e) => handleNavClick(e, '/services')}
-                className={currentPath === '/services' ? 'active-link' : ''}
-              >
-                <span className="arrow">↗</span> Services
-              </a>
-            </li>
-          )}
-          {sectionsConfig.portfolio?.enabled && (
-            <li>
-              <a
-                href="/portfolio"
-                onClick={(e) => handleNavClick(e, '/portfolio')}
-                className={currentPath === '/portfolio' ? 'active-link' : ''}
-              >
-                <span className="arrow">↗</span> Portfolio
-              </a>
-            </li>
-          )}
-          {sectionsConfig.process?.enabled && (
-            <li>
-              <a
-                href="/process"
-                onClick={(e) => handleNavClick(e, '/process')}
-                className={currentPath === '/process' ? 'active-link' : ''}
-              >
-                <span className="arrow">↗</span> Process
-              </a>
-            </li>
-          )}
-          {sectionsConfig.contact?.enabled && (
-            <li>
-              <a
-                href="/contact"
-                onClick={(e) => handleNavClick(e, '/contact')}
-                className={currentPath === '/contact' ? 'active-link' : ''}
-              >
-                Contact
-              </a>
-            </li>
-          )}
+          {navPages.map((p) => {
+            const isActive = currentPath.toLowerCase().replace(/\/$/, '') === p.slug.toLowerCase().replace(/\/$/, '');
+            return (
+              <li key={p.id}>
+                <a
+                  href={p.slug}
+                  onClick={(e) => handleNavClick(e, p.slug)}
+                  className={isActive ? 'active-link' : ''}
+                >
+                  <span className="arrow">↗</span> {p.title}
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Action CTAs */}

@@ -1,7 +1,18 @@
 export const INITIAL_DATA = {
   adminConfig: {
-    password: "admin123", // Default admin password
+    password: "admin123",
     secretSlug: "/Nexora_Logics_admin"
+  },
+  themeConfig: {
+    primaryAccent: "#D2F535", // Electric Lime
+    secondaryAccent: "#4B4EFF", // Violet
+    amberAccent: "#FF8A3D",
+    bgTheme: "#07090E", // Obsidian Dark
+    cardBg: "rgba(18, 22, 43, 0.75)",
+    fontHeading: "'Space Grotesk', sans-serif",
+    fontBody: "'Inter', sans-serif",
+    borderRadius: "14px",
+    customCss: ""
   },
   siteInfo: {
     brandName: "Nexora Logics",
@@ -16,6 +27,97 @@ export const INITIAL_DATA = {
     instagramUrl: "https://instagram.com",
     linkedinUrl: "https://linkedin.com"
   },
+  pages: [
+    {
+      id: "page-home",
+      slug: "/",
+      title: "Home",
+      metaTitle: "Nexora Logics — Digital Solutions That Drive Growth",
+      metaDescription: "Nexora Logics builds your eBooks, websites, social presence, and ad campaigns under one connected strategy.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      sectionIds: ["hero", "reel", "stats", "about", "services", "portfolio", "team", "process", "whyUs", "testimonials", "contact"]
+    },
+    {
+      id: "page-about",
+      slug: "/about",
+      title: "About Us",
+      metaTitle: "About Us — Nexora Logics",
+      metaDescription: "Learn about our agency vision, story, core team, and values.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      sectionIds: ["about", "stats", "team", "whyUs", "testimonials"]
+    },
+    {
+      id: "page-services",
+      slug: "/services",
+      title: "Services",
+      metaTitle: "Our Services — Nexora Logics",
+      metaDescription: "eBooks, Web Development, Social Media Marketing, and Paid Ads.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      sectionIds: ["services", "process", "contact"]
+    },
+    {
+      id: "page-portfolio",
+      slug: "/portfolio",
+      title: "Portfolio",
+      metaTitle: "Portfolio & Case Studies — Nexora Logics",
+      metaDescription: "Explore our recent client deliverables and case study breakdowns.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      sectionIds: ["portfolio", "testimonials", "contact"]
+    },
+    {
+      id: "page-process",
+      slug: "/process",
+      title: "Process",
+      metaTitle: "Our 5-Step Process — Nexora Logics",
+      metaDescription: "Discover our predictable 5-step project execution workflow.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      sectionIds: ["process", "whyUs", "contact"]
+    },
+    {
+      id: "page-why-us",
+      slug: "/why-us",
+      title: "Why Us",
+      metaTitle: "Why Choose Us — Nexora Logics",
+      metaDescription: "Why businesses choose Nexora Logics for digital growth.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      sectionIds: ["whyUs", "stats", "testimonials", "contact"]
+    },
+    {
+      id: "page-contact",
+      slug: "/contact",
+      title: "Contact",
+      metaTitle: "Contact Us — Nexora Logics",
+      metaDescription: "Request a quote and get in touch with our agency team.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      sectionIds: ["contact", "testimonials"]
+    }
+  ],
+  customSections: [
+    {
+      id: "custom-cta-1",
+      type: "ctaBanner",
+      title: "Ready to Scale Your Brand to New Heights?",
+      subtitle: "Get a customized growth proposal within 24 hours with zero obligations.",
+      buttonText: "Schedule Strategy Call ↗",
+      buttonLink: "/contact",
+      bgGradient: "linear-gradient(135deg, #12162B 0%, #1B2140 100%)",
+      imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80"
+    }
+  ],
   hero: {
     badge: "Digital Solutions That Drive Growth",
     titleLine1: "Every part of your online presence,",
@@ -155,6 +257,32 @@ export const INITIAL_DATA = {
       liveLink: "https://example.com/ecosmart"
     }
   ],
+  team: [
+    {
+      id: 1,
+      name: "Marcus Vance",
+      role: "Creative Director",
+      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 2,
+      name: "Elena Rostova",
+      role: "Head of Design",
+      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 3,
+      name: "David Sterling",
+      role: "Lead Web Engineer",
+      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      id: 4,
+      name: "Arthur Pendelton",
+      role: "Growth & Paid Ads Strategist",
+      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
   processHeader: {
     sectionLabel: "How We Work",
     title: "Our 5-step process",
@@ -224,7 +352,7 @@ export const INITIAL_DATA = {
       phone: "+92 312 9876543",
       service: "Web Development",
       message: "Hi Nexora team, we need a modern e-commerce web platform for our fashion brand. Looking forward to discussing pricing and timeline.",
-      date: "2026-08-25T14:30:00Z",
+      date: "2026-08-26T00:30:00Z",
       read: false
     }
   ]

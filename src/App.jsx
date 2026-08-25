@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CMSProvider, useCMS } from './context/CMSContext';
 import { Navbar } from './components/public/Navbar';
 import { Footer } from './components/public/Footer';
@@ -7,18 +7,30 @@ import { Toast } from './components/public/Toast';
 import { CustomCursor } from './components/public/CustomCursor';
 import { MarqueeTicker } from './components/public/MarqueeTicker';
 import { ClientLogos } from './components/public/ClientLogos';
-import { HomePage } from './pages/HomePage';
-import { AboutPage } from './pages/AboutPage';
-import { ServicesPage } from './pages/ServicesPage';
-import { PortfolioPage } from './pages/PortfolioPage';
-import { ProcessPage } from './pages/ProcessPage';
-import { WhyUsPage } from './pages/WhyUsPage';
-import { ContactPage } from './pages/ContactPage';
+import { DynamicPage } from './pages/DynamicPage';
 import { AdminLayout } from './components/admin/AdminLayout';
 import { AdminLogin } from './components/admin/AdminLogin';
 
 const MainRouter = () => {
-  const { currentPath, isAdminAuthenticated } = useCMS();
+  const { data, currentPath, isAdminAuthenticated } = useCMS();
+  const { themeConfig = {}, pages = [] } = data;
+
+  // Dynamically apply theme color variables and custom CSS to the root DOM
+  useEffect(() => {
+    if (themeConfig.primaryAccent) {
+      document.documentElement.style.setProperty('--lime', themeConfig.primaryAccent);
+    }
+    if (themeConfig.secondaryAccent) {
+      document.documentElement.style.setProperty('--violet', themeConfig.secondaryAccent);
+    }
+    if (themeConfig.bgTheme) {
+      document.documentElement.style.setProperty('--bg-dark', themeConfig.bgTheme);
+      document.body.style.backgroundColor = themeConfig.bgTheme;
+    }
+    if (themeConfig.borderRadius) {
+      document.documentElement.style.setProperty('--radius-md', themeConfig.borderRadius);
+    }
+  }, [themeConfig]);
 
   // Normalize path for secret admin slug check
   const normalizedPath = currentPath.replace(/\/$/, '').toLowerCase();
@@ -41,34 +53,22 @@ const MainRouter = () => {
     );
   }
 
-  // Render Inner Pages based on client-side route
-  const renderCurrentPage = () => {
-    switch (normalizedPath) {
-      case '/about':
-        return <AboutPage />;
-      case '/services':
-        return <ServicesPage />;
-      case '/portfolio':
-        return <PortfolioPage />;
-      case '/process':
-        return <ProcessPage />;
-      case '/why-us':
-        return <WhyUsPage />;
-      case '/contact':
-        return <ContactPage />;
-      case '':
-      case '/':
-      default:
-        return <HomePage />;
-    }
-  };
+  // Find matching page object from CMS pages registry (dynamic system or custom pages)
+  const matchedPage = pages.find(
+    (p) => p.slug.toLowerCase().replace(/\/$/, '') === normalizedPath
+  ) || pages.find((p) => p.slug === '/');
 
   return (
     <div className="public-app">
+      {/* Custom CSS overrides injected dynamically */}
+      {themeConfig.customCss && (
+        <style>{themeConfig.customCss}</style>
+      )}
+
       <CustomCursor />
       <Navbar />
       <main style={{ minHeight: '80vh' }}>
-        {renderCurrentPage()}
+        <DynamicPage page={matchedPage} />
       </main>
       <MarqueeTicker />
       <ClientLogos />

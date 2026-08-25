@@ -3,7 +3,7 @@ import { INITIAL_DATA } from '../data/initialData';
 
 const CMSContext = createContext();
 
-const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V2';
+const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V3';
 
 export const CMSProvider = ({ children }) => {
   const [data, setData] = useState(() => {
@@ -19,10 +19,8 @@ export const CMSProvider = ({ children }) => {
     return INITIAL_DATA;
   });
 
-  // Client-side router path
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
 
-  // Password authentication for Admin Panel
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
     return sessionStorage.getItem('NEXORA_ADMIN_AUTH') === 'true';
   });
@@ -59,6 +57,102 @@ export const CMSProvider = ({ children }) => {
     }, 3500);
   };
 
+  // --- Theme & Style Customizer ---
+  const updateThemeConfig = (newTheme) => {
+    setData((prev) => ({
+      ...prev,
+      themeConfig: { ...prev.themeConfig, ...newTheme }
+    }));
+    showToast('Theme styles & color palette updated!');
+  };
+
+  // --- Dynamic Page Manager (Add / Edit / Delete Pages) ---
+  const addPage = (newPageObj) => {
+    let slug = newPageObj.slug.startsWith('/') ? newPageObj.slug : `/${newPageObj.slug}`;
+    slug = slug.toLowerCase().replace(/\s+/g, '-');
+
+    const newPage = {
+      id: `page-${Date.now()}`,
+      slug,
+      title: newPageObj.title,
+      metaTitle: newPageObj.metaTitle || `${newPageObj.title} — ${data.siteInfo.brandName}`,
+      metaDescription: newPageObj.metaDescription || '',
+      isSystem: false,
+      inNavbar: newPageObj.inNavbar !== false,
+      inFooter: newPageObj.inFooter !== false,
+      sectionIds: newPageObj.sectionIds || ["hero", "contact"]
+    };
+
+    setData((prev) => ({
+      ...prev,
+      pages: [...prev.pages, newPage]
+    }));
+    showToast(`New page "${newPage.title}" created at ${newPage.slug}!`);
+  };
+
+  const updatePage = (id, updatedFields) => {
+    setData((prev) => ({
+      ...prev,
+      pages: prev.pages.map((p) => (p.id === id ? { ...p, ...updatedFields } : p))
+    }));
+    showToast('Page details updated successfully!');
+  };
+
+  const deletePage = (id) => {
+    const pageToDelete = data.pages.find(p => p.id === id);
+    if (pageToDelete?.isSystem) {
+      alert('System default pages cannot be deleted.');
+      return;
+    }
+    setData((prev) => ({
+      ...prev,
+      pages: prev.pages.filter((p) => p.id !== id)
+    }));
+    showToast('Custom page deleted.');
+  };
+
+  // --- Dynamic Section Builder (Add Custom Sections to Any Page) ---
+  const addCustomSection = (sectionObj) => {
+    const newSec = {
+      ...sectionObj,
+      id: `custom-sec-${Date.now()}`
+    };
+    setData((prev) => ({
+      ...prev,
+      customSections: [...(prev.customSections || []), newSec]
+    }));
+    showToast('New custom section block created!');
+    return newSec.id;
+  };
+
+  const updateCustomSection = (id, updatedFields) => {
+    setData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.map((s) => (s.id === id ? { ...s, ...updatedFields } : s))
+    }));
+    showToast('Custom section updated!');
+  };
+
+  const deleteCustomSection = (id) => {
+    setData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.filter((s) => s.id !== id),
+      pages: prev.pages.map((p) => ({
+        ...p,
+        sectionIds: p.sectionIds.filter((secId) => secId !== id)
+      }))
+    }));
+    showToast('Custom section removed.');
+  };
+
+  const updatePageSections = (pageId, newSectionIds) => {
+    setData((prev) => ({
+      ...prev,
+      pages: prev.pages.map((p) => (p.id === pageId ? { ...p, sectionIds: newSectionIds } : p))
+    }));
+    showToast('Page section order updated!');
+  };
+
   // --- Admin Authentication Handlers ---
   const loginAdmin = (passwordInput) => {
     if (passwordInput === data.adminConfig.password) {
@@ -91,7 +185,7 @@ export const CMSProvider = ({ children }) => {
     showToast('Admin password changed successfully!');
   };
 
-  // --- Site Info & Hero Handlers ---
+  // --- Site Info & Content Handlers ---
   const updateSiteInfo = (newSiteInfo) => {
     setData((prev) => ({ ...prev, siteInfo: { ...prev.siteInfo, ...newSiteInfo } }));
     showToast('Site settings updated successfully!');
@@ -107,7 +201,6 @@ export const CMSProvider = ({ children }) => {
     showToast('About section content updated!');
   };
 
-  // --- Generic Section Header & Content Updaters ---
   const updateSectionHeader = (sectionKey, newHeaderObj) => {
     setData((prev) => ({
       ...prev,
@@ -116,7 +209,6 @@ export const CMSProvider = ({ children }) => {
     showToast('Section headline & copy updated!');
   };
 
-  // --- Section Visibility & Order Handlers ---
   const toggleSection = (sectionKey) => {
     setData((prev) => {
       const updated = { ...prev.sectionsConfig };
@@ -280,6 +372,14 @@ export const CMSProvider = ({ children }) => {
         loginAdmin,
         logoutAdmin,
         changeAdminPassword,
+        updateThemeConfig,
+        addPage,
+        updatePage,
+        deletePage,
+        addCustomSection,
+        updateCustomSection,
+        deleteCustomSection,
+        updatePageSections,
         activeProjectModal,
         setActiveProjectModal,
         toastMessage,
