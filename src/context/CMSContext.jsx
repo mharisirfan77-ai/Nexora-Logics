@@ -3,14 +3,15 @@ import { INITIAL_DATA } from '../data/initialData';
 
 const CMSContext = createContext();
 
-const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V1';
+const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V2';
 
 export const CMSProvider = ({ children }) => {
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        return { ...INITIAL_DATA, ...parsed };
       }
     } catch (e) {
       console.error('Failed to load CMS data from localStorage:', e);
@@ -18,9 +19,24 @@ export const CMSProvider = ({ children }) => {
     return INITIAL_DATA;
   });
 
-  const [isAdminView, setIsAdminView] = useState(false);
+  // Client-side router path
+  const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
+
+  // Password authentication for Admin Panel
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return sessionStorage.getItem('NEXORA_ADMIN_AUTH') === 'true';
+  });
+
   const [activeProjectModal, setActiveProjectModal] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     try {
@@ -30,11 +46,49 @@ export const CMSProvider = ({ children }) => {
     }
   }, [data]);
 
+  const navigate = (path) => {
+    window.history.pushState({}, '', path);
+    setCurrentPath(path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage(null);
     }, 3500);
+  };
+
+  // --- Admin Authentication Handlers ---
+  const loginAdmin = (passwordInput) => {
+    if (passwordInput === data.adminConfig.password) {
+      setIsAdminAuthenticated(true);
+      sessionStorage.setItem('NEXORA_ADMIN_AUTH', 'true');
+      showToast('Admin access granted!');
+      return true;
+    } else {
+      alert('Incorrect Password!');
+      return false;
+    }
+  };
+
+  const logoutAdmin = () => {
+    setIsAdminAuthenticated(false);
+    sessionStorage.removeItem('NEXORA_ADMIN_AUTH');
+    navigate('/');
+    showToast('Logged out of Admin CMS.');
+  };
+
+  const changeAdminPassword = (newPassword) => {
+    if (!newPassword || newPassword.trim().length < 4) {
+      alert('Password must be at least 4 characters.');
+      return;
+    }
+    setData((prev) => ({
+      ...prev,
+      adminConfig: { ...prev.adminConfig, password: newPassword.trim() }
+    }));
+    showToast('Admin password changed successfully!');
   };
 
   // --- Site Info & Hero Handlers ---
@@ -46,6 +100,20 @@ export const CMSProvider = ({ children }) => {
   const updateHero = (newHero) => {
     setData((prev) => ({ ...prev, hero: { ...prev.hero, ...newHero } }));
     showToast('Hero section updated successfully!');
+  };
+
+  const updateAbout = (newAbout) => {
+    setData((prev) => ({ ...prev, about: { ...prev.about, ...newAbout } }));
+    showToast('About section content updated!');
+  };
+
+  // --- Generic Section Header & Content Updaters ---
+  const updateSectionHeader = (sectionKey, newHeaderObj) => {
+    setData((prev) => ({
+      ...prev,
+      [sectionKey]: { ...prev[sectionKey], ...newHeaderObj }
+    }));
+    showToast('Section headline & copy updated!');
   };
 
   // --- Section Visibility & Order Handlers ---
@@ -206,14 +274,20 @@ export const CMSProvider = ({ children }) => {
     <CMSContext.Provider
       value={{
         data,
-        isAdminView,
-        setIsAdminView,
+        currentPath,
+        navigate,
+        isAdminAuthenticated,
+        loginAdmin,
+        logoutAdmin,
+        changeAdminPassword,
         activeProjectModal,
         setActiveProjectModal,
         toastMessage,
         showToast,
         updateSiteInfo,
         updateHero,
+        updateAbout,
+        updateSectionHeader,
         toggleSection,
         addProject,
         updateProject,

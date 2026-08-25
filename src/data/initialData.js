@@ -1,7 +1,12 @@
 export const INITIAL_DATA = {
+  adminConfig: {
+    password: "admin123", // Default admin password
+    secretSlug: "/Nexora_Logics_admin"
+  },
   siteInfo: {
     brandName: "Nexora Logics",
     tagline: "Digital Solutions That Drive Growth",
+    logoUrl: "/logo.jpg",
     email: "nexoralogics650@gmail.com",
     phone: "+92 300 1234567",
     location: "Serving clients worldwide",
@@ -17,9 +22,10 @@ export const INITIAL_DATA = {
     titleHighlight: "engineered to work together.",
     description: "Nexora Logics builds your eBooks, websites, social presence, and ad campaigns under one connected strategy — so nothing about your brand ever feels disjointed.",
     primaryCtaText: "Get a Free Quote",
-    primaryCtaLink: "#contact",
+    primaryCtaLink: "/contact",
     secondaryCtaText: "Explore Services",
-    secondaryCtaLink: "#services"
+    secondaryCtaLink: "/services",
+    heroImageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
   },
   sectionsConfig: {
     stats: { enabled: true, title: "Key Metrics", order: 1 },
@@ -40,8 +46,10 @@ export const INITIAL_DATA = {
   about: {
     sectionLabel: "About Us",
     title: "Transforming ideas into digital success",
+    subtitle: "We combine strategy, design, and technical mastery to build brands that stand out and scale.",
     paragraph1: "Nexora Logics is a digital solutions company dedicated to helping businesses thrive in today's competitive online landscape. We bring every part of your digital presence together under ONE team — no juggling multiple freelancers or agencies, no strategy getting lost in translation.",
     paragraph2: "Whether you're a startup launching your first website or an established brand looking to scale, we build customized strategies designed around your goals — not a template pulled off a shelf.",
+    aboutImageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80",
     highlights: [
       { id: 1, icon: "BookOpen", title: "eBook Creation", desc: "From ghostwriting to Amazon KDP publishing" },
       { id: 2, icon: "Code", title: "Web Development", desc: "Custom websites built to convert" },
@@ -49,12 +57,18 @@ export const INITIAL_DATA = {
       { id: 4, icon: "Megaphone", title: "Paid Advertising", desc: "Facebook, Google & YouTube Ads" }
     ]
   },
+  servicesHeader: {
+    sectionLabel: "What We Do",
+    title: "Our core services",
+    subtitle: "Everything your brand needs to grow online — handled by one team, built around one strategy."
+  },
   services: [
     {
       id: "svc-1",
       icon: "BookOpen",
       title: "eBook Creation & Publishing",
       description: "Turn your expertise into a professionally published eBook that builds authority and generates leads.",
+      imageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
       features: ["Ghostwriting & editing", "Cover design & formatting", "Amazon KDP publishing", "Marketing consultation"]
     },
     {
@@ -62,6 +76,7 @@ export const INITIAL_DATA = {
       icon: "Code",
       title: "Web Development",
       description: "Fast, responsive, conversion-focused websites tailored to your business goals.",
+      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
       features: ["Business & portfolio websites", "E-commerce stores", "WordPress & landing pages", "Maintenance & optimization"]
     },
     {
@@ -69,6 +84,7 @@ export const INITIAL_DATA = {
       icon: "Share2",
       title: "Social Media Marketing",
       description: "Build a consistent, engaging presence across every major platform with a strategy that actually works.",
+      imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80",
       features: ["Content creation & scheduling", "Community management", "Audience growth strategies", "Brand awareness campaigns"]
     },
     {
@@ -76,9 +92,15 @@ export const INITIAL_DATA = {
       icon: "Megaphone",
       title: "Paid Advertising",
       description: "Data-driven ad campaigns built to maximize ROI and deliver measurable results.",
+      imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
       features: ["Facebook & Instagram Ads", "Google & YouTube Ads", "Lead generation campaigns", "Retargeting & optimization"]
     }
   ],
+  portfolioHeader: {
+    sectionLabel: "Selected Work",
+    title: "Creative portfolio showcase",
+    subtitle: "Explore our recent projects spanning web engineering, publishing, brand strategies, and high-conversion ad campaigns."
+  },
   portfolio: [
     {
       id: "proj-1",
@@ -133,6 +155,11 @@ export const INITIAL_DATA = {
       liveLink: "https://example.com/ecosmart"
     }
   ],
+  processHeader: {
+    sectionLabel: "How We Work",
+    title: "Our 5-step process",
+    subtitle: "Every project moves through the same clear stages — so you always know what comes next."
+  },
   processSteps: [
     { id: 1, stepNumber: "01", title: "Discover", description: "We learn about your business, goals, and target audience." },
     { id: 2, stepNumber: "02", title: "Plan", description: "We map out the strategy and deliverables before any work begins." },
@@ -140,6 +167,11 @@ export const INITIAL_DATA = {
     { id: 4, stepNumber: "04", title: "Deliver", description: "You review the finished work and we refine based on your feedback." },
     { id: 5, stepNumber: "05", title: "Support", description: "We stay available for updates, questions, and ongoing optimization." }
   ],
+  whyUsHeader: {
+    sectionLabel: "Why Nexora Logics",
+    title: "Your trusted digital partner",
+    subtitle: "Here's what keeps our clients coming back."
+  },
   whyUs: [
     { id: 1, icon: "Award", title: "Professional Expertise", desc: "Every service is handled by specialists, not generalists trying to do everything." },
     { id: 2, icon: "Sliders", title: "Customized Solutions", desc: "No templates. Every strategy is built around your specific business and goals." },
@@ -148,6 +180,11 @@ export const INITIAL_DATA = {
     { id: 5, icon: "DollarSign", title: "Affordable Pricing", desc: "Quality work without enterprise-agency price tags. Results that fit your budget." },
     { id: 6, icon: "Users", title: "Long-Term Support", desc: "We don't disappear after delivery. We're here for the long run." }
   ],
+  testimonialsHeader: {
+    sectionLabel: "Client Reviews",
+    title: "What our clients say",
+    subtitle: "Real feedback from businesses and creators we've collaborated with."
+  },
   testimonials: [
     {
       id: "testi-1",
@@ -174,6 +211,11 @@ export const INITIAL_DATA = {
       rating: 5
     }
   ],
+  contactHeader: {
+    sectionLabel: "Get In Touch",
+    title: "Get a free quote",
+    subtitle: "Tell us about your project and we'll get back to you within 24 hours."
+  },
   inquiries: [
     {
       id: "inq-1",

@@ -1,24 +1,35 @@
 import React from 'react';
 import { CMSProvider, useCMS } from './context/CMSContext';
 import { Navbar } from './components/public/Navbar';
-import { Hero } from './components/public/Hero';
-import { StatsBar } from './components/public/StatsBar';
-import { About } from './components/public/About';
-import { Services } from './components/public/Services';
-import { Portfolio } from './components/public/Portfolio';
-import { ProjectModal } from './components/public/ProjectModal';
-import { Process } from './components/public/Process';
-import { WhyUs } from './components/public/WhyUs';
-import { Testimonials } from './components/public/Testimonials';
-import { Contact } from './components/public/Contact';
 import { Footer } from './components/public/Footer';
+import { ProjectModal } from './components/public/ProjectModal';
 import { Toast } from './components/public/Toast';
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { ServicesPage } from './pages/ServicesPage';
+import { PortfolioPage } from './pages/PortfolioPage';
+import { ProcessPage } from './pages/ProcessPage';
+import { WhyUsPage } from './pages/WhyUsPage';
+import { ContactPage } from './pages/ContactPage';
 import { AdminLayout } from './components/admin/AdminLayout';
+import { AdminLogin } from './components/admin/AdminLogin';
 
-const MainApp = () => {
-  const { isAdminView } = useCMS();
+const MainRouter = () => {
+  const { currentPath, isAdminAuthenticated } = useCMS();
 
-  if (isAdminView) {
+  // Normalize path for secret admin slug check (case-insensitive & trailing slash trim)
+  const normalizedPath = currentPath.replace(/\/$/, '').toLowerCase();
+  const isAdminPath = normalizedPath === '/nexora_logics_admin';
+
+  if (isAdminPath) {
+    if (!isAdminAuthenticated) {
+      return (
+        <>
+          <AdminLogin />
+          <Toast />
+        </>
+      );
+    }
     return (
       <>
         <AdminLayout />
@@ -27,19 +38,33 @@ const MainApp = () => {
     );
   }
 
+  // Render Inner Pages based on client-side route
+  const renderCurrentPage = () => {
+    switch (normalizedPath) {
+      case '/about':
+        return <AboutPage />;
+      case '/services':
+        return <ServicesPage />;
+      case '/portfolio':
+        return <PortfolioPage />;
+      case '/process':
+        return <ProcessPage />;
+      case '/why-us':
+        return <WhyUsPage />;
+      case '/contact':
+        return <ContactPage />;
+      case '':
+      case '/':
+      default:
+        return <HomePage />;
+    }
+  };
+
   return (
     <div className="public-app">
       <Navbar />
-      <main>
-        <Hero />
-        <StatsBar />
-        <About />
-        <Services />
-        <Portfolio />
-        <Process />
-        <WhyUs />
-        <Testimonials />
-        <Contact />
+      <main style={{ minHeight: '80vh' }}>
+        {renderCurrentPage()}
       </main>
       <Footer />
       <ProjectModal />
@@ -51,7 +76,7 @@ const MainApp = () => {
 export default function App() {
   return (
     <CMSProvider>
-      <MainApp />
+      <MainRouter />
     </CMSProvider>
   );
 }
