@@ -37,6 +37,8 @@ export const INITIAL_DATA = {
       isSystem: true,
       inNavbar: true,
       inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
       sectionIds: ["hero", "reel", "stats", "about", "services", "portfolio", "team", "process", "whyUs", "testimonials", "contact"]
     },
     {
@@ -48,6 +50,8 @@ export const INITIAL_DATA = {
       isSystem: true,
       inNavbar: true,
       inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
       sectionIds: ["about", "stats", "team", "whyUs", "testimonials"]
     },
     {
@@ -59,6 +63,8 @@ export const INITIAL_DATA = {
       isSystem: true,
       inNavbar: true,
       inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
       sectionIds: ["services", "process", "contact"]
     },
     {
@@ -70,6 +76,8 @@ export const INITIAL_DATA = {
       isSystem: true,
       inNavbar: true,
       inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
       sectionIds: ["portfolio", "testimonials", "contact"]
     },
     {
@@ -81,6 +89,8 @@ export const INITIAL_DATA = {
       isSystem: true,
       inNavbar: true,
       inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
       sectionIds: ["process", "whyUs", "contact"]
     },
     {
@@ -92,7 +102,22 @@ export const INITIAL_DATA = {
       isSystem: true,
       inNavbar: true,
       inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
       sectionIds: ["whyUs", "stats", "testimonials", "contact"]
+    },
+    {
+      id: "page-blog",
+      slug: "/blog",
+      title: "Blog & Insights",
+      metaTitle: "Blog & Articles — Nexora Logics",
+      metaDescription: "Latest digital marketing insights, eBook publishing tips, and web dev strategies.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
+      sectionIds: ["contact"]
     },
     {
       id: "page-contact",
@@ -103,7 +128,84 @@ export const INITIAL_DATA = {
       isSystem: true,
       inNavbar: true,
       inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
       sectionIds: ["contact", "testimonials"]
+    }
+  ],
+  posts: [
+    {
+      id: "post-1",
+      title: "How to Build a High-Converting Web Application in 2026",
+      slug: "how-to-build-high-converting-web-application-2026",
+      category: "Web Development",
+      tags: ["React", "UI/UX", "Conversion"],
+      author: "Nexora Team",
+      date: "2026-08-25",
+      status: "Published",
+      featuredImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      excerpt: "Discover the core principles of modern web engineering, page speed optimization, and dynamic CMS user experiences.",
+      content: "Building a high-converting web application requires more than aesthetics. It demands sub-second load times, intuitive user flows, clear call-to-action buttons, and seamless mobile responsiveness. In this guide, we break down the exact tech stack and architectural choices behind top-performing business websites."
+    },
+    {
+      id: "post-2",
+      title: "The Author's Guide to Publishing Bestselling eBooks on Amazon KDP",
+      slug: "authors-guide-to-publishing-bestselling-ebooks-amazon-kdp",
+      category: "eBook Publishing",
+      tags: ["Amazon KDP", "Publishing", "Writing"],
+      author: "Marcus Vance",
+      date: "2026-08-20",
+      status: "Published",
+      featuredImage: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      excerpt: "Learn how to turn your raw ideas into a professionally formatted eBook with custom cover design and KDP keyword targeting.",
+      content: "Publishing on Amazon KDP offers authors unprecedented reach. However, 80% of self-published books fail due to poor cover formatting, weak metadata, or unstructured chapters. Follow our step-by-step checklist to write, format, and launch your book to rank in top categories."
+    },
+    {
+      id: "post-3",
+      title: "Scaling Paid Advertising: Facebook & Google Ads ROAS Strategies",
+      slug: "scaling-paid-advertising-facebook-google-ads-roas-strategies",
+      category: "Paid Advertising",
+      tags: ["Meta Ads", "Google Ads", "ROAS"],
+      author: "Arthur Pendelton",
+      date: "2026-08-15",
+      status: "Published",
+      featuredImage: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+      excerpt: "Uncover data-driven ad funnel structures that lower cost-per-lead and double return on ad spend.",
+      content: "Paid advertising is predictable when you stop guessing and start testing creative variations. Learn how to structure broad targeting campaigns, build high-converting landing pages, and set up automated retargeting funnels."
+    }
+  ],
+  mediaLibrary: [
+    {
+      id: "media-1",
+      name: "Nexora Official Logo",
+      url: "/logo.jpg",
+      type: "image/jpeg",
+      size: "32 KB",
+      date: "2026-08-26"
+    },
+    {
+      id: "media-2",
+      name: "Team Strategy Workspace",
+      url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80",
+      type: "image/jpeg",
+      size: "240 KB",
+      date: "2026-08-25"
+    },
+    {
+      id: "media-3",
+      name: "Web Development Showcase",
+      url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      type: "image/jpeg",
+      size: "180 KB",
+      date: "2026-08-24"
+    },
+    {
+      id: "media-4",
+      name: "eBook Publishing Cover Art",
+      url: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      type: "image/jpeg",
+      size: "210 KB",
+      date: "2026-08-23"
     }
   ],
   customSections: [

@@ -12,13 +12,18 @@ import { WhyUs } from '../components/public/WhyUs';
 import { Testimonials } from '../components/public/Testimonials';
 import { Contact } from '../components/public/Contact';
 import { PageHeader } from '../components/public/PageHeader';
-import { ArrowUpRight, Play } from 'lucide-react';
+import { BlogPage } from './BlogPage';
+import { ArrowUpRight } from 'lucide-react';
 
 export const DynamicPage = ({ page }) => {
   const { data, navigate } = useCMS();
   const { customSections = [] } = data;
 
   if (!page) return null;
+
+  if (page.slug === '/blog') {
+    return <BlogPage />;
+  }
 
   const renderSectionById = (secId, index) => {
     switch (secId) {
@@ -45,7 +50,6 @@ export const DynamicPage = ({ page }) => {
       case 'contact':
         return <Contact key={`${secId}-${index}`} />;
       default:
-        // Render Custom Section Blocks created via Section Builder
         const customSec = customSections.find((c) => c.id === secId);
         if (!customSec) return null;
 

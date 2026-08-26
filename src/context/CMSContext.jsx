@@ -3,7 +3,7 @@ import { INITIAL_DATA } from '../data/initialData';
 
 const CMSContext = createContext();
 
-const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V3';
+const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V4';
 
 export const CMSProvider = ({ children }) => {
   const [data, setData] = useState(() => {
@@ -80,6 +80,8 @@ export const CMSProvider = ({ children }) => {
       isSystem: false,
       inNavbar: newPageObj.inNavbar !== false,
       inFooter: newPageObj.inFooter !== false,
+      status: newPageObj.status || 'Published',
+      date: new Date().toISOString().slice(0, 10),
       sectionIds: newPageObj.sectionIds || ["hero", "contact"]
     };
 
@@ -109,6 +111,71 @@ export const CMSProvider = ({ children }) => {
       pages: prev.pages.filter((p) => p.id !== id)
     }));
     showToast('Custom page deleted.');
+  };
+
+  // --- Posts / Blog Manager CRUD ---
+  const addPost = (postObj) => {
+    let slug = postObj.slug || postObj.title.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+    const newPost = {
+      id: `post-${Date.now()}`,
+      title: postObj.title,
+      slug,
+      category: postObj.category || 'General',
+      tags: postObj.tags || ['News'],
+      author: postObj.author || 'Admin',
+      date: new Date().toISOString().slice(0, 10),
+      status: postObj.status || 'Published',
+      featuredImage: postObj.featuredImage || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+      excerpt: postObj.excerpt || '',
+      content: postObj.content || ''
+    };
+
+    setData((prev) => ({
+      ...prev,
+      posts: [newPost, ...(prev.posts || [])]
+    }));
+    showToast(`New article "${newPost.title}" published!`);
+  };
+
+  const updatePost = (id, updatedFields) => {
+    setData((prev) => ({
+      ...prev,
+      posts: (prev.posts || []).map((p) => (p.id === id ? { ...p, ...updatedFields } : p))
+    }));
+    showToast('Post updated successfully!');
+  };
+
+  const deletePost = (id) => {
+    setData((prev) => ({
+      ...prev,
+      posts: (prev.posts || []).filter((p) => p.id !== id)
+    }));
+    showToast('Post removed from blog.');
+  };
+
+  // --- Media Library CRUD ---
+  const addMediaItem = (mediaObj) => {
+    const newItem = {
+      id: `media-${Date.now()}`,
+      name: mediaObj.name || 'Uploaded Asset',
+      url: mediaObj.url,
+      type: mediaObj.type || 'image/jpeg',
+      size: mediaObj.size || '150 KB',
+      date: new Date().toISOString().slice(0, 10)
+    };
+    setData((prev) => ({
+      ...prev,
+      mediaLibrary: [newItem, ...(prev.mediaLibrary || [])]
+    }));
+    showToast('Asset added to Media Library!');
+  };
+
+  const deleteMediaItem = (id) => {
+    setData((prev) => ({
+      ...prev,
+      mediaLibrary: (prev.mediaLibrary || []).filter((m) => m.id !== id)
+    }));
+    showToast('Asset removed from Media Library.');
   };
 
   // --- Dynamic Section Builder (Add Custom Sections to Any Page) ---
@@ -158,7 +225,7 @@ export const CMSProvider = ({ children }) => {
     if (passwordInput === data.adminConfig.password) {
       setIsAdminAuthenticated(true);
       sessionStorage.setItem('NEXORA_ADMIN_AUTH', 'true');
-      showToast('Admin access granted!');
+      showToast('WordPress Admin access granted!');
       return true;
     } else {
       alert('Incorrect Password!');
@@ -342,18 +409,18 @@ export const CMSProvider = ({ children }) => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `nexora_logics_backup_${new Date().toISOString().slice(0,10)}.json`);
+    downloadAnchor.setAttribute("download", `wp_nexora_logics_backup_${new Date().toISOString().slice(0,10)}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
-    showToast('JSON backup file exported successfully!');
+    showToast('WordPress WXML JSON backup file exported successfully!');
   };
 
   const importDataJSON = (importedObj) => {
     try {
       if (importedObj && importedObj.siteInfo && importedObj.hero) {
         setData(importedObj);
-        showToast('JSON backup imported and applied!');
+        showToast('WordPress WXML backup imported and applied!');
       } else {
         alert('Invalid JSON structure.');
       }
@@ -376,6 +443,11 @@ export const CMSProvider = ({ children }) => {
         addPage,
         updatePage,
         deletePage,
+        addPost,
+        updatePost,
+        deletePost,
+        addMediaItem,
+        deleteMediaItem,
         addCustomSection,
         updateCustomSection,
         deleteCustomSection,

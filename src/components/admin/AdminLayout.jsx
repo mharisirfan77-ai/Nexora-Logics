@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useCMS } from '../../context/CMSContext';
+import { WpAdminSidebar } from './WpAdminSidebar';
 import { AdminDashboard } from './AdminDashboard';
 import { PageManager } from './PageManager';
 import { SectionBuilder } from './SectionBuilder';
 import { ThemeCustomizer } from './ThemeCustomizer';
+import { WpAdminPosts } from './WpAdminPosts';
+import { WpMediaLibrary } from './WpMediaLibrary';
 import { SectionManager } from './SectionManager';
 import { PortfolioManager } from './PortfolioManager';
 import { ServicesManager } from './ServicesManager';
@@ -12,26 +15,17 @@ import { SettingsEditor } from './SettingsEditor';
 import { SectionTextEditor } from './SectionTextEditor';
 import { BackupManager } from './BackupManager';
 import {
-  LayoutDashboard,
-  FileText,
-  PlusCircle,
-  Palette,
-  Layers,
-  Briefcase,
-  Wrench,
-  Inbox,
-  Settings,
-  Database,
   ExternalLink,
-  ShieldCheck,
-  Type,
+  Key,
   LogOut,
-  Key
+  Plus,
+  MessageSquare,
+  Globe
 } from 'lucide-react';
 
 export const AdminLayout = () => {
   const { data, logoutAdmin, changeAdminPassword, navigate } = useCMS();
-  const { inquiries, siteInfo } = data;
+  const { siteInfo, inquiries = [] } = data;
   const [activeTab, setActiveTab] = useState('dashboard');
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [newPassword, setNewPassword] = useState('');
@@ -46,135 +40,65 @@ export const AdminLayout = () => {
   };
 
   return (
-    <div className="admin-layout">
-      {/* Top Header */}
-      <header className="admin-header">
-        <div className="admin-header-title">
-          <img
-            src={siteInfo.logoUrl || '/logo.jpg'}
-            alt="Logo"
-            style={{ height: '34px', borderRadius: '4px', objectFit: 'contain', background: '#fff', padding: '2px' }}
-            onError={(e) => { e.target.style.display = 'none'; }}
-          />
-          <span>{siteInfo.brandName} — Full CMS & Page Builder</span>
+    <div style={{ background: '#101517', minHeight: '100vh', color: '#f0f6fc' }}>
+      {/* WordPress Top Admin Bar */}
+      <header
+        style={{
+          background: '#1d2327',
+          borderBottom: '1px solid #2c3338',
+          height: '46px',
+          padding: '0 1.2rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          fontSize: '0.85rem'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#ffffff', fontWeight: 700 }}>
+            <Globe size={16} style={{ color: '#2271b1' }} />
+            <span>{siteInfo.brandName}</span>
+          </div>
+
+          <a
+            href="/"
+            onClick={(e) => { e.preventDefault(); navigate('/'); }}
+            style={{ color: '#c3c4c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
+          >
+            <ExternalLink size={14} /> Visit Site
+          </a>
+
+          <div style={{ color: '#c3c4c7', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+            <MessageSquare size={14} /> {unreadCount} Pending Inquiries
+          </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <button
             onClick={() => setShowPasswordModal(true)}
-            className="btn-admin-toggle"
-            style={{ background: 'rgba(255,255,255,0.08)', borderColor: 'rgba(255,255,255,0.2)' }}
+            style={{ background: 'none', border: 'none', color: '#c3c4c7', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.82rem' }}
           >
-            <Key size={15} /> Change Password
-          </button>
-
-          <button
-            onClick={() => navigate('/')}
-            className="btn-cta"
-            style={{ background: '#FF8A3D', color: '#0B0E17', fontSize: '0.88rem' }}
-          >
-            View Live Site <ExternalLink size={16} />
+            <Key size={14} /> Password
           </button>
 
           <button
             onClick={logoutAdmin}
-            className="btn-admin-delete"
-            style={{ padding: '0.65rem 1rem', fontSize: '0.88rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+            style={{ background: '#d63638', color: '#fff', border: 'none', padding: '0.3rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
           >
-            <LogOut size={15} /> Logout
+            <LogOut size={13} /> Log Out
           </button>
         </div>
       </header>
 
-      {/* Main Admin Sidebar + Content Body */}
-      <div className="admin-body">
-        <aside className="admin-sidebar">
-          <button
-            className={`admin-nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
-            onClick={() => setActiveTab('dashboard')}
-          >
-            <LayoutDashboard size={18} /> Dashboard
-          </button>
+      {/* Main WordPress Body */}
+      <div style={{ display: 'flex' }}>
+        <WpAdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-          <button
-            className={`admin-nav-item ${activeTab === 'pageManager' ? 'active' : ''}`}
-            onClick={() => setActiveTab('pageManager')}
-          >
-            <FileText size={18} /> Page Builder
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'sectionBuilder' ? 'active' : ''}`}
-            onClick={() => setActiveTab('sectionBuilder')}
-          >
-            <PlusCircle size={18} /> Section Builder
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'themeCustomizer' ? 'active' : ''}`}
-            onClick={() => setActiveTab('themeCustomizer')}
-          >
-            <Palette size={18} /> Theme Customizer
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'sectionText' ? 'active' : ''}`}
-            onClick={() => setActiveTab('sectionText')}
-          >
-            <Type size={18} /> Edit Texts & Images
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'sections' ? 'active' : ''}`}
-            onClick={() => setActiveTab('sections')}
-          >
-            <Layers size={18} /> Section Toggles
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'portfolio' ? 'active' : ''}`}
-            onClick={() => setActiveTab('portfolio')}
-          >
-            <Briefcase size={18} /> Portfolio Projects
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'services' ? 'active' : ''}`}
-            onClick={() => setActiveTab('services')}
-          >
-            <Wrench size={18} /> Services
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'inquiries' ? 'active' : ''}`}
-            onClick={() => setActiveTab('inquiries')}
-          >
-            <Inbox size={18} /> Inquiries
-            {unreadCount > 0 && (
-              <span style={{ marginLeft: 'auto', background: '#ff4d4d', color: '#fff', fontSize: '0.7rem', padding: '0.15rem 0.5rem', borderRadius: '100px', fontWeight: 700 }}>
-                {unreadCount}
-              </span>
-            )}
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'settings' ? 'active' : ''}`}
-            onClick={() => setActiveTab('settings')}
-          >
-            <Settings size={18} /> Brand & Contact
-          </button>
-
-          <button
-            className={`admin-nav-item ${activeTab === 'backup' ? 'active' : ''}`}
-            onClick={() => setActiveTab('backup')}
-          >
-            <Database size={18} /> Backup & Reset
-          </button>
-        </aside>
-
-        <main className="admin-content">
+        <main style={{ flex: 1, padding: '2.5rem 3rem', maxWidth: '1400px', overflowX: 'hidden' }}>
           {activeTab === 'dashboard' && <AdminDashboard setActiveTab={setActiveTab} />}
           {activeTab === 'pageManager' && <PageManager />}
+          {activeTab === 'posts' && <WpAdminPosts />}
+          {activeTab === 'media' && <WpMediaLibrary />}
           {activeTab === 'sectionBuilder' && <SectionBuilder />}
           {activeTab === 'themeCustomizer' && <ThemeCustomizer />}
           {activeTab === 'sectionText' && <SectionTextEditor />}
@@ -192,7 +116,7 @@ export const AdminLayout = () => {
         <div className="modal-overlay" onClick={() => setShowPasswordModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '420px' }}>
             <div className="modal-header">
-              <h3 style={{ fontFamily: 'Space Grotesk', fontSize: '1.2rem', color: '#0B0E17' }}>
+              <h3 style={{ fontFamily: 'Space Grotesk', fontSize: '1.2rem', color: '#ffffff' }}>
                 Change Admin Password
               </h3>
             </div>
@@ -209,7 +133,7 @@ export const AdminLayout = () => {
                 />
               </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1.2rem' }}>
-                <button type="button" className="btn-hero-ghost" style={{ color: '#0B0E17', borderColor: '#ccc' }} onClick={() => setShowPasswordModal(false)}>
+                <button type="button" className="btn-hero-ghost" style={{ color: '#fff', borderColor: '#444' }} onClick={() => setShowPasswordModal(false)}>
                   Cancel
                 </button>
                 <button type="submit" className="btn-admin-save">
