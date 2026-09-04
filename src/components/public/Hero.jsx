@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
 import { ArrowUpRight } from 'lucide-react';
+import { HeroParticles } from './HeroParticles';
 
 export const Hero = () => {
   const { data, navigate } = useCMS();
@@ -8,8 +9,9 @@ export const Hero = () => {
 
   return (
     <>
-      <section className="xstar-hero">
-        <div className="xstar-hero-inner">
+      <section className="xstar-hero" style={{ position: 'relative', overflow: 'hidden' }}>
+        <HeroParticles />
+        <div className="xstar-hero-inner" style={{ position: 'relative', zIndex: 1 }}>
           <div className="hero-badge">
             <span className="dot"></span>
             <span>{hero.badge}</span>

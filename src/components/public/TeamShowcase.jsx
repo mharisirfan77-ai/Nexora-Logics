@@ -1,34 +1,10 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
+import { Globe, Share2, ExternalLink } from 'lucide-react';
 
 export const TeamShowcase = () => {
   const { data } = useCMS();
-  const teamMembers = data.team || [
-    {
-      id: 1,
-      name: "Marcus Vance",
-      role: "Creative Director",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 2,
-      name: "Elena Rostova",
-      role: "Head of Design",
-      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 3,
-      name: "David Sterling",
-      role: "Lead Web Engineer",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 4,
-      name: "Arthur Pendelton",
-      role: "Growth & Paid Ads Strategist",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80"
-    }
-  ];
+  const teamMembers = data.team || [];
 
   return (
     <section className="team-section">
@@ -36,7 +12,7 @@ export const TeamShowcase = () => {
         <h2 className="section-title-xstar">
           Meet Our <em className="italic-accent">Creative</em> Staff
         </h2>
-        <p style={{ color: '#888888', fontSize: '1.1rem', marginTop: '0.6rem' }}>
+        <p style={{ color: 'var(--slate)', fontSize: '1.1rem', marginTop: '0.6rem' }}>
           Passionate strategists, designers, writers, and engineers scaling brands worldwide.
         </p>
 
@@ -49,6 +25,18 @@ export const TeamShowcase = () => {
               <div className="team-info">
                 <h4>{member.name}</h4>
                 <p>{member.role}</p>
+
+                <div style={{ display: 'flex', gap: '0.6rem', marginTop: '0.6rem' }}>
+                  <a href={member.linkedin || "#"} target="_blank" rel="noreferrer" style={{ color: 'var(--lime)', opacity: 0.8 }} title="LinkedIn">
+                    <Share2 size={16} />
+                  </a>
+                  <a href={member.twitter || "#"} target="_blank" rel="noreferrer" style={{ color: 'var(--lime)', opacity: 0.8 }} title="Twitter">
+                    <ExternalLink size={16} />
+                  </a>
+                  <a href="#" style={{ color: 'var(--lime)', opacity: 0.8 }} title="Website">
+                    <Globe size={16} />
+                  </a>
+                </div>
               </div>
             </div>
           ))}
