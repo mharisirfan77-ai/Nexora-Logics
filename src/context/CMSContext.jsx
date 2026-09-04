@@ -4,7 +4,7 @@ import { INITIAL_DATA } from '../data/initialData';
 
 const CMSContext = createContext();
 
-const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V4';
+const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V5';
 
 export const CMSProvider = ({ children }) => {
   const [data, setData] = useState(() => {

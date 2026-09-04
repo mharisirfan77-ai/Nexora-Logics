@@ -11,9 +11,9 @@ export const ClientLogos = () => {
   ];
 
   return (
-    <div style={{ background: '#0B0E17', padding: '3rem 2rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+    <div style={{ background: 'var(--card-bg)', padding: '3rem 2rem', borderTop: '1px solid var(--line-dark)', borderBottom: '1px solid var(--line-dark)' }}>
       <div style={{ maxWidth: '1320px', margin: '0 auto', textAlign: 'center' }}>
-        <p style={{ fontFamily: 'JetBrains Mono', fontSize: '0.78rem', color: '#4B4EFF', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.8rem', fontWeight: 600 }}>
+        <p style={{ fontFamily: 'JetBrains Mono', fontSize: '0.78rem', color: 'var(--lime)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.8rem', fontWeight: 600 }}>
           TRUSTED BY INNOVATIVE BRANDS WORLDWIDE
         </p>
 

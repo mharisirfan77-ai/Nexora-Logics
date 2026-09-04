@@ -16,7 +16,7 @@ export const Services = () => {
   if (!sectionsConfig.services?.enabled) return null;
 
   return (
-    <section id="services" style={{ background: '#0B0E17' }}>
+    <section id="services" className="services-section">
       <div className="section-padding">
         <div className="section-header centered-header">
           <div className="section-label">{servicesHeader?.sectionLabel || "What We Do"}</div>
@@ -30,7 +30,7 @@ export const Services = () => {
           {services.map((service) => (
             <div className="service-card" key={service.id}>
               {service.imageUrl && (
-                <div style={{ height: '160px', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.2rem', background: '#12162B' }}>
+                <div style={{ height: '160px', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.2rem', background: 'var(--card-bg)' }}>
                   <img src={service.imageUrl} alt={service.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
               )}

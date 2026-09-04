@@ -18,7 +18,7 @@ export const WhyUs = () => {
   if (!sectionsConfig.whyUs?.enabled) return null;
 
   return (
-    <section id="why" style={{ background: '#F7F5F0' }}>
+    <section id="why" className="why-section">
       <div className="section-padding">
         <div className="section-header centered-header">
           <div className="section-label">Why Nexora Logics</div>

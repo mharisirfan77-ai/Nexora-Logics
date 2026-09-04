@@ -26,7 +26,6 @@ export const Hero = () => {
               href={hero.primaryCtaLink || "/contact"}
               onClick={(e) => { e.preventDefault(); navigate('/contact'); }}
               className="btn-hero-primary"
-              style={{ background: '#D2F535', color: '#121212' }}
             >
               {hero.primaryCtaText} <ArrowUpRight size={20} />
             </a>
