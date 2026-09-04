@@ -4,11 +4,11 @@ export const INITIAL_DATA = {
     secretSlug: "/Nexora_Logics_admin"
   },
   themeConfig: {
-    primaryAccent: "#D2F535", // Electric Lime
-    secondaryAccent: "#4B4EFF", // Violet
-    amberAccent: "#FF8A3D",
-    bgTheme: "#07090E", // Obsidian Dark
-    cardBg: "rgba(18, 22, 43, 0.75)",
+    primaryAccent: "#00C9A7", // Electric Teal / Cyan (Logo 'L')
+    secondaryAccent: "#1B4985", // Tech Navy / Sapphire (Logo 'N')
+    amberAccent: "#00E5FF", // Neon Cyan Highlight
+    bgTheme: "#070C18", // Obsidian Tech Dark Navy
+    cardBg: "rgba(15, 25, 48, 0.8)",
     fontHeading: "'Space Grotesk', sans-serif",
     fontBody: "'Inter', sans-serif",
     borderRadius: "14px",
@@ -18,35 +18,38 @@ export const INITIAL_DATA = {
   themes: [
     {
       id: "theme-obsidian-dark",
-      name: "Nexora Obsidian Dark",
+      name: "Nexora Obsidian Dark (Logo Palette)",
       version: "1.4.0",
       author: "Nexora Logics Team",
-      description: "Official futuristic Obsidian Dark theme designed for high-conversion web platforms and digital agencies.",
+      description: "Official Nexora Logics Dark Theme engineered with vibrant electric teal cyan (#00C9A7) and tech navy blue (#1B4985) matching brand logo identity.",
       isSystem: true,
       screenshot: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
       colors: {
-        primaryAccent: "#D2F535",
-        secondaryAccent: "#4B4EFF",
-        amberAccent: "#FF8A3D",
-        bgTheme: "#07090E",
-        cardBg: "rgba(18, 22, 43, 0.75)"
+        primaryAccent: "#00C9A7",
+        secondaryAccent: "#1B4985",
+        amberAccent: "#00E5FF",
+        bgTheme: "#070C18",
+        cardBg: "rgba(15, 25, 48, 0.8)"
       },
       typography: {
         fontHeading: "'Space Grotesk', sans-serif",
         fontBody: "'Inter', sans-serif"
       },
-      cssContent: `/* Nexora Obsidian Dark Theme Styles */
+      cssContent: `/* Nexora Official Logo Theme Styles */
 :root {
-  --lime: #D2F535;
-  --violet: #4B4EFF;
-  --bg-dark: #07090E;
+  --lime: #00C9A7;
+  --violet: #1B4985;
+  --bg-dark: #070C18;
+  --card-bg: rgba(15, 25, 48, 0.8);
+  --card-border: rgba(0, 201, 167, 0.18);
 }
 .hero-badge {
-  box-shadow: 0 0 25px rgba(210, 245, 53, 0.25);
+  box-shadow: 0 0 25px rgba(0, 201, 167, 0.25);
+  border-color: rgba(0, 201, 167, 0.3);
 }`,
       files: [
-        { name: "style.css", path: "style.css", content: "/* Theme Name: Nexora Obsidian Dark\nAuthor: Nexora Logics Team\nVersion: 1.4.0 */\nbody { background-color: #07090E; color: #FFFFFF; }" },
-        { name: "theme.json", path: "theme.json", content: '{\n  "$schema": "https://schemas.wp.org/trunk/theme.json",\n  "version": 2,\n  "settings": {\n    "color": {\n      "palette": [\n        { "slug": "primary", "color": "#D2F535", "name": "Electric Lime" },\n        { "slug": "secondary", "color": "#4B4EFF", "name": "Violet Accent" }\n      ]\n    }\n  }\n}' },
+        { name: "style.css", path: "style.css", content: "/* Theme Name: Nexora Obsidian Dark (Logo Palette)\nAuthor: Nexora Logics Team\nVersion: 1.4.0 */\nbody { background-color: #070C18; color: #FFFFFF; }" },
+        { name: "theme.json", path: "theme.json", content: '{\n  "$schema": "https://schemas.wp.org/trunk/theme.json",\n  "version": 2,\n  "settings": {\n    "color": {\n      "palette": [\n        { "slug": "primary", "color": "#00C9A7", "name": "Electric Teal Cyan" },\n        { "slug": "secondary", "color": "#1B4985", "name": "Tech Navy Sapphire" }\n      ]\n    }\n  }\n}' },
         { name: "index.php", path: "index.php", content: "<?php get_header(); ?>\n<main class='site-main'><?php the_content(); ?></main>\n<?php get_footer(); ?>" },
         { name: "header.php", path: "header.php", content: "<!DOCTYPE html>\n<html <?php language_attributes(); ?>>\n<head><meta charset='UTF-8'><?php wp_head(); ?></head>" }
       ]

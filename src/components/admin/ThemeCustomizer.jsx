@@ -37,11 +37,11 @@ export const ThemeCustomizer = ({ targetThemeId, onBackToThemes }) => {
   }, [selectedThemeId, themes]);
 
   const presetPalettes = [
-    { name: 'Xstar Lime & Violet (Default)', primary: '#D2F535', secondary: '#4B4EFF', amber: '#FF8A3D', bg: '#07090E' },
+    { name: 'Nexora Official Logo (Electric Cyan & Tech Navy)', primary: '#00C9A7', secondary: '#1B4985', amber: '#00E5FF', bg: '#070C18' },
     { name: 'Electric Cyan & Indigo', primary: '#00F2FE', secondary: '#4FACFE', amber: '#FF8A3D', bg: '#060B19' },
+    { name: 'Lime Neon & Violet', primary: '#D2F535', secondary: '#4B4EFF', amber: '#FF8A3D', bg: '#07090E' },
     { name: 'Golden Amber & Obsidian', primary: '#FFD700', secondary: '#FF8A3D', amber: '#FF8A3D', bg: '#0B0E17' },
-    { name: 'Emerald Neon & Dark Slate', primary: '#00E676', secondary: '#3D5AFE', amber: '#FF9100', bg: '#09120D' },
-    { name: 'Clean Minimal White & Slate', primary: '#2563EB', secondary: '#7C3AED', amber: '#D97706', bg: '#F8FAFC' }
+    { name: 'Emerald Neon & Dark Slate', primary: '#00E676', secondary: '#3D5AFE', amber: '#FF9100', bg: '#09120D' }
   ];
 
   const handleSubmit = (e) => {
