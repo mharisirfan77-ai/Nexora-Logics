@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCMS } from '../../context/CMSContext';
 import { Search, Menu, X, ArrowUpRight } from 'lucide-react';
+import logoImg from '../../assets/logo.jpg';
 
 export const Navbar = () => {
   const { data, currentPath, navigate } = useCMS();
@@ -28,7 +29,23 @@ export const Navbar = () => {
     setSearchOpen(false);
   };
 
-  const navPages = pages.filter((p) => p.inNavbar !== false);
+  // Filter out Home, Contact, and Why Us from Navbar links per user request
+  const navPages = pages.filter((p) => {
+    if (p.inNavbar === false) return false;
+    const slug = (p.slug || '').toLowerCase().trim().replace(/\/$/, '');
+    const title = (p.title || '').toLowerCase().trim();
+
+    // Exclude Home (clicking logo navigates to homepage)
+    if (slug === '' || slug === '/' || title === 'home') return false;
+
+    // Exclude Contact (handled by 'Get In Touch' CTA button)
+    if (slug === '/contact' || title === 'contact' || title === 'contact us') return false;
+
+    // Exclude Why Us (content is integrated into About Us)
+    if (slug === '/why-us' || slug === '/whyus' || title === 'why us' || title === 'why-us') return false;
+
+    return true;
+  });
 
   // Live search result calculator
   const searchResults = searchQuery.trim() === '' ? [] : [
@@ -43,21 +60,19 @@ export const Navbar = () => {
       .map((item) => ({ type: 'Portfolio', title: item.title, path: '/portfolio' }))
   ];
 
+  const logoSource = siteInfo?.logoUrl || logoImg;
+
   return (
     <>
       <nav className="xstar-nav">
         <div className="xstar-nav-container">
-          {/* XSTAR Signature Logo */}
-          <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo">
-            <svg className="xstar-logo-symbol" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="36" height="36" rx="8" fill="#070C18" />
-              <path d="M10 26L18 10L26 26" stroke="var(--lime, #00C9A7)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-              <circle cx="26" cy="10" r="3" fill="var(--lime, #00C9A7)" />
-            </svg>
-            <span className="xstar-logo-text">
-              <span style={{ color: 'var(--lime, #00C9A7)', fontWeight: 800 }}>x</span>
-              {siteInfo?.brandName ? siteInfo.brandName.toLowerCase().replace(/\s+/g, '') : 'nexora'}
-            </span>
+          {/* Nexora Logics Brand Logo */}
+          <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo" title="Nexora Logics Home">
+            <img
+              src={logoSource}
+              alt={siteInfo?.brandName || "Nexora Logics"}
+              className="xstar-brand-logo-img"
+            />
           </a>
 
           {/* XSTAR Desktop Navigation Links (with ↗ arrow prefix) */}
@@ -114,15 +129,11 @@ export const Navbar = () => {
           <div className="mobile-nav-drawer" onClick={(e) => e.stopPropagation()}>
             <div className="mobile-drawer-header">
               <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo">
-                <svg className="xstar-logo-symbol" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="36" height="36" rx="8" fill="#070C18" />
-                  <path d="M10 26L18 10L26 26" stroke="var(--lime, #00C9A7)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="26" cy="10" r="3" fill="var(--lime, #00C9A7)" />
-                </svg>
-                <span className="xstar-logo-text">
-                  <span style={{ color: 'var(--lime, #00C9A7)', fontWeight: 800 }}>x</span>
-                  {siteInfo?.brandName ? siteInfo.brandName.toLowerCase().replace(/\s+/g, '') : 'nexora'}
-                </span>
+                <img
+                  src={logoSource}
+                  alt={siteInfo?.brandName || "Nexora Logics"}
+                  className="xstar-brand-logo-img"
+                />
               </a>
               <button
                 className="mobile-drawer-close"
@@ -212,4 +223,5 @@ export const Navbar = () => {
     </>
   );
 };
+
 

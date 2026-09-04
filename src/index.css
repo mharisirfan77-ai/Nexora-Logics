@@ -261,6 +261,23 @@ button, input, select, textarea {
   flex-shrink: 0;
 }
 
+.xstar-brand-logo-img {
+  height: 42px;
+  max-height: 42px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 3px 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.xstar-brand-logo-img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 15px rgba(0, 201, 167, 0.25);
+}
+
 .xstar-logo-symbol {
   width: 34px;
   height: 34px;
