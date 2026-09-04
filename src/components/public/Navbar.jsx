@@ -1,99 +1,133 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCMS } from '../../context/CMSContext';
-import { Search, Menu, X } from 'lucide-react';
-import logoImg from '../../assets/logo.jpg';
+import { Search, Menu, X, ArrowUpRight } from 'lucide-react';
 
 export const Navbar = () => {
   const { data, currentPath, navigate } = useCMS();
-  const { siteInfo, pages = [] } = data;
+  const { siteInfo, pages = [], portfolio = [], services = [] } = data;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Lock background scroll when drawer or search modal is open
+  useEffect(() => {
+    if (mobileMenuOpen || searchOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen, searchOpen]);
 
   const handleNavClick = (e, path) => {
     e.preventDefault();
     navigate(path);
     setMobileMenuOpen(false);
+    setSearchOpen(false);
   };
 
-  // Filter pages configured to show in Top Navbar
   const navPages = pages.filter((p) => p.inNavbar !== false);
 
+  // Live search result calculator
+  const searchResults = searchQuery.trim() === '' ? [] : [
+    ...pages
+      .filter((p) => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      .map((p) => ({ type: 'Page', title: p.title, path: p.slug })),
+    ...services
+      .filter((s) => s.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      .map((s) => ({ type: 'Service', title: s.title, path: '/services' })),
+    ...portfolio
+      .filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()) || (item.category && item.category.toLowerCase().includes(searchQuery.toLowerCase())))
+      .map((item) => ({ type: 'Portfolio', title: item.title, path: '/portfolio' }))
+  ];
+
   return (
-    <nav className="xstar-nav">
-      <div className="xstar-nav-container">
-        {/* Logo */}
-        <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo">
-          <div className="xstar-logo-icon">
-            <img
-              src={logoImg}
-              alt={siteInfo.brandName}
-              style={{ height: '32px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }}
-            />
-          </div>
-          <span className="xstar-logo-text">
-            {siteInfo.brandName.split(' ')[0] || 'NEXORA'}{' '}
-            <span style={{ color: 'var(--lime)' }}>
-              {siteInfo.brandName.split(' ')[1] || 'LOGICS'}
+    <>
+      <nav className="xstar-nav">
+        <div className="xstar-nav-container">
+          {/* XSTAR Signature Logo */}
+          <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo">
+            <svg className="xstar-logo-symbol" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36" height="36" rx="8" fill="#070C18" />
+              <path d="M10 26L18 10L26 26" stroke="var(--lime, #00C9A7)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="26" cy="10" r="3" fill="var(--lime, #00C9A7)" />
+            </svg>
+            <span className="xstar-logo-text">
+              <span style={{ color: 'var(--lime, #00C9A7)', fontWeight: 800 }}>x</span>
+              {siteInfo?.brandName ? siteInfo.brandName.toLowerCase().replace(/\s+/g, '') : 'nexora'}
             </span>
-          </span>
-        </a>
-
-        {/* Desktop Navigation Links */}
-        <ul className="xstar-nav-links">
-          {navPages.map((p) => {
-            const isActive = currentPath.toLowerCase().replace(/\/$/, '') === p.slug.toLowerCase().replace(/\/$/, '');
-            return (
-              <li key={p.id}>
-                <a
-                  href={p.slug}
-                  onClick={(e) => handleNavClick(e, p.slug)}
-                  className={isActive ? 'active-link' : ''}
-                >
-                  {p.title} <span className="arrow">↗</span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Action CTAs & Mobile Hamburger */}
-        <div className="xstar-nav-actions">
-          <button
-            onClick={() => navigate('/contact')}
-            style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-            title="Search"
-          >
-            <Search size={18} />
-          </button>
-
-          <a
-            href="/contact"
-            onClick={(e) => handleNavClick(e, '/contact')}
-            className="btn-xstar-touch desktop-only"
-          >
-            Get In Touch <span>↗</span>
           </a>
 
-          <button 
-            className="mobile-menu-btn" 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
-          >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* XSTAR Desktop Navigation Links (with ↗ arrow prefix) */}
+          <ul className="xstar-nav-links">
+            {navPages.map((p) => {
+              const isActive = currentPath.toLowerCase().replace(/\/$/, '') === p.slug.toLowerCase().replace(/\/$/, '');
+              return (
+                <li key={p.id}>
+                  <a
+                    href={p.slug}
+                    onClick={(e) => handleNavClick(e, p.slug)}
+                    className={isActive ? 'active-link' : ''}
+                  >
+                    <span className="arrow">↗</span> {p.title.toUpperCase()}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Action Controls: Search & Boxed CTA */}
+          <div className="xstar-nav-actions">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="xstar-search-btn"
+              title="Search Website"
+              aria-label="Search"
+            >
+              <Search size={18} />
+            </button>
+
+            <a
+              href="/contact"
+              onClick={(e) => handleNavClick(e, '/contact')}
+              className="btn-xstar-touch desktop-only"
+            >
+              <span className="arrow">↗</span> Get In Touch
+            </a>
+
+            <button 
+              className="mobile-menu-btn" 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Drawer Overlay */}
       {mobileMenuOpen && (
         <div className="mobile-nav-overlay" onClick={() => setMobileMenuOpen(false)}>
           <div className="mobile-nav-drawer" onClick={(e) => e.stopPropagation()}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', paddingBottom: '1rem', borderBottom: '1px solid var(--line-dark)' }}>
-              <div style={{ fontFamily: 'Space Grotesk', fontWeight: 800, fontSize: '1.2rem', color: '#ffffff' }}>
-                NEXORA <span style={{ color: 'var(--lime)' }}>LOGICS</span>
-              </div>
+            <div className="mobile-drawer-header">
+              <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo">
+                <svg className="xstar-logo-symbol" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="36" height="36" rx="8" fill="#070C18" />
+                  <path d="M10 26L18 10L26 26" stroke="var(--lime, #00C9A7)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="26" cy="10" r="3" fill="var(--lime, #00C9A7)" />
+                </svg>
+                <span className="xstar-logo-text">
+                  <span style={{ color: 'var(--lime, #00C9A7)', fontWeight: 800 }}>x</span>
+                  {siteInfo?.brandName ? siteInfo.brandName.toLowerCase().replace(/\s+/g, '') : 'nexora'}
+                </span>
+              </a>
               <button
+                className="mobile-drawer-close"
                 onClick={() => setMobileMenuOpen(false)}
-                style={{ background: 'none', border: 'none', color: 'var(--slate)', cursor: 'pointer' }}
+                aria-label="Close menu"
               >
                 <X size={22} />
               </button>
@@ -109,26 +143,73 @@ export const Navbar = () => {
                       onClick={(e) => handleNavClick(e, p.slug)}
                       className={isActive ? 'active-mobile-link' : ''}
                     >
-                      {p.title} <span>↗</span>
+                      <span className="arrow">↗</span> {p.title.toUpperCase()}
                     </a>
                   </li>
                 );
               })}
             </ul>
 
-            <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
+            <div className="mobile-drawer-footer">
               <a
                 href="/contact"
                 onClick={(e) => handleNavClick(e, '/contact')}
-                className="btn-hero-primary"
-                style={{ width: '100%', justifyContent: 'center', padding: '0.85rem' }}
+                className="btn-xstar-touch full-width-touch"
               >
-                Get In Touch ↗
+                <span className="arrow">↗</span> Get In Touch
               </a>
             </div>
           </div>
         </div>
       )}
-    </nav>
+
+      {/* Interactive Search Modal */}
+      {searchOpen && (
+        <div className="xstar-search-modal-overlay" onClick={() => setSearchOpen(false)}>
+          <div className="xstar-search-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="search-modal-header">
+              <div className="search-input-wrapper">
+                <Search size={20} className="search-input-icon" />
+                <input
+                  type="text"
+                  placeholder="Search pages, services, portfolio..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                />
+              </div>
+              <button className="search-modal-close" onClick={() => setSearchOpen(false)}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="search-modal-results">
+              {searchQuery.trim() === '' ? (
+                <div className="search-placeholder">
+                  <p>Type to search pages, services, case studies, or portfolio items...</p>
+                </div>
+              ) : searchResults.length > 0 ? (
+                <ul className="search-results-list">
+                  {searchResults.map((res, index) => (
+                    <li key={index}>
+                      <a href={res.path} onClick={(e) => handleNavClick(e, res.path)}>
+                        <span className="res-type">{res.type}</span>
+                        <span className="res-title">{res.title}</span>
+                        <ArrowUpRight size={16} className="res-arrow" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="search-no-results">
+                  <p>No matches found for "{searchQuery}"</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
+
