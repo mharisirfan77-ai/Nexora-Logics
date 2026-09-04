@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import JSZip from 'jszip';
 import { INITIAL_DATA } from '../data/initialData';
 
 const CMSContext = createContext();
@@ -429,6 +430,239 @@ export const CMSProvider = ({ children }) => {
     }
   };
 
+  // --- WordPress Theme Engine (ZIP Upload, Extraction, Customizer & Export) ---
+  const activateTheme = (themeId) => {
+    const targetTheme = (data.themes || []).find((t) => t.id === themeId);
+    if (!targetTheme) {
+      showToast('Theme not found!');
+      return;
+    }
+
+    setData((prev) => ({
+      ...prev,
+      activeThemeId: themeId,
+      themeConfig: {
+        ...prev.themeConfig,
+        primaryAccent: targetTheme.colors?.primaryAccent || prev.themeConfig.primaryAccent,
+        secondaryAccent: targetTheme.colors?.secondaryAccent || prev.themeConfig.secondaryAccent,
+        amberAccent: targetTheme.colors?.amberAccent || prev.themeConfig.amberAccent,
+        bgTheme: targetTheme.colors?.bgTheme || prev.themeConfig.bgTheme,
+        cardBg: targetTheme.colors?.cardBg || prev.themeConfig.cardBg,
+        fontHeading: targetTheme.typography?.fontHeading || prev.themeConfig.fontHeading,
+        fontBody: targetTheme.typography?.fontBody || prev.themeConfig.fontBody,
+        customCss: targetTheme.cssContent || prev.themeConfig.customCss
+      }
+    }));
+    showToast(`WordPress Theme "${targetTheme.name}" activated!`);
+  };
+
+  const uploadThemeZip = async (file) => {
+    try {
+      const zip = new JSZip();
+      const zipContent = await zip.loadAsync(file);
+
+      let themeName = file.name.replace(/\.zip$/i, '');
+      let author = 'Uploaded Theme';
+      let version = '1.0.0';
+      let description = 'Uploaded WordPress Theme package.';
+      let cssContent = '';
+      let screenshotUrl = null;
+      let extractedFiles = [];
+
+      const fileKeys = Object.keys(zipContent.files);
+
+      for (const relativePath of fileKeys) {
+        const zipObj = zipContent.files[relativePath];
+        if (zipObj.dir) continue;
+
+        const fileName = relativePath.split('/').pop();
+        
+        // Extract style.css header comments
+        if (fileName.toLowerCase() === 'style.css' && !cssContent) {
+          const text = await zipObj.async('string');
+          cssContent = text;
+          
+          const nameMatch = text.match(/Theme Name:\s*([^\n\r]+)/i);
+          if (nameMatch) themeName = nameMatch[1].trim();
+
+          const authorMatch = text.match(/Author:\s*([^\n\r]+)/i);
+          if (authorMatch) author = authorMatch[1].trim();
+
+          const versionMatch = text.match(/Version:\s*([^\n\r]+)/i);
+          if (versionMatch) version = versionMatch[1].trim();
+
+          const descMatch = text.match(/Description:\s*([^\n\r]+)/i);
+          if (descMatch) description = descMatch[1].trim();
+        }
+
+        // Extract screenshot thumbnail image
+        if (/^screenshot\.(png|jpg|jpeg|webp)$/i.test(fileName) && !screenshotUrl) {
+          const base64 = await zipObj.async('base64');
+          const ext = fileName.split('.').pop().toLowerCase();
+          screenshotUrl = `data:image/${ext === 'jpg' ? 'jpeg' : ext};base64,${base64}`;
+        }
+
+        let contentStr = '';
+        if (/\.(css|json|php|html|txt|md|js)$/i.test(fileName)) {
+          contentStr = await zipObj.async('string');
+        }
+        extractedFiles.push({
+          name: fileName,
+          path: relativePath,
+          content: contentStr
+        });
+      }
+
+      // Extract palette from theme.json if present
+      let themeColors = {
+        primaryAccent: '#D2F535',
+        secondaryAccent: '#4B4EFF',
+        amberAccent: '#FF8A3D',
+        bgTheme: '#07090E',
+        cardBg: 'rgba(18, 22, 43, 0.75)'
+      };
+
+      const themeJsonFile = extractedFiles.find((f) => f.name.toLowerCase() === 'theme.json');
+      if (themeJsonFile && themeJsonFile.content) {
+        try {
+          const parsedJson = JSON.parse(themeJsonFile.content);
+          const palette = parsedJson?.settings?.color?.palette || [];
+          if (palette[0]?.color) themeColors.primaryAccent = palette[0].color;
+          if (palette[1]?.color) themeColors.secondaryAccent = palette[1].color;
+        } catch (e) {
+          console.warn('Could not parse theme.json:', e);
+        }
+      }
+
+      const newTheme = {
+        id: `theme-wp-${Date.now()}`,
+        name: themeName,
+        version,
+        author,
+        description,
+        isSystem: false,
+        screenshot: screenshotUrl || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
+        colors: themeColors,
+        typography: {
+          fontHeading: "'Space Grotesk', sans-serif",
+          fontBody: "'Inter', sans-serif"
+        },
+        cssContent,
+        files: extractedFiles
+      };
+
+      setData((prev) => {
+        const updatedThemes = [...(prev.themes || []), newTheme];
+        return {
+          ...prev,
+          themes: updatedThemes,
+          activeThemeId: newTheme.id,
+          themeConfig: {
+            ...prev.themeConfig,
+            primaryAccent: newTheme.colors.primaryAccent,
+            secondaryAccent: newTheme.colors.secondaryAccent,
+            customCss: newTheme.cssContent
+          }
+        };
+      });
+
+      showToast(`WordPress Theme "${newTheme.name}" uploaded and activated!`);
+      return newTheme;
+    } catch (err) {
+      console.error('Error extracting WordPress theme ZIP:', err);
+      alert(`Failed to extract WordPress theme ZIP: ${err.message}`);
+      throw err;
+    }
+  };
+
+  const deleteTheme = (themeId) => {
+    const targetTheme = (data.themes || []).find((t) => t.id === themeId);
+    if (!targetTheme) return;
+    if (targetTheme.isSystem) {
+      alert('System pre-installed themes cannot be deleted.');
+      return;
+    }
+    if (themeId === data.activeThemeId) {
+      alert('Cannot delete currently active theme. Please switch to another theme first.');
+      return;
+    }
+
+    setData((prev) => ({
+      ...prev,
+      themes: (prev.themes || []).filter((t) => t.id !== themeId)
+    }));
+    showToast(`Theme "${targetTheme.name}" removed.`);
+  };
+
+  const updateThemeCustomization = (themeId, updatedFields) => {
+    setData((prev) => {
+      const updatedThemes = (prev.themes || []).map((t) => {
+        if (t.id === themeId) {
+          return { ...t, ...updatedFields };
+        }
+        return t;
+      });
+
+      let updatedConfig = prev.themeConfig;
+      if (themeId === prev.activeThemeId) {
+        updatedConfig = {
+          ...prev.themeConfig,
+          primaryAccent: updatedFields.colors?.primaryAccent || prev.themeConfig.primaryAccent,
+          secondaryAccent: updatedFields.colors?.secondaryAccent || prev.themeConfig.secondaryAccent,
+          amberAccent: updatedFields.colors?.amberAccent || prev.themeConfig.amberAccent,
+          bgTheme: updatedFields.colors?.bgTheme || prev.themeConfig.bgTheme,
+          cardBg: updatedFields.colors?.cardBg || prev.themeConfig.cardBg,
+          fontHeading: updatedFields.typography?.fontHeading || prev.themeConfig.fontHeading,
+          fontBody: updatedFields.typography?.fontBody || prev.themeConfig.fontBody,
+          customCss: updatedFields.cssContent !== undefined ? updatedFields.cssContent : prev.themeConfig.customCss
+        };
+      }
+
+      return {
+        ...prev,
+        themes: updatedThemes,
+        themeConfig: updatedConfig
+      };
+    });
+    showToast('Theme customizations saved successfully!');
+  };
+
+  const exportThemeZip = async (themeId) => {
+    const theme = (data.themes || []).find((t) => t.id === themeId);
+    if (!theme) return;
+
+    try {
+      const zip = new JSZip();
+      const folderName = theme.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+      const folder = zip.folder(folderName);
+
+      if (theme.files && theme.files.length > 0) {
+        theme.files.forEach((f) => {
+          if (f.name.toLowerCase() === 'style.css') {
+            folder.file(f.path || f.name, theme.cssContent || f.content || '');
+          } else {
+            folder.file(f.path || f.name, f.content || '');
+          }
+        });
+      } else {
+        folder.file('style.css', `/* Theme Name: ${theme.name}\nAuthor: ${theme.author}\nVersion: ${theme.version} */\n${theme.cssContent || ''}`);
+        folder.file('index.php', '<?php // WordPress Theme Main Template ?>');
+      }
+
+      const content = await zip.generateAsync({ type: 'blob' });
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.href = URL.createObjectURL(content);
+      downloadAnchor.download = `${folderName}-wp-theme.zip`;
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast(`WordPress Theme "${theme.name}" exported as ZIP!`);
+    } catch (e) {
+      console.error('Error exporting theme zip:', e);
+      alert('Failed to generate theme ZIP.');
+    }
+  };
+
   return (
     <CMSContext.Provider
       value={{
@@ -440,6 +674,11 @@ export const CMSProvider = ({ children }) => {
         logoutAdmin,
         changeAdminPassword,
         updateThemeConfig,
+        activateTheme,
+        uploadThemeZip,
+        deleteTheme,
+        updateThemeCustomization,
+        exportThemeZip,
         addPage,
         updatePage,
         deletePage,

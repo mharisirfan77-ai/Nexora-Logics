@@ -14,6 +14,7 @@ import { InquiriesManager } from './InquiriesManager';
 import { SettingsEditor } from './SettingsEditor';
 import { SectionTextEditor } from './SectionTextEditor';
 import { BackupManager } from './BackupManager';
+import { WpThemeManager } from './WpThemeManager';
 import {
   ExternalLink,
   Key,
@@ -27,6 +28,7 @@ export const AdminLayout = () => {
   const { data, logoutAdmin, changeAdminPassword, navigate } = useCMS();
   const { siteInfo, inquiries = [] } = data;
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [selectedThemeForCustomize, setSelectedThemeForCustomize] = useState(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [newPassword, setNewPassword] = useState('');
 
@@ -100,7 +102,20 @@ export const AdminLayout = () => {
           {activeTab === 'posts' && <WpAdminPosts />}
           {activeTab === 'media' && <WpMediaLibrary />}
           {activeTab === 'sectionBuilder' && <SectionBuilder />}
-          {activeTab === 'themeCustomizer' && <ThemeCustomizer />}
+          {activeTab === 'themes' && (
+            <WpThemeManager
+              onSelectCustomize={(themeId) => {
+                setSelectedThemeForCustomize(themeId);
+                setActiveTab('themeCustomizer');
+              }}
+            />
+          )}
+          {activeTab === 'themeCustomizer' && (
+            <ThemeCustomizer
+              targetThemeId={selectedThemeForCustomize}
+              onBackToThemes={() => setActiveTab('themes')}
+            />
+          )}
           {activeTab === 'sectionText' && <SectionTextEditor />}
           {activeTab === 'sections' && <SectionManager />}
           {activeTab === 'portfolio' && <PortfolioManager />}

@@ -13,9 +13,10 @@ import { AdminLogin } from './components/admin/AdminLogin';
 
 const MainRouter = () => {
   const { data, currentPath, isAdminAuthenticated } = useCMS();
-  const { themeConfig = {}, pages = [] } = data;
+  const { themes = [], activeThemeId, themeConfig = {}, pages = [] } = data;
+  const activeTheme = themes.find((t) => t.id === activeThemeId) || themes[0] || {};
 
-  // Dynamically apply theme color variables and custom CSS to the root DOM
+  // Dynamically apply theme color variables and fonts to the root DOM
   useEffect(() => {
     if (themeConfig.primaryAccent) {
       document.documentElement.style.setProperty('--lime', themeConfig.primaryAccent);
@@ -30,7 +31,13 @@ const MainRouter = () => {
     if (themeConfig.borderRadius) {
       document.documentElement.style.setProperty('--radius-md', themeConfig.borderRadius);
     }
-  }, [themeConfig]);
+    if (themeConfig.fontHeading) {
+      document.documentElement.style.setProperty('--font-heading', themeConfig.fontHeading);
+    }
+    if (themeConfig.fontBody) {
+      document.documentElement.style.setProperty('--font-body', themeConfig.fontBody);
+    }
+  }, [themeConfig, activeTheme]);
 
   // Normalize path for secret admin slug check
   const normalizedPath = currentPath.replace(/\/$/, '').toLowerCase();

@@ -14,6 +14,148 @@ export const INITIAL_DATA = {
     borderRadius: "14px",
     customCss: ""
   },
+  activeThemeId: "theme-obsidian-dark",
+  themes: [
+    {
+      id: "theme-obsidian-dark",
+      name: "Nexora Obsidian Dark",
+      version: "1.4.0",
+      author: "Nexora Logics Team",
+      description: "Official futuristic Obsidian Dark theme designed for high-conversion web platforms and digital agencies.",
+      isSystem: true,
+      screenshot: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
+      colors: {
+        primaryAccent: "#D2F535",
+        secondaryAccent: "#4B4EFF",
+        amberAccent: "#FF8A3D",
+        bgTheme: "#07090E",
+        cardBg: "rgba(18, 22, 43, 0.75)"
+      },
+      typography: {
+        fontHeading: "'Space Grotesk', sans-serif",
+        fontBody: "'Inter', sans-serif"
+      },
+      cssContent: `/* Nexora Obsidian Dark Theme Styles */
+:root {
+  --lime: #D2F535;
+  --violet: #4B4EFF;
+  --bg-dark: #07090E;
+}
+.hero-badge {
+  box-shadow: 0 0 25px rgba(210, 245, 53, 0.25);
+}`,
+      files: [
+        { name: "style.css", path: "style.css", content: "/* Theme Name: Nexora Obsidian Dark\nAuthor: Nexora Logics Team\nVersion: 1.4.0 */\nbody { background-color: #07090E; color: #FFFFFF; }" },
+        { name: "theme.json", path: "theme.json", content: '{\n  "$schema": "https://schemas.wp.org/trunk/theme.json",\n  "version": 2,\n  "settings": {\n    "color": {\n      "palette": [\n        { "slug": "primary", "color": "#D2F535", "name": "Electric Lime" },\n        { "slug": "secondary", "color": "#4B4EFF", "name": "Violet Accent" }\n      ]\n    }\n  }\n}' },
+        { name: "index.php", path: "index.php", content: "<?php get_header(); ?>\n<main class='site-main'><?php the_content(); ?></main>\n<?php get_footer(); ?>" },
+        { name: "header.php", path: "header.php", content: "<!DOCTYPE html>\n<html <?php language_attributes(); ?>>\n<head><meta charset='UTF-8'><?php wp_head(); ?></head>" }
+      ]
+    },
+    {
+      id: "theme-twentytwentyfour-dark",
+      name: "Twenty Twenty-Four Dark",
+      version: "1.0.0",
+      author: "WordPress.org Community",
+      description: "A versatile, dark-themed block layout WordPress theme designed for editorial flexibility and modern minimalism.",
+      isSystem: true,
+      screenshot: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
+      colors: {
+        primaryAccent: "#38BDF8",
+        secondaryAccent: "#818CF8",
+        amberAccent: "#F59E0B",
+        bgTheme: "#0F172A",
+        cardBg: "rgba(30, 41, 59, 0.8)"
+      },
+      typography: {
+        fontHeading: "'Plus Jakarta Sans', sans-serif",
+        fontBody: "'Inter', sans-serif"
+      },
+      cssContent: `/* Twenty Twenty-Four Dark Theme Styles */
+:root {
+  --lime: #38BDF8;
+  --violet: #818CF8;
+  --bg-dark: #0F172A;
+}
+.btn-primary, .btn-hero-primary {
+  border-radius: 8px !important;
+  background: linear-gradient(135deg, #38BDF8 0%, #818CF8 100%) !important;
+  color: #0F172A !important;
+}`,
+      files: [
+        { name: "style.css", path: "style.css", content: "/* Theme Name: Twenty Twenty-Four Dark\nAuthor: WordPress.org Community\nVersion: 1.0.0 */" },
+        { name: "theme.json", path: "theme.json", content: '{\n  "version": 2,\n  "settings": {\n    "color": {\n      "palette": [\n        { "slug": "primary", "color": "#38BDF8", "name": "Sky Blue" }\n      ]\n    }\n  }\n}' }
+      ]
+    },
+    {
+      id: "theme-astra-cyber",
+      name: "Astra Cyber Neon",
+      version: "3.9.5",
+      author: "Brainstorm Force",
+      description: "Fast, lightweight WordPress theme customized with vibrant neon cyber highlights and glassmorphism cards.",
+      isSystem: true,
+      screenshot: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+      colors: {
+        primaryAccent: "#00F2FE",
+        secondaryAccent: "#4FACFE",
+        amberAccent: "#FF007F",
+        bgTheme: "#050B14",
+        cardBg: "rgba(10, 20, 40, 0.85)"
+      },
+      typography: {
+        fontHeading: "'Outfit', sans-serif",
+        fontBody: "'Roboto', sans-serif"
+      },
+      cssContent: `/* Astra Cyber Neon Styles */
+:root {
+  --lime: #00F2FE;
+  --violet: #4FACFE;
+  --bg-dark: #050B14;
+}
+.navbar-brand, h1, h2, h3 {
+  letter-spacing: -0.5px;
+}`,
+      files: [
+        { name: "style.css", path: "style.css", content: "/* Theme Name: Astra Cyber Neon\nAuthor: Brainstorm Force\nVersion: 3.9.5 */" }
+      ]
+    },
+    {
+      id: "theme-neve-light",
+      name: "Neve Minimalist Light",
+      version: "3.7.0",
+      author: "ThemeIsle",
+      description: "Clean, high-contrast light theme with elegant typography and responsive layout components.",
+      isSystem: true,
+      screenshot: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80",
+      colors: {
+        primaryAccent: "#2563EB",
+        secondaryAccent: "#7C3AED",
+        amberAccent: "#D97706",
+        bgTheme: "#F8FAFC",
+        cardBg: "#FFFFFF"
+      },
+      typography: {
+        fontHeading: "'Playfair Display', serif",
+        fontBody: "'Inter', sans-serif"
+      },
+      cssContent: `/* Neve Minimalist Light Styles */
+:root {
+  --lime: #2563EB;
+  --violet: #7C3AED;
+  --bg-dark: #F8FAFC;
+}
+body {
+  color: #0F172A !important;
+}
+.service-card, .portfolio-card, .admin-card {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border: 1px solid #E2E8F0 !important;
+}`,
+      files: [
+        { name: "style.css", path: "style.css", content: "/* Theme Name: Neve Minimalist Light\nAuthor: ThemeIsle\nVersion: 3.7.0 */" }
+      ]
+    }
+  ],
   siteInfo: {
     brandName: "Nexora Logics",
     tagline: "Digital Solutions That Drive Growth",

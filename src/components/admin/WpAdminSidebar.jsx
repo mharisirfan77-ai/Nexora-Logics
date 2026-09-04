@@ -15,7 +15,8 @@ import {
   Image as ImageIcon,
   BookOpen,
   Sliders,
-  Type
+  Type,
+  UploadCloud
 } from 'lucide-react';
 
 export const WpAdminSidebar = ({ activeTab, setActiveTab }) => {
@@ -35,7 +36,7 @@ export const WpAdminSidebar = ({ activeTab, setActiveTab }) => {
       }}
     >
       <div style={{ padding: '0 1rem 1rem', borderBottom: '1px solid #2c3338', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-        <div style={{ background: '#2271b1', color: '#fff', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyCenter: 'center', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'Space Grotesk' }}>
+        <div style={{ background: '#2271b1', color: '#fff', width: '28px', height: '28px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', fontFamily: 'Space Grotesk' }}>
           W
         </div>
         <strong style={{ fontSize: '0.95rem', color: '#ffffff' }}>WordPress CMS</strong>
@@ -94,12 +95,20 @@ export const WpAdminSidebar = ({ activeTab, setActiveTab }) => {
 
         <div className="wp-menu-section-label">Appearance & Config</div>
 
+        {/* Themes (ZIP Uploader) */}
+        <button
+          className={`wp-nav-btn ${activeTab === 'themes' ? 'active' : ''}`}
+          onClick={() => setActiveTab('themes')}
+        >
+          <UploadCloud size={17} /> Themes (ZIP Installer)
+        </button>
+
         {/* Appearance / Theme Customizer */}
         <button
           className={`wp-nav-btn ${activeTab === 'themeCustomizer' ? 'active' : ''}`}
           onClick={() => setActiveTab('themeCustomizer')}
         >
-          <Palette size={17} /> Appearance
+          <Palette size={17} /> Customize Theme
         </button>
 
         {/* Portfolio Projects */}
