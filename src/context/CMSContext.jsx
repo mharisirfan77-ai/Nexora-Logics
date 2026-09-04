@@ -12,7 +12,22 @@ export const CMSProvider = ({ children }) => {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        return { ...INITIAL_DATA, ...parsed };
+        // Ensure system themes are present in themes array even if localStorage had older version
+        const systemThemes = INITIAL_DATA.themes || [];
+        const existingThemes = parsed.themes || [];
+        const themeMap = new Map();
+        systemThemes.forEach((st) => themeMap.set(st.id, st));
+        existingThemes.forEach((et) => themeMap.set(et.id, et));
+        const mergedThemes = Array.from(themeMap.values());
+
+        const activeId = parsed.activeThemeId || INITIAL_DATA.activeThemeId;
+
+        return {
+          ...INITIAL_DATA,
+          ...parsed,
+          themes: mergedThemes,
+          activeThemeId: activeId
+        };
       }
     } catch (e) {
       console.error('Failed to load CMS data from localStorage:', e);

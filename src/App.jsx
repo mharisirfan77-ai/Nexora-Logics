@@ -16,26 +16,43 @@ const MainRouter = () => {
   const { themes = [], activeThemeId, themeConfig = {}, pages = [] } = data;
   const activeTheme = themes.find((t) => t.id === activeThemeId) || themes[0] || {};
 
-  // Dynamically apply theme color variables and fonts to the root DOM
+  // Dynamically apply active theme color variables, light/dark modes, and fonts to the root DOM
   useEffect(() => {
-    if (themeConfig.primaryAccent) {
-      document.documentElement.style.setProperty('--lime', themeConfig.primaryAccent);
-    }
-    if (themeConfig.secondaryAccent) {
-      document.documentElement.style.setProperty('--violet', themeConfig.secondaryAccent);
-    }
-    if (themeConfig.bgTheme) {
-      document.documentElement.style.setProperty('--bg-dark', themeConfig.bgTheme);
-      document.body.style.backgroundColor = themeConfig.bgTheme;
-    }
-    if (themeConfig.borderRadius) {
-      document.documentElement.style.setProperty('--radius-md', themeConfig.borderRadius);
-    }
-    if (themeConfig.fontHeading) {
-      document.documentElement.style.setProperty('--font-heading', themeConfig.fontHeading);
-    }
-    if (themeConfig.fontBody) {
-      document.documentElement.style.setProperty('--font-body', themeConfig.fontBody);
+    const root = document.documentElement;
+    const primary = activeTheme.colors?.primaryAccent || themeConfig.primaryAccent || '#D2F535';
+    const secondary = activeTheme.colors?.secondaryAccent || themeConfig.secondaryAccent || '#4B4EFF';
+    const amber = activeTheme.colors?.amberAccent || themeConfig.amberAccent || '#FF8A3D';
+    const bgTheme = activeTheme.colors?.bgTheme || themeConfig.bgTheme || '#07090E';
+    const fontHeading = activeTheme.typography?.fontHeading || themeConfig.fontHeading || "'Space Grotesk', sans-serif";
+    const fontBody = activeTheme.typography?.fontBody || themeConfig.fontBody || "'Inter', sans-serif";
+    const borderRadius = themeConfig.borderRadius || '14px';
+
+    root.style.setProperty('--lime', primary);
+    root.style.setProperty('--violet', secondary);
+    root.style.setProperty('--amber', amber);
+    root.style.setProperty('--bg-dark', bgTheme);
+    document.body.style.backgroundColor = bgTheme;
+
+    root.style.setProperty('--radius-md', borderRadius);
+    root.style.setProperty('--font-heading', fontHeading);
+    root.style.setProperty('--font-body', fontBody);
+
+    // Light background detection & color adaptations
+    const isLightBg = bgTheme && ['#f8fafc', '#ffffff', '#f1f5f9', '#f3f4f6'].includes(bgTheme.toLowerCase());
+    if (isLightBg) {
+      root.style.setProperty('--text-main', '#0F172A');
+      root.style.setProperty('--slate', '#475569');
+      root.style.setProperty('--mist', '#334155');
+      root.style.setProperty('--card-bg', '#FFFFFF');
+      root.style.setProperty('--card-border', '#E2E8F0');
+      document.body.style.color = '#0F172A';
+    } else {
+      root.style.setProperty('--text-main', '#D4D7EC');
+      root.style.setProperty('--slate', '#8F95B2');
+      root.style.setProperty('--mist', '#B7BCDA');
+      root.style.setProperty('--card-bg', activeTheme.colors?.cardBg || themeConfig.cardBg || 'rgba(18, 22, 43, 0.75)');
+      root.style.setProperty('--card-border', 'rgba(255, 255, 255, 0.08)');
+      document.body.style.color = '#D4D7EC';
     }
   }, [themeConfig, activeTheme]);
 
@@ -65,11 +82,13 @@ const MainRouter = () => {
     (p) => p.slug.toLowerCase().replace(/\/$/, '') === normalizedPath
   ) || pages.find((p) => p.slug === '/');
 
+  const themeCssToInject = activeTheme.cssContent || themeConfig.customCss || '';
+
   return (
     <div className="public-app">
-      {/* Custom CSS overrides injected dynamically */}
-      {themeConfig.customCss && (
-        <style>{themeConfig.customCss}</style>
+      {/* Extracted Theme CSS & Custom Overrides injected dynamically */}
+      {themeCssToInject && (
+        <style id="wp-active-theme-styles">{themeCssToInject}</style>
       )}
 
       <CustomCursor />
