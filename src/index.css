@@ -1722,12 +1722,12 @@ footer {
 
 .mobile-nav-overlay {
   position: fixed;
-  top: 70px;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
   z-index: 999;
   display: flex;
   justify-content: flex-end;
@@ -1735,14 +1735,14 @@ footer {
 }
 
 .mobile-nav-drawer {
-  background: var(--card-bg, #0d1117);
-  border-left: 1px solid var(--card-border, rgba(255,255,255,0.1));
+  background: var(--bg-dark, #070C18);
+  border-left: 1px solid var(--card-border, rgba(0,201,167,0.2));
   width: 280px;
   height: 100%;
   padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
-  box-shadow: -8px 0 30px rgba(0,0,0,0.5);
+  box-shadow: -8px 0 30px rgba(0,0,0,0.7);
   animation: slideLeft 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1773,7 +1773,24 @@ footer {
   color: var(--lime);
 }
 
+@media (max-width: 1200px) {
+  .section-padding {
+    padding: 5rem 2rem;
+  }
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
 @media (max-width: 1024px) {
+  .xstar-nav-container {
+    padding: 0.8rem 1.2rem;
+  }
   .xstar-nav-links {
     display: none !important;
   }
@@ -1783,50 +1800,127 @@ footer {
   .mobile-menu-btn {
     display: flex !important;
   }
-  .process-steps {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem;
+  }
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem;
+  }
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem;
+  }
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem;
+  }
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem;
+  }
+  .testi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.5rem;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
   .split-project-row {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .section-padding {
-    padding: 4rem 1.2rem;
+    padding: 4rem 1.2rem !important;
   }
-  .hero-title, h1 {
-    font-size: clamp(2rem, 8vw, 3.2rem) !important;
+  .xstar-hero, .hero {
+    padding: 7rem 1.2rem 4rem !important;
+    min-height: auto !important;
   }
-  .about-grid, .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+  .xstar-hero-title, .hero h1 {
+    font-size: clamp(1.8rem, 6.5vw, 2.8rem) !important;
   }
-  .form-row {
-    grid-template-columns: 1fr;
+  .xstar-hero-sub, .hero p {
+    font-size: 1rem !important;
+    margin-bottom: 2rem !important;
   }
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .giant-marquee-text {
+    font-size: clamp(1.8rem, 5vw, 3rem) !important;
   }
   .stats-bar {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1.5rem;
+    display: grid !important;
+    gap: 1.5rem !important;
+    padding: 2rem 1.2rem !important;
   }
-  .services-grid, .portfolio-grid, .team-grid {
+  .stat-num {
+    font-size: 1.8rem !important;
+  }
+  .services-grid {
     grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  .team-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  .team-img-box {
+    height: 280px !important;
+  }
+  .process-steps {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  .why-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  .testi-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem !important;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .form-row {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .contact-form {
+    padding: 1.8rem 1.2rem !important;
+  }
+  .about-visual {
+    padding: 1.8rem 1.2rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .section-padding {
-    padding: 3rem 1rem;
+    padding: 3rem 1rem !important;
   }
   .stats-bar {
     grid-template-columns: 1fr !important;
+  }
+  .hero-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .btn-hero-primary, .btn-hero-ghost {
+    width: 100% !important;
+    justify-content: center !important;
   }
 }
