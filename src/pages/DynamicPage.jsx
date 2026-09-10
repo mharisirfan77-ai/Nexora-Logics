@@ -13,6 +13,7 @@ import { Testimonials } from '../components/public/Testimonials';
 import { Contact } from '../components/public/Contact';
 import { PageHeader } from '../components/public/PageHeader';
 import { BlogPage } from './BlogPage';
+import { UpworkOutreachPage } from './UpworkOutreachPage';
 import { ArrowUpRight } from 'lucide-react';
 
 export const DynamicPage = ({ page }) => {
@@ -23,6 +24,10 @@ export const DynamicPage = ({ page }) => {
 
   if (page.slug === '/blog') {
     return <BlogPage />;
+  }
+
+  if (page.slug === '/upwork-outreach' || page.slug === '/upwork-outreach-management') {
+    return <UpworkOutreachPage />;
   }
 
   const renderSectionById = (secId, index) => {
@@ -49,6 +54,8 @@ export const DynamicPage = ({ page }) => {
         return <Testimonials key={`${secId}-${index}`} />;
       case 'contact':
         return <Contact key={`${secId}-${index}`} />;
+      case 'upworkOutreach':
+        return <UpworkOutreachPage key={`${secId}-${index}`} />;
       default:
         const customSec = customSections.find((c) => c.id === secId);
         if (!customSec) return null;

@@ -12,7 +12,7 @@ export const CMSProvider = ({ children }) => {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Ensure system themes are present in themes array even if localStorage had older version
+        // Ensure system themes and system pages are present even if localStorage had older version
         const systemThemes = INITIAL_DATA.themes || [];
         const existingThemes = parsed.themes || [];
         const themeMap = new Map();
@@ -20,12 +20,20 @@ export const CMSProvider = ({ children }) => {
         existingThemes.forEach((et) => themeMap.set(et.id, et));
         const mergedThemes = Array.from(themeMap.values());
 
+        const systemPages = INITIAL_DATA.pages || [];
+        const existingPages = parsed.pages || [];
+        const pageMap = new Map();
+        systemPages.forEach((sp) => pageMap.set(sp.id, sp));
+        existingPages.forEach((ep) => pageMap.set(ep.id, ep));
+        const mergedPages = Array.from(pageMap.values());
+
         const activeId = parsed.activeThemeId || INITIAL_DATA.activeThemeId;
 
         return {
           ...INITIAL_DATA,
           ...parsed,
           themes: mergedThemes,
+          pages: mergedPages,
           activeThemeId: activeId
         };
       }

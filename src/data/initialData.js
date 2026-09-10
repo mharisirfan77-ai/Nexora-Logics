@@ -4,48 +4,58 @@ export const INITIAL_DATA = {
     secretSlug: "/Nexora_Logics_admin"
   },
   themeConfig: {
-    primaryAccent: "#00C9A7", // Electric Teal / Cyan (Logo 'L')
-    secondaryAccent: "#1B4985", // Tech Navy / Sapphire (Logo 'N')
-    amberAccent: "#00E5FF", // Neon Cyan Highlight
-    bgTheme: "#070C18", // Obsidian Tech Dark Navy
-    cardBg: "rgba(15, 25, 48, 0.8)",
-    fontHeading: "'Space Grotesk', sans-serif",
-    fontBody: "'Inter', sans-serif",
-    borderRadius: "14px",
+    primaryAccent: "#2E7A9E", // Deep Teal / Blue-Teal (Attached landing page)
+    secondaryAccent: "#1F5C79", // Deep Lime / Navy Accent
+    amberAccent: "#1B3F63", // Deep Navy Accent
+    bgTheme: "#0B0B0C", // Ink Dark Background
+    cardBg: "#161616", // Surface Card Background
+    fontHeading: "'Archivo', -apple-system, sans-serif",
+    fontBody: "'Inter', -apple-system, sans-serif",
+    borderRadius: "999px",
     customCss: ""
   },
   activeThemeId: "theme-obsidian-dark",
   themes: [
     {
       id: "theme-obsidian-dark",
-      name: "Nexora Obsidian Dark (Logo Palette)",
-      version: "1.4.0",
+      name: "Nexora Upwork & Obsidian Theme",
+      version: "1.5.0",
       author: "Nexora Logics Team",
-      description: "Official Nexora Logics Dark Theme engineered with vibrant electric teal cyan (#00C9A7) and tech navy blue (#1B4985) matching brand logo identity.",
+      description: "Official Nexora Logics Theme featuring the deep teal cyan (#2E7A9E), ink dark (#0B0B0C), and Archivo typography from the official landing page identity.",
       isSystem: true,
       screenshot: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80",
       colors: {
-        primaryAccent: "#00C9A7",
-        secondaryAccent: "#1B4985",
-        amberAccent: "#00E5FF",
-        bgTheme: "#070C18",
-        cardBg: "rgba(15, 25, 48, 0.8)"
+        primaryAccent: "#2E7A9E",
+        secondaryAccent: "#1F5C79",
+        amberAccent: "#1B3F63",
+        bgTheme: "#0B0B0C",
+        cardBg: "#161616"
       },
       typography: {
-        fontHeading: "'Space Grotesk', sans-serif",
-        fontBody: "'Inter', sans-serif"
+        fontHeading: "'Archivo', -apple-system, sans-serif",
+        fontBody: "'Inter', -apple-system, sans-serif"
       },
-      cssContent: `/* Nexora Official Logo Theme Styles */
+      cssContent: `/* Nexora Official Upwork Theme Styles */
 :root {
-  --lime: #00C9A7;
-  --violet: #1B4985;
-  --bg-dark: #070C18;
-  --card-bg: rgba(15, 25, 48, 0.8);
-  --card-border: rgba(0, 201, 167, 0.18);
+  --ink: #0B0B0C;
+  --surface: #161616;
+  --surface-2: #1D1D1D;
+  --line: #2A2A2A;
+  --lime: #2E7A9E;
+  --lime-deep: #1F5C79;
+  --navy: #1B3F63;
+  --white: #FFFFFF;
+  --grey: #A6A6A6;
+  --grey-2: #707070;
+  --bg-dark: #0B0B0C;
+  --card-bg: #161616;
+  --card-border: #2A2A2A;
+  --font-heading: 'Archivo', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
 }
 .hero-badge {
-  box-shadow: 0 0 25px rgba(0, 201, 167, 0.25);
-  border-color: rgba(0, 201, 167, 0.3);
+  box-shadow: 0 0 25px rgba(46, 122, 158, 0.25);
+  border-color: rgba(46, 122, 158, 0.3);
 }`,
       files: [
         { name: "style.css", path: "style.css", content: "/* Theme Name: Nexora Obsidian Dark (Logo Palette)\nAuthor: Nexora Logics Team\nVersion: 1.4.0 */\nbody { background-color: #070C18; color: #FFFFFF; }" },
@@ -276,6 +286,19 @@ body {
       status: "Published",
       date: "2026-08-26",
       sectionIds: ["contact", "testimonials"]
+    },
+    {
+      id: "page-upwork-outreach",
+      slug: "/upwork-outreach",
+      title: "Upwork Outreach",
+      metaTitle: "Nexora Logics — Upwork Outreach Management",
+      metaDescription: "Stop wasting hours bidding. Start closing more deals on Upwork. End-to-end Upwork account management.",
+      isSystem: true,
+      inNavbar: true,
+      inFooter: true,
+      status: "Published",
+      date: "2026-08-26",
+      sectionIds: ["upworkOutreach"]
     }
   ],
   posts: [
