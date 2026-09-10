@@ -66,13 +66,16 @@ export const Navbar = () => {
     <>
       <nav className="xstar-nav">
         <div className="xstar-nav-container">
-          {/* Nexora Logics Brand Logo */}
-          <a href="/" onClick={(e) => handleNavClick(e, '/')} className="xstar-logo" title="Nexora Logics Home">
-            <img
-              src={logoSource}
-              alt={siteInfo?.brandName || "Nexora Logics"}
-              className="xstar-brand-logo-img"
-            />
+          {/* Nexora Logics Brand Logo Chip & Title */}
+          <a href="/" onClick={(e) => handleNavClick(e, '/')} className="brand" title="Nexora Logics Home">
+            <div className="logo-chip">
+              <img
+                src={logoSource}
+                alt={siteInfo?.brandName || "Nexora Logics"}
+                className="logo-chip-img"
+              />
+            </div>
+            <span className="word">{siteInfo?.brandName || "Nexora Logics"}</span>
           </a>
 
           {/* XSTAR Desktop Navigation Links (with ↗ arrow prefix) */}

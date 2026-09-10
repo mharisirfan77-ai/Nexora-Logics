@@ -2212,6 +2212,156 @@ footer {
 /* ==========================================================================
    UPWORK OUTREACH LANDING PAGE STYLES
    ========================================================================== */
+.upwork-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(11, 11, 12, 0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line, #2A2A2A);
+}
+
+.upwork-header .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.brand .logo-chip {
+  display: flex;
+  align-items: center;
+}
+
+.brand .logo-chip img,
+.brand .logo-chip-img {
+  height: 36px;
+  width: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.brand .word {
+  font-family: var(--display, 'Archivo', sans-serif);
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--white, #ffffff);
+}
+
+.upwork-header .nav-links {
+  display: flex;
+  gap: 26px;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.upwork-header .nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.85;
+  color: var(--white, #ffffff);
+  transition: all 0.2s ease;
+}
+
+.upwork-header .nav-links a:hover {
+  opacity: 1;
+  color: var(--lime, #2E7A9E);
+}
+
+.upwork-header .nav-links .arrow {
+  color: var(--lime, #2E7A9E);
+  font-size: 0.75rem;
+}
+
+.upwork-mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .upwork-header .nav-links,
+  .upwork-header .desktop-only-btn {
+    display: none !important;
+  }
+  .upwork-mobile-toggle {
+    display: block !important;
+  }
+}
+
+.upwork-mobile-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 32px 24px;
+  background: #0B0B0C;
+  border-bottom: 1px solid var(--line, #2A2A2A);
+  animation: fade .25s ease;
+}
+
+.upwork-mobile-drawer a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.upwork-mobile-drawer a:hover {
+  color: var(--lime, #2E7A9E);
+}
+
+.upwork-footer {
+  padding: 36px 0;
+  color: var(--grey-2, #707070);
+  font-size: 0.82rem;
+  border-top: 1px solid var(--line, #2A2A2A);
+  background: var(--ink, #0B0B0C);
+}
+
+.foot-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.foot-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.foot-brand .logo-chip img,
+.foot-brand .logo-chip-img {
+  height: 28px;
+  width: auto;
+  border-radius: 4px;
+}
+
+.foot-brand .word {
+  font-family: var(--display, 'Archivo', sans-serif);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
 .upwork-landing-page {
   background: var(--ink, #0B0B0C);
   color: var(--white, #FFFFFF);

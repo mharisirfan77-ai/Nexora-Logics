@@ -11,13 +11,15 @@ export const Footer = () => {
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-col">
-            <div className="footer-brand">
-              <img
-                src={logoImg}
-                alt={siteInfo.brandName}
-                style={{ height: '34px', borderRadius: '4px', background: '#ffffff', padding: '2px' }}
-              />
-              <span>{siteInfo.brandName}</span>
+            <div className="brand">
+              <div className="logo-chip">
+                <img
+                  src={siteInfo?.logoUrl || logoImg}
+                  alt={siteInfo.brandName}
+                  className="logo-chip-img"
+                />
+              </div>
+              <span className="word">{siteInfo.brandName}</span>
             </div>
             <p>{siteInfo.footerBio}</p>
             <div className="footer-social">

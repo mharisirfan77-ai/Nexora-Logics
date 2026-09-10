@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useCMS } from '../context/CMSContext';
+import logoImg from '../assets/logo.jpg';
 import { 
   Calendar, 
   Clock, 
@@ -9,12 +8,18 @@ import {
   Code, 
   Smartphone, 
   BarChart3, 
-  Cpu
+  Cpu,
+  Menu,
+  X
 } from 'lucide-react';
 
 export const UpworkOutreachPage = () => {
-  const { navigate } = useCMS();
+  const { data, navigate } = useCMS();
+  const { siteInfo = {} } = data || {};
   const [activeTab, setActiveTab] = useState('c90k');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const logoSource = siteInfo?.logoUrl || logoImg;
 
   const handleAuditClick = (e) => {
     e.preventDefault();
@@ -30,8 +35,77 @@ export const UpworkOutreachPage = () => {
     }
   };
 
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="upwork-landing-page">
+      {/* ---------- SEPARATE MENU / HEADER ---------- */}
+      <header className="upwork-header">
+        <div className="wrap nav">
+          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="brand" title="Nexora Logics Home">
+            <div className="logo-chip">
+              <img src={logoSource} alt={siteInfo?.brandName || "Nexora Logics"} className="logo-chip-img" />
+            </div>
+            <span className="word">{siteInfo?.brandName || "Nexora Logics"}</span>
+          </a>
+
+          <nav className="nav-links">
+            <a href="#how" onClick={(e) => scrollToSection(e, 'how')}>
+              <span className="arrow">↗</span> How it works
+            </a>
+            <a href="#roi" onClick={(e) => scrollToSection(e, 'roi')}>
+              <span className="arrow">↗</span> ROI model
+            </a>
+            <a href="#packages" onClick={(e) => scrollToSection(e, 'packages')}>
+              <span className="arrow">↗</span> Packages
+            </a>
+            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')}>
+              <span className="arrow">↗</span> Case studies
+            </a>
+          </nav>
+
+          <a href="#final" onClick={(e) => scrollToSection(e, 'final')} className="btn btn-primary desktop-only-btn">
+            Get In Touch
+          </a>
+
+          <button 
+            className="upwork-mobile-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="upwork-mobile-drawer">
+            <a href="#how" onClick={(e) => scrollToSection(e, 'how')}>
+              <span className="arrow">↗</span> How it works
+            </a>
+            <a href="#roi" onClick={(e) => scrollToSection(e, 'roi')}>
+              <span className="arrow">↗</span> ROI model
+            </a>
+            <a href="#packages" onClick={(e) => scrollToSection(e, 'packages')}>
+              <span className="arrow">↗</span> Packages
+            </a>
+            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')}>
+              <span className="arrow">↗</span> Case studies
+            </a>
+            <a href="#final" onClick={(e) => scrollToSection(e, 'final')} className="btn btn-primary" style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}>
+              Get In Touch
+            </a>
+          </div>
+        )}
+      </header>
+
       {/* ---------- HERO ---------- */}
       <section className="upwork-hero">
         {/* Floating Geometric Decorative Cubes */}
@@ -880,6 +954,19 @@ export const UpworkOutreachPage = () => {
           </a>
         </div>
       </section>
+
+      {/* ---------- DEDICATED FOOTER ---------- */}
+      <footer className="upwork-footer">
+        <div className="wrap foot-row">
+          <div className="foot-brand">
+            <div className="logo-chip">
+              <img src={logoSource} alt={siteInfo?.brandName || "Nexora Logics"} className="logo-chip-img" />
+            </div>
+            <span className="word">{siteInfo?.brandName || "Nexora Logics"} — Upwork Outreach Management</span>
+          </div>
+          <span>Results vary by profile strength, niche competitiveness, and closing ability.</span>
+        </div>
+      </footer>
     </div>
   );
 };

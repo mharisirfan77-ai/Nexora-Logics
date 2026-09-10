@@ -19,18 +19,26 @@ const MainRouter = () => {
   // Dynamically apply active theme color variables, light/dark modes, and fonts to the root DOM
   useEffect(() => {
     const root = document.documentElement;
-    const primary = activeTheme.colors?.primaryAccent || themeConfig.primaryAccent || '#D2F535';
-    const secondary = activeTheme.colors?.secondaryAccent || themeConfig.secondaryAccent || '#4B4EFF';
-    const amber = activeTheme.colors?.amberAccent || themeConfig.amberAccent || '#FF8A3D';
-    const bgTheme = activeTheme.colors?.bgTheme || themeConfig.bgTheme || '#07090E';
-    const fontHeading = activeTheme.typography?.fontHeading || themeConfig.fontHeading || "'Space Grotesk', sans-serif";
-    const fontBody = activeTheme.typography?.fontBody || themeConfig.fontBody || "'Inter', sans-serif";
-    const borderRadius = themeConfig.borderRadius || '14px';
+    const primary = activeTheme.colors?.primaryAccent || themeConfig.primaryAccent || '#2E7A9E';
+    const secondary = activeTheme.colors?.secondaryAccent || themeConfig.secondaryAccent || '#1F5C79';
+    const amber = activeTheme.colors?.amberAccent || themeConfig.amberAccent || '#1B3F63';
+    const bgTheme = activeTheme.colors?.bgTheme || themeConfig.bgTheme || '#0B0B0C';
+    const fontHeading = activeTheme.typography?.fontHeading || themeConfig.fontHeading || "'Archivo', -apple-system, sans-serif";
+    const fontBody = activeTheme.typography?.fontBody || themeConfig.fontBody || "'Inter', -apple-system, sans-serif";
+    const borderRadius = themeConfig.borderRadius || '999px';
 
     root.style.setProperty('--lime', primary);
+    root.style.setProperty('--lime-deep', secondary);
     root.style.setProperty('--violet', secondary);
     root.style.setProperty('--amber', amber);
+    root.style.setProperty('--navy', amber);
     root.style.setProperty('--bg-dark', bgTheme);
+    root.style.setProperty('--ink', bgTheme);
+    root.style.setProperty('--surface', '#161616');
+    root.style.setProperty('--surface-2', '#1D1D1D');
+    root.style.setProperty('--line', '#2A2A2A');
+    root.style.setProperty('--grey', '#A6A6A6');
+    root.style.setProperty('--grey-2', '#707070');
     document.body.style.backgroundColor = bgTheme;
 
     root.style.setProperty('--radius-md', borderRadius);
@@ -47,18 +55,19 @@ const MainRouter = () => {
       root.style.setProperty('--card-border', '#E2E8F0');
       document.body.style.color = '#0F172A';
     } else {
-      root.style.setProperty('--text-main', '#D4D7EC');
-      root.style.setProperty('--slate', '#8F95B2');
-      root.style.setProperty('--mist', '#B7BCDA');
-      root.style.setProperty('--card-bg', activeTheme.colors?.cardBg || themeConfig.cardBg || 'rgba(18, 22, 43, 0.75)');
-      root.style.setProperty('--card-border', 'rgba(255, 255, 255, 0.08)');
-      document.body.style.color = '#D4D7EC';
+      root.style.setProperty('--text-main', '#FFFFFF');
+      root.style.setProperty('--slate', '#A6A6A6');
+      root.style.setProperty('--mist', '#A6A6A6');
+      root.style.setProperty('--card-bg', activeTheme.colors?.cardBg || themeConfig.cardBg || '#161616');
+      root.style.setProperty('--card-border', '#2A2A2A');
+      document.body.style.color = '#FFFFFF';
     }
   }, [themeConfig, activeTheme]);
 
   // Normalize path for secret admin slug check
   const normalizedPath = currentPath.replace(/\/$/, '').toLowerCase();
   const isAdminPath = normalizedPath === '/nexora_logics_admin';
+  const isUpworkPage = normalizedPath === '/upwork-outreach' || normalizedPath === '/upwork-outreach-management';
 
   if (isAdminPath) {
     if (!isAdminAuthenticated) {
@@ -92,13 +101,13 @@ const MainRouter = () => {
       )}
 
       <CustomCursor />
-      <Navbar />
+      {!isUpworkPage && <Navbar />}
       <main style={{ minHeight: '80vh' }}>
         <DynamicPage page={matchedPage} />
       </main>
-      <MarqueeTicker />
-      <ClientLogos />
-      <Footer />
+      {!isUpworkPage && <MarqueeTicker />}
+      {!isUpworkPage && <ClientLogos />}
+      {!isUpworkPage && <Footer />}
       <ProjectModal />
       <Toast />
     </div>
