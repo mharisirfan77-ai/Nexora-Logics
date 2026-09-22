@@ -1,12 +1,15 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
-import { BookOpen, Code, Share2, Megaphone, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Code, Share2, Megaphone, Smartphone, Gamepad2, Cpu } from 'lucide-react';
 
 const iconMap = {
   BookOpen: <BookOpen size={28} />,
   Code: <Code size={28} />,
   Share2: <Share2 size={28} />,
-  Megaphone: <Megaphone size={28} />
+  Megaphone: <Megaphone size={28} />,
+  Smartphone: <Smartphone size={28} />,
+  Gamepad2: <Gamepad2 size={28} />,
+  Cpu: <Cpu size={28} />
 };
 
 export const Services = () => {
