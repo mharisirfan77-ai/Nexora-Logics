@@ -9,6 +9,7 @@ import { Portfolio } from '../components/public/Portfolio';
 import { WhyUs } from '../components/public/WhyUs';
 import { Testimonials } from '../components/public/Testimonials';
 import { Contact } from '../components/public/Contact';
+import { Process } from '../components/public/Process';
 import { PageHeader } from '../components/public/PageHeader';
 import { BlogPage } from './BlogPage';
 import { UpworkOutreachPage } from './UpworkOutreachPage';
@@ -24,7 +25,7 @@ export const DynamicPage = ({ page }) => {
     return <BlogPage />;
   }
 
-  if (page.slug === '/' || page.slug === '/upwork-outreach' || page.slug === '/upwork-outreach-management') {
+  if (page.slug === '/upwork-outreach' || page.slug === '/upwork-outreach-management') {
     return <UpworkOutreachPage />;
   }
 
@@ -48,6 +49,8 @@ export const DynamicPage = ({ page }) => {
         return <Testimonials key={`${secId}-${index}`} />;
       case 'contact':
         return <Contact key={`${secId}-${index}`} />;
+      case 'process':
+        return <Process key={`${secId}-${index}`} />;
       case 'upworkOutreach':
         return <UpworkOutreachPage key={`${secId}-${index}`} />;
       default:
