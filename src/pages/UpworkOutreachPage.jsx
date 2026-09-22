@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import { useCMS } from '../context/CMSContext';
 import logoImg from '../assets/logo.jpg';
 import { 
   Calendar, 
