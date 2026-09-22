@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@1,600;1,700&family=Space+Grotesk:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,800;0,900;1,700;1,800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@1,600;1,700&family=Space+Grotesk:wght@500;600;700;800&display=swap');
 
 :root {
   --bg-dark: #070C18;
@@ -3364,3 +3364,133 @@ table.compare .note {
   margin-top: 32px;
 }
 
+
+/* Nexora 2026 agency process — aligned with the supplied landing-page visual system */
+.process-section{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink)}
+.nl-process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);max-width:1220px;margin:0 auto}
+.nl-process-card{background:var(--surface);padding:30px 24px;min-height:210px}
+.nl-process-num{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.65rem;color:var(--lime)}
+.nl-process-card h3{font-family:'Inter',sans-serif;text-transform:none;margin-top:18px;font-size:1.05rem;color:#fff}
+.nl-process-card p{margin-top:10px;color:var(--grey);font-size:.9rem;line-height:1.65}
+@media(max-width:1000px){.nl-process-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.nl-process-grid{grid-template-columns:1fr}}
+
+/* ==========================================================================
+   NEXORA AGENCY WEBSITE — visual parity with supplied landing-page identity
+   ========================================================================== */
+.xstar-nav{
+  background:rgba(11,11,12,.90)!important;
+  border-bottom:1px solid #2A2A2A!important;
+  backdrop-filter:blur(10px);
+}
+.xstar-nav .brand .word,.xstar-nav-links a,.btn-xstar-touch{font-family:'Inter',sans-serif}
+.xstar-nav .brand .word{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.xstar-nav-links a{font-size:.86rem;font-weight:600;text-transform:none!important;color:#fff;opacity:.85}
+.xstar-nav-links a .arrow,.btn-xstar-touch .arrow{color:#2E7A9E!important}
+.xstar-nav-links a:hover,.xstar-nav-links a.active-link{color:#2E7A9E!important;opacity:1}
+.btn-xstar-touch{border-radius:999px!important;padding:13px 24px!important;border-color:#2A2A2A!important}
+.btn-xstar-touch:hover{border-color:#2E7A9E!important;background:rgba(46,122,158,.08)!important;color:#fff!important}
+.logo-chip-img{object-fit:contain!important}
+
+.xstar-hero{
+  min-height:auto!important;
+  padding:110px 32px 84px!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+  background:
+    radial-gradient(circle at 82% 22%,rgba(46,122,158,.16),transparent 28%),
+    radial-gradient(circle at 14% 90%,rgba(27,63,99,.18),transparent 30%),
+    #0B0B0C!important;
+  border-bottom:1px solid #2A2A2A;
+}
+.xstar-hero-inner{max-width:1220px!important;margin:0 auto!important}
+.xstar-hero .hero-badge{
+  background:#2E7A9E!important;
+  border-color:#2E7A9E!important;
+  color:#fff!important;
+  font-family:'Inter',sans-serif!important;
+  border-radius:999px!important;
+  font-size:.72rem!important;
+  padding:8px 16px!important;
+  box-shadow:none!important;
+  margin-bottom:22px!important;
+}
+.xstar-hero .hero-badge .dot{display:none}
+.xstar-hero-title{
+  font-family:'Archivo',sans-serif!important;
+  font-size:clamp(2.4rem,5vw,4.5rem)!important;
+  font-weight:900!important;
+  text-transform:uppercase!important;
+  line-height:1!important;
+  letter-spacing:-.01em!important;
+  max-width:18ch;
+  margin-bottom:26px!important;
+}
+.xstar-hero-title em{
+  font-family:'Archivo',sans-serif!important;
+  font-style:normal!important;
+  color:#2E7A9E!important;
+  background:none!important;
+  -webkit-text-fill-color:#2E7A9E!important;
+}
+.xstar-hero-sub{font-family:'Inter',sans-serif!important;color:#A6A6A6!important;max-width:58ch!important;margin:0 0 34px!important;font-size:1.08rem!important;line-height:1.7!important}
+.xstar-hero .hero-btns{justify-content:flex-start!important;gap:14px!important}
+.btn-hero-primary{
+  background:#2E7A9E!important;color:#fff!important;border-radius:999px!important;
+  padding:15px 28px!important;box-shadow:none!important;font-size:.92rem!important
+}
+.btn-hero-primary:hover{background:#1F5C79!important;transform:translateY(-2px)!important;box-shadow:none!important}
+.btn-hero-ghost{border:1px solid #2A2A2A!important;border-radius:999px!important;padding:15px 28px!important;font-size:.92rem!important}
+.btn-hero-ghost:hover{border-color:#fff!important;background:transparent!important}
+
+.section-padding{max-width:1220px;margin:0 auto;padding:100px 32px!important}
+.section-header{max-width:700px;margin-bottom:52px!important}
+.centered-header{text-align:left!important;margin-left:0!important;margin-right:0!important}
+.centered-header .section-sub{margin-left:0!important;margin-right:0!important}
+.section-label{
+  display:inline-flex!important;align-items:center!important;gap:8px!important;
+  color:#2E7A9E!important;font-family:'Inter',sans-serif!important;font-size:.72rem!important;
+  font-weight:700!important;letter-spacing:.04em!important;text-transform:uppercase!important;
+  border:1px solid #2E7A9E!important;border-radius:999px!important;padding:8px 16px!important;margin-bottom:22px!important
+}
+.section-label::before{display:none!important}
+.section-title,.section-title-xstar{
+  font-family:'Archivo',sans-serif!important;font-weight:800!important;text-transform:uppercase!important;
+  letter-spacing:-.01em!important;line-height:1.05!important;color:#fff!important
+}
+.section-sub{color:#A6A6A6!important;font-family:'Inter',sans-serif!important;font-size:1.02rem!important;line-height:1.7!important}
+.services-section,.about-section,.why-section,.testimonials-section,.contact-section,.portfolio-section{border-bottom:1px solid #2A2A2A!important}
+.service-card,.why-card,.testi-card,.portfolio-card,.contact-form{
+  background:#161616!important;border-color:#2A2A2A!important;border-radius:16px!important;box-shadow:none!important
+}
+.service-card::before{background:#2E7A9E!important}
+.service-card h3,.why-card h3,.testi-name,.portfolio-card h3{color:#fff!important}
+.service-card p,.service-card li,.why-card p,.testi-card p{color:#A6A6A6!important}
+.svc-icon,.why-icon,.contact-item-icon{background:#0B0B0C!important;border:1px solid #2A2A2A!important}
+.svc-icon svg,.why-icon svg,.contact-item-icon svg{stroke:#2E7A9E!important;color:#2E7A9E!important}
+.stats-bar{background:#161616!important;border-top:1px solid #2A2A2A!important;border-bottom:1px solid #2A2A2A!important}
+.stat-num{font-family:'Archivo',sans-serif!important;color:#2E7A9E!important}
+.stat-label{color:#A6A6A6!important}
+
+.process-section{background:#0B0B0C!important}
+.nl-process-grid{background:#2A2A2A!important;border-color:#2A2A2A!important}
+.nl-process-card{background:#161616!important}
+.nl-process-num{color:#2E7A9E!important;font-family:'Archivo',sans-serif!important}
+
+footer{background:#0B0B0C!important;border-top:1px solid #2A2A2A!important}
+.footer-col h4,.footer-brand-text,.footer-col .word{font-family:'Archivo',sans-serif!important}
+.footer-col p,.footer-col a,.footer-bottom p{color:#707070!important}
+.social-btn:hover{background:#2E7A9E!important;border-color:#2E7A9E!important}
+
+/* Landing-page FAQ styling copied into the same visual language. */
+.upwork-landing-page .faq-item{border-bottom:1px solid #2A2A2A;padding:22px 0}
+.upwork-landing-page .faq-item summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;font-family:'Archivo',sans-serif;font-weight:700;font-size:1rem}
+.upwork-landing-page .faq-item summary::-webkit-details-marker{display:none}
+.upwork-landing-page .faq-item summary .plus{color:#2E7A9E;font-family:'Archivo',sans-serif;font-size:1.2rem}
+.upwork-landing-page .faq-item p{color:#A6A6A6;margin-top:14px;font-size:.92rem;max-width:70ch}
+
+@media(max-width:720px){
+  .xstar-hero{padding:92px 20px 64px!important}
+  .section-padding{padding:72px 20px!important}
+  .xstar-hero-title{font-size:clamp(2.15rem,11vw,3.1rem)!important}
+}

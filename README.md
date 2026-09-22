@@ -22,7 +22,7 @@ The public site and Upwork page use the visual identity supplied in the Nexora l
 - White: `#FFFFFF`
 - Grey: `#A6A6A6`
 
-The exact embedded logo from the supplied landing page is saved as `public/nexora-logo.png`.
+The supplied Nexora Logics logo is served from `public/logo.jpg`.
 
 ## Main routes
 

@@ -4,7 +4,7 @@ import { INITIAL_DATA } from '../data/initialData';
 
 const CMSContext = createContext();
 
-const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V5';
+const STORAGE_KEY = 'NEXORA_LOGICS_CMS_DATA_V6';
 
 export const CMSProvider = ({ children }) => {
   const [data, setData] = useState(() => {
@@ -44,6 +44,8 @@ export const CMSProvider = ({ children }) => {
   });
 
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
+  const [remoteCmsConfigured, setRemoteCmsConfigured] = useState(false);
+  const [remoteCmsLoaded, setRemoteCmsLoaded] = useState(false);
 
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
     return sessionStorage.getItem('NEXORA_ADMIN_AUTH') === 'true';
@@ -51,6 +53,33 @@ export const CMSProvider = ({ children }) => {
 
   const [activeProjectModal, setActiveProjectModal] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadRemote = async () => {
+      try {
+        const response = await fetch('/api/cms', { headers: { Accept: 'application/json' } });
+        if (response.status === 503) {
+          if (!cancelled) { setRemoteCmsConfigured(false); setRemoteCmsLoaded(true); }
+          return;
+        }
+        if (!response.ok) throw new Error(`Remote CMS load failed (${response.status})`);
+        const payload = await response.json();
+        if (!cancelled) {
+          setRemoteCmsConfigured(Boolean(payload.configured));
+          if (payload.data) {
+            setData((prev) => ({ ...prev, ...payload.data, adminConfig: prev.adminConfig }));
+          }
+          setRemoteCmsLoaded(true);
+        }
+      } catch (error) {
+        console.warn('Remote CMS unavailable; using browser-local fallback.', error);
+        if (!cancelled) { setRemoteCmsConfigured(false); setRemoteCmsLoaded(true); }
+      }
+    };
+    loadRemote();
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -66,7 +95,29 @@ export const CMSProvider = ({ children }) => {
     } catch (e) {
       console.error('Failed to save CMS data to localStorage:', e);
     }
-  }, [data]);
+
+    if (!remoteCmsConfigured || !remoteCmsLoaded || !isAdminAuthenticated) return;
+    const password = sessionStorage.getItem('NEXORA_ADMIN_SECRET');
+    if (!password) return;
+
+    const timer = setTimeout(async () => {
+      try {
+        const response = await fetch('/api/cms', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-cms-password': password
+          },
+          body: JSON.stringify({ data })
+        });
+        if (!response.ok) console.warn(`Remote CMS save failed (${response.status})`);
+      } catch (error) {
+        console.warn('Remote CMS save failed; local copy was preserved.', error);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [data, remoteCmsConfigured, remoteCmsLoaded, isAdminAuthenticated]);
 
   const navigate = (path) => {
     window.history.pushState({}, '', path);
@@ -245,35 +296,86 @@ export const CMSProvider = ({ children }) => {
   };
 
   // --- Admin Authentication Handlers ---
-  const loginAdmin = (passwordInput) => {
-    if (passwordInput === data.adminConfig.password) {
+  const loginAdmin = async (passwordInput) => {
+    const password = passwordInput?.trim();
+    if (!password) return false;
+
+    if (remoteCmsConfigured) {
+      try {
+        const response = await fetch('/api/cms?action=auth', {
+          method: 'POST',
+          headers: { 'x-cms-password': password }
+        });
+        if (!response.ok) {
+          alert('Incorrect Password!');
+          return false;
+        }
+        setIsAdminAuthenticated(true);
+        sessionStorage.setItem('NEXORA_ADMIN_AUTH', 'true');
+        sessionStorage.setItem('NEXORA_ADMIN_SECRET', password);
+        showToast('CMS access granted!');
+        return true;
+      } catch (error) {
+        console.warn('Remote CMS authentication unavailable; trying local fallback.', error);
+      }
+    }
+
+    if (password === data.adminConfig.password) {
       setIsAdminAuthenticated(true);
       sessionStorage.setItem('NEXORA_ADMIN_AUTH', 'true');
-      showToast('WordPress Admin access granted!');
+      sessionStorage.setItem('NEXORA_ADMIN_SECRET', password);
+      showToast('CMS access granted!');
       return true;
-    } else {
-      alert('Incorrect Password!');
-      return false;
     }
+
+    alert('Incorrect Password!');
+    return false;
   };
 
   const logoutAdmin = () => {
     setIsAdminAuthenticated(false);
     sessionStorage.removeItem('NEXORA_ADMIN_AUTH');
+    sessionStorage.removeItem('NEXORA_ADMIN_SECRET');
     navigate('/');
     showToast('Logged out of Admin CMS.');
   };
 
-  const changeAdminPassword = (newPassword) => {
-    if (!newPassword || newPassword.trim().length < 4) {
+  const changeAdminPassword = async (newPassword) => {
+    const nextPassword = newPassword?.trim();
+    if (!nextPassword || nextPassword.length < 4) {
       alert('Password must be at least 4 characters.');
-      return;
+      return false;
     }
+
+    if (remoteCmsConfigured) {
+      const currentPassword = sessionStorage.getItem('NEXORA_ADMIN_SECRET');
+      try {
+        const response = await fetch('/api/cms?action=change-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-cms-password': currentPassword || ''
+          },
+          body: JSON.stringify({ newPassword: nextPassword })
+        });
+        if (!response.ok) {
+          alert('Could not update the cloud CMS password.');
+          return false;
+        }
+      } catch (error) {
+        console.warn('Cloud password update failed.', error);
+        alert('Could not update the cloud CMS password.');
+        return false;
+      }
+    }
+
     setData((prev) => ({
       ...prev,
-      adminConfig: { ...prev.adminConfig, password: newPassword.trim() }
+      adminConfig: { ...prev.adminConfig, password: nextPassword }
     }));
+    sessionStorage.setItem('NEXORA_ADMIN_SECRET', nextPassword);
     showToast('Admin password changed successfully!');
+    return true;
   };
 
   // --- Site Info & Content Handlers ---
@@ -285,6 +387,11 @@ export const CMSProvider = ({ children }) => {
   const updateHero = (newHero) => {
     setData((prev) => ({ ...prev, hero: { ...prev.hero, ...newHero } }));
     showToast('Hero section updated successfully!');
+  };
+
+  const updateUpworkContent = (newContent) => {
+    setData((prev) => ({ ...prev, upworkContent: { ...(prev.upworkContent || {}), ...newContent } }));
+    showToast('Upwork landing page content updated!');
   };
 
   const updateAbout = (newAbout) => {
@@ -693,6 +800,7 @@ export const CMSProvider = ({ children }) => {
         currentPath,
         navigate,
         isAdminAuthenticated,
+        remoteCmsConfigured,
         loginAdmin,
         logoutAdmin,
         changeAdminPassword,
@@ -720,6 +828,7 @@ export const CMSProvider = ({ children }) => {
         showToast,
         updateSiteInfo,
         updateHero,
+        updateUpworkContent,
         updateAbout,
         updateSectionHeader,
         toggleSection,

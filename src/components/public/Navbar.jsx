@@ -50,7 +50,7 @@ export const Navbar = () => {
   // Live search result calculator
   const searchResults = searchQuery.trim() === '' ? [] : [
     ...pages
-      .filter((p) => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
+      .filter((p) => p.inNavbar !== false && p.slug !== '/upwork-outreach' && p.title.toLowerCase().includes(searchQuery.toLowerCase()))
       .map((p) => ({ type: 'Page', title: p.title, path: p.slug })),
     ...services
       .filter((s) => s.title.toLowerCase().includes(searchQuery.toLowerCase()))

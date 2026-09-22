@@ -7,9 +7,9 @@ export const AdminLogin = () => {
   const { siteInfo } = data;
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    loginAdmin(password);
+    await loginAdmin(password);
   };
 
   return (
@@ -50,7 +50,7 @@ export const AdminLogin = () => {
           <div style={{ position: 'relative' }}>
             <input
               type="password"
-              placeholder="Enter Password (Default: admin123)"
+              placeholder="Enter CMS password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{

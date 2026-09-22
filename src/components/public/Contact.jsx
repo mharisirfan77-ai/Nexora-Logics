@@ -4,7 +4,7 @@ import { Mail, MapPin, Clock, Send } from 'lucide-react';
 
 export const Contact = () => {
   const { data, addInquiry } = useCMS();
-  const { siteInfo, sectionsConfig } = data;
+  const { siteInfo, sectionsConfig, services = [], contactHeader = {} } = data;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -36,11 +36,9 @@ export const Contact = () => {
     <section className="contact-section" id="contact">
       <div className="section-padding">
         <div className="section-header centered-header">
-          <div className="section-label">Get In Touch</div>
-          <h2 className="section-title">Get a free quote</h2>
-          <p className="section-sub">
-            Tell us about your project and we'll get back to you within 24 hours.
-          </p>
+          <div className="section-label">{contactHeader.sectionLabel || "Get In Touch"}</div>
+          <h2 className="section-title">{contactHeader.title || "Get a free quote"}</h2>
+          <p className="section-sub">{contactHeader.subtitle || "Tell us about your project and we’ll get back to you within 24 hours."}</p>
         </div>
 
         <div className="contact-grid">
@@ -108,10 +106,9 @@ export const Contact = () => {
                 value={formData.service}
                 onChange={(e) => setFormData({ ...formData, service: e.target.value })}
               >
-                <option value="eBook Creation & Publishing">eBook Creation & Publishing</option>
-                <option value="Web Development">Web Development</option>
-                <option value="Social Media Marketing">Social Media Marketing</option>
-                <option value="Paid Advertising">Paid Advertising</option>
+                {services.map((service) => (
+                  <option value={service.title} key={service.id}>{service.title}</option>
+                ))}
                 <option value="Multiple Services">Multiple Services</option>
               </select>
             </div>

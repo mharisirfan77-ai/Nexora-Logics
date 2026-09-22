@@ -17,7 +17,7 @@ import {
 
 export const UpworkOutreachPage = () => {
   const { data, navigate } = useCMS();
-  const { siteInfo = {} } = data || {};
+  const { siteInfo = {}, upworkContent = {} } = data || {};
   const [activeTab, setActiveTab] = useState('c90k');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -59,18 +59,11 @@ export const UpworkOutreachPage = () => {
           </a>
 
           <nav className="nav-links">
-            <a href="#how" onClick={(e) => scrollToSection(e, 'how')}>
-              <span className="arrow">↗</span> How it works
-            </a>
-            <a href="#roi" onClick={(e) => scrollToSection(e, 'roi')}>
-              <span className="arrow">↗</span> ROI model
-            </a>
-            <a href="#packages" onClick={(e) => scrollToSection(e, 'packages')}>
-              <span className="arrow">↗</span> Packages
-            </a>
-            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')}>
-              <span className="arrow">↗</span> Case studies
-            </a>
+            <a href="#services" onClick={(e) => scrollToSection(e, 'services')}><span className="arrow">↗</span> Services</a>
+            <a href="#process" onClick={(e) => scrollToSection(e, 'process')}><span className="arrow">↗</span> Process</a>
+            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')}><span className="arrow">↗</span> Case studies</a>
+            <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')}><span className="arrow">↗</span> Pricing</a>
+            <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')}><span className="arrow">↗</span> FAQ</a>
           </nav>
 
           <a href="#final" onClick={(e) => scrollToSection(e, 'final')} className="btn btn-primary desktop-only-btn">
@@ -89,18 +82,11 @@ export const UpworkOutreachPage = () => {
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="upwork-mobile-drawer">
-            <a href="#how" onClick={(e) => scrollToSection(e, 'how')}>
-              <span className="arrow">↗</span> How it works
-            </a>
-            <a href="#roi" onClick={(e) => scrollToSection(e, 'roi')}>
-              <span className="arrow">↗</span> ROI model
-            </a>
-            <a href="#packages" onClick={(e) => scrollToSection(e, 'packages')}>
-              <span className="arrow">↗</span> Packages
-            </a>
-            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')}>
-              <span className="arrow">↗</span> Case studies
-            </a>
+            <a href="#services" onClick={(e) => scrollToSection(e, 'services')}><span className="arrow">↗</span> Services</a>
+            <a href="#process" onClick={(e) => scrollToSection(e, 'process')}><span className="arrow">↗</span> Process</a>
+            <a href="#cases" onClick={(e) => scrollToSection(e, 'cases')}><span className="arrow">↗</span> Case studies</a>
+            <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')}><span className="arrow">↗</span> Pricing</a>
+            <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')}><span className="arrow">↗</span> FAQ</a>
             <a href="#final" onClick={(e) => scrollToSection(e, 'final')} className="btn btn-primary" style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}>
               Get In Touch
             </a>
@@ -118,23 +104,21 @@ export const UpworkOutreachPage = () => {
 
         <div className="wrap">
           <div className="pill-label">
-            <span>↗</span> UPWORK OUTREACH MANAGEMENT
+            <span>↗</span> {upworkContent.heroBadge || 'Upwork Outreach Management'}
           </div>
           <h1 className="hero-heading">
-            STOP WASTING HOURS BIDDING.
+            {upworkContent.heroTitle || 'Stop wasting hours bidding.'}
             <br />
-            START CLOSING <span className="accent">MORE DEALS</span> ON UPWORK.
+            <span className="accent">{upworkContent.heroHighlight || 'Start closing more deals on Upwork.'}</span>
           </h1>
-          <p className="hero-sub">
-            We manage your Upwork account end to end — from optimized proposals to booked meetings. You just focus on closing.
-          </p>
+          <p className="hero-sub">{upworkContent.heroDescription || 'We manage your Upwork account end to end — from optimized proposals to booked meetings. You just focus on closing.'}</p>
           
           <div className="hero-ctas">
             <a href="/contact" onClick={handleAuditClick} className="btn btn-primary">
-              Get a free profile audit <small>For existing profiles</small>
+              {upworkContent.primaryCta || 'Get a free profile audit'} <small>{upworkContent.primaryCtaNote || 'For existing profiles'}</small>
             </a>
             <a href="/contact" onClick={handleAuditClick} className="btn btn-outline">
-              Get a 3-month roadmap <small>For new profiles</small>
+              {upworkContent.secondaryCta || 'Get a 3-month roadmap'} <small>{upworkContent.secondaryCtaNote || 'For new profiles'}</small>
             </a>
           </div>
 
@@ -159,7 +143,7 @@ export const UpworkOutreachPage = () => {
       </section>
 
       {/* ---------- WHO WE WORK WITH ---------- */}
-      <section className="section">
+      <section className="section" id="services">
         <div className="wrap">
           <div className="section-head">
             <div className="pill-label on-dark">
@@ -235,7 +219,7 @@ export const UpworkOutreachPage = () => {
       </section>
 
       {/* ---------- HOW IT WORKS ---------- */}
-      <section className="section" id="how">
+      <section className="section" id="process">
         <div className="wrap">
           <div className="section-head">
             <div className="pill-label on-dark">
@@ -376,7 +360,7 @@ export const UpworkOutreachPage = () => {
       </section>
 
       {/* ---------- PACKAGES ---------- */}
-      <section className="section" id="packages">
+      <section className="section" id="pricing">
         <div className="wrap">
           <div className="section-head">
             <div className="pill-label on-dark">
@@ -939,20 +923,35 @@ export const UpworkOutreachPage = () => {
         </div>
       </section>
 
+      {/* ---------- FAQ ---------- */}
+      <section className="section" id="faq">
+        <div className="wrap">
+          <div className="section-head">
+            <div className="pill-label on-dark"><span>↗</span> FAQ</div>
+            <h2>GOOD TO <span className="accent">KNOW</span></h2>
+            <p>Common questions about how our Upwork outreach management works.</p>
+          </div>
+          <div className="upwork-faq-list">
+            {(upworkContent.faq || []).map((item, index) => (
+              <details className="faq-item" key={index}>
+                <summary>{item.q}<span className="plus">+</span></summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ---------- FINAL CTA ---------- */}
       <section className="section final" id="final" style={{ borderBottom: 'none' }}>
         <div className="wrap">
           <div className="pill-label">
             <span>↗</span> GET STARTED
           </div>
-          <h2>
-            READY TO UNLOCK UPWORK AS YOUR <span className="accent">GROWTH CHANNEL</span>?
-          </h2>
-          <p className="sub">
-            Get started today with a free profile audit if you have an account, or a 3-month roadmap if you're just starting out.
-          </p>
+          <h2>{upworkContent.finalTitle || 'Ready to unlock Upwork as your growth channel?'}</h2>
+          <p className="sub">{upworkContent.finalDescription || "Get started today with a free profile audit if you have an account, or a 3-month roadmap if you're just starting out."}</p>
           <a href="/contact" onClick={handleAuditClick} className="btn btn-primary">
-            Claim your free profile audit
+            {upworkContent.finalCta || 'Claim your free profile audit'}
           </a>
         </div>
       </section>

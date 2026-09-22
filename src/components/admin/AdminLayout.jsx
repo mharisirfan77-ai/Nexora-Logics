@@ -15,6 +15,7 @@ import { SettingsEditor } from './SettingsEditor';
 import { SectionTextEditor } from './SectionTextEditor';
 import { BackupManager } from './BackupManager';
 import { WpThemeManager } from './WpThemeManager';
+import { LandingPageEditor } from './LandingPageEditor';
 import {
   ExternalLink,
   Key,
@@ -34,11 +35,13 @@ export const AdminLayout = () => {
 
   const unreadCount = inquiries.filter((i) => !i.read).length;
 
-  const handleChangePasswordSubmit = (e) => {
+  const handleChangePasswordSubmit = async (e) => {
     e.preventDefault();
-    changeAdminPassword(newPassword);
-    setNewPassword('');
-    setShowPasswordModal(false);
+    const ok = await changeAdminPassword(newPassword);
+    if (ok !== false) {
+      setNewPassword('');
+      setShowPasswordModal(false);
+    }
   };
 
   return (
@@ -122,6 +125,7 @@ export const AdminLayout = () => {
           {activeTab === 'services' && <ServicesManager />}
           {activeTab === 'inquiries' && <InquiriesManager />}
           {activeTab === 'settings' && <SettingsEditor />}
+          {activeTab === 'landingPage' && <LandingPageEditor />}
           {activeTab === 'backup' && <BackupManager />}
         </main>
       </div>

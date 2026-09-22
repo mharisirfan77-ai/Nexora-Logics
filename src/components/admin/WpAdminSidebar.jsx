@@ -16,7 +16,8 @@ import {
   BookOpen,
   Sliders,
   Type,
-  UploadCloud
+  UploadCloud,
+  Target
 } from 'lucide-react';
 
 export const WpAdminSidebar = ({ activeTab, setActiveTab }) => {
@@ -59,6 +60,13 @@ export const WpAdminSidebar = ({ activeTab, setActiveTab }) => {
           onClick={() => setActiveTab('pageManager')}
         >
           <FileText size={17} /> Pages
+        </button>
+
+        <button
+          className={`wp-nav-btn ${activeTab === 'landingPage' ? 'active' : ''}`}
+          onClick={() => setActiveTab('landingPage')}
+        >
+          <Target size={17} /> Upwork Landing Page
         </button>
 
         {/* Posts / Blog */}

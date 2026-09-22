@@ -177,7 +177,7 @@ body {
     phone: "+92 300 1234567",
     location: "Serving clients worldwide",
     responseTime: "Within 24 hours",
-    footerBio: "Digital solutions that drive growth — eBooks, websites, social media, and paid advertising, all under one connected strategy.",
+    footerBio: "Complete digital growth solutions — marketing, websites, apps, games, AI automation, content and lead generation — delivered by one connected team.",
     facebookUrl: "https://facebook.com",
     instagramUrl: "https://instagram.com",
     linkedinUrl: "https://linkedin.com"
@@ -187,14 +187,14 @@ body {
       id: "page-home",
       slug: "/",
       title: "Home",
-      metaTitle: "Nexora Logics — Upwork Outreach Management",
-      metaDescription: "Nexora Logics manages your Upwork account end to end — from proposals to booked meetings.",
+      metaTitle: "Nexora Logics — Digital Growth, Built & Automated",
+      metaDescription: "Digital marketing, websites, apps, games, AI automation, content and growth solutions from one connected team.",
       isSystem: true,
       inNavbar: true,
       inFooter: true,
       status: "Published",
       date: "2026-08-26",
-      sectionIds: ["upworkOutreach"]
+      sectionIds: ["hero", "stats", "about", "services", "process", "whyUs", "portfolio", "testimonials", "contact"]
     },
     {
       id: "page-about",
@@ -281,8 +281,8 @@ body {
       metaTitle: "Nexora Logics — Upwork Outreach Management",
       metaDescription: "Stop wasting hours bidding. Start closing more deals on Upwork. End-to-end Upwork account management.",
       isSystem: true,
-      inNavbar: true,
-      inFooter: true,
+      inNavbar: false,
+      inFooter: false,
       status: "Published",
       date: "2026-08-26",
       sectionIds: ["upworkOutreach"]
@@ -376,15 +376,34 @@ body {
     }
   ],
   hero: {
-    badge: "Digital Solutions That Drive Growth",
-    titleLine1: "Every part of your online presence,",
-    titleHighlight: "engineered to work together.",
-    description: "Nexora Logics builds your eBooks, websites, social presence, and ad campaigns under one connected strategy — so nothing about your brand ever feels disjointed.",
+    badge: "Creativity + Technology + AI + Growth",
+    titleLine1: "One team for everything your",
+    titleHighlight: "digital growth needs.",
+    description: "Nexora Logics combines digital marketing, web and app development, game development, AI automation, content creation, branding and lead generation into one practical growth system.",
     primaryCtaText: "Get a Free Quote",
     primaryCtaLink: "/contact",
     secondaryCtaText: "Explore Services",
     secondaryCtaLink: "/services",
     heroImageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
+  },
+  upworkContent: {
+    heroBadge: "Upwork Outreach Management",
+    heroTitle: "Stop wasting hours bidding.",
+    heroHighlight: "Start closing more deals on Upwork.",
+    heroDescription: "We manage your Upwork account end to end — from optimized proposals to booked meetings. You just focus on closing.",
+    primaryCta: "Get a free profile audit",
+    primaryCtaNote: "For existing profiles",
+    secondaryCta: "Get a 3-month roadmap",
+    secondaryCtaNote: "For new profiles",
+    finalTitle: "Ready to unlock Upwork as your growth channel?",
+    finalDescription: "Get started today with a free profile audit if you have an account, or a 3-month roadmap if you're just starting out.",
+    finalCta: "Claim your free profile audit",
+    faq: [
+      { q: "Do you need access to my Upwork account?", a: "Yes. We work inside the account to optimize positioning, identify relevant jobs, prepare proposals, manage outreach and keep the pipeline organized. Access should always be provided using the safest method available to you." },
+      { q: "Who is this service best for?", a: "Professionals, established freelancers and agencies that have a clear service offer and want a consistent Upwork acquisition system without spending hours every day on bidding." },
+      { q: "Do you guarantee a fixed number of projects?", a: "No fixed number of closed projects can be guaranteed because results depend on profile strength, niche competitiveness, offer quality, response speed, Connects budget and sales closing ability." },
+      { q: "Can you help a brand-new profile?", a: "Yes. New profiles typically need more foundation work first, so we focus on profile setup, positioning, portfolio readiness and a structured roadmap before scaling outreach." }
+    ]
   },
   sectionsConfig: {
     stats: { enabled: true, title: "Key Metrics", order: 1 },
@@ -397,7 +416,7 @@ body {
   },
   stats: [
     { id: 1, number: "100+", label: "Projects Delivered" },
-    { id: 2, number: "04", label: "Core Services" },
+    { id: 2, number: "07", label: "Service Pillars" },
     { id: 3, number: "100%", label: "Client Satisfaction" },
     { id: 4, number: "Global", label: "Client Support" }
   ],
@@ -405,8 +424,8 @@ body {
     sectionLabel: "About Us",
     title: "Transforming ideas into digital success",
     subtitle: "We combine strategy, design, and technical mastery to build brands that stand out and scale.",
-    paragraph1: "Nexora Logics is a digital solutions company dedicated to helping businesses thrive in today's competitive online landscape. We bring every part of your digital presence together under ONE team — no juggling multiple freelancers or agencies, no strategy getting lost in translation.",
-    paragraph2: "Whether you're a startup launching your first website or an established brand looking to scale, we build customized strategies designed around your goals — not a template pulled off a shelf.",
+    paragraph1: "At Nexora Logics, we help businesses grow, connect with their audience, and build a powerful digital presence through complete digital marketing, development, automation and content solutions.",
+    paragraph2: "Whether you're a startup building your brand or an established business ready to scale, we combine creativity, technology, AI and marketing expertise to deliver practical, result-driven solutions tailored to your goals.",
     aboutImageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80",
     highlights: [
       { id: 1, icon: "BookOpen", title: "eBook Creation", desc: "From ghostwriting to Amazon KDP publishing" },
@@ -418,40 +437,50 @@ body {
   servicesHeader: {
     sectionLabel: "What We Do",
     title: "Our core services",
-    subtitle: "Everything your brand needs to grow online — handled by one team, built around one strategy."
+    subtitle: "Strategy, creative, development and automation under one roof — built around your business goals."
   },
   services: [
     {
-      id: "svc-1",
-      icon: "BookOpen",
-      title: "eBook Creation & Publishing",
-      description: "Turn your expertise into a professionally published eBook that builds authority and generates leads.",
-      imageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
-      features: ["Ghostwriting & editing", "Cover design & formatting", "Amazon KDP publishing", "Marketing consultation"]
-    },
-    {
-      id: "svc-2",
-      icon: "Code",
-      title: "Web Development",
-      description: "Fast, responsive, conversion-focused websites tailored to your business goals.",
-      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-      features: ["Business & portfolio websites", "E-commerce stores", "WordPress & landing pages", "Maintenance & optimization"]
-    },
-    {
-      id: "svc-3",
-      icon: "Share2",
-      title: "Social Media Marketing",
-      description: "Build a consistent, engaging presence across every major platform with a strategy that actually works.",
+      id: "svc-1", icon: "Share2", title: "Digital Marketing & Social Media",
+      description: "Build awareness, engagement and demand with coordinated organic and paid social campaigns.",
       imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80",
-      features: ["Content creation & scheduling", "Community management", "Audience growth strategies", "Brand awareness campaigns"]
+      features: ["Social media marketing", "Facebook & Instagram marketing", "Content calendars & community", "Brand growth strategy"]
     },
     {
-      id: "svc-4",
-      icon: "Megaphone",
-      title: "Paid Advertising",
-      description: "Data-driven ad campaigns built to maximize ROI and deliver measurable results.",
+      id: "svc-2", icon: "Megaphone", title: "Paid Advertising & Lead Generation",
+      description: "Performance campaigns designed to generate qualified leads, sales and measurable growth.",
       imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
-      features: ["Facebook & Instagram Ads", "Google & YouTube Ads", "Lead generation campaigns", "Retargeting & optimization"]
+      features: ["Meta & Google campaigns", "Campaign management", "Retargeting", "Lead generation funnels"]
+    },
+    {
+      id: "svc-3", icon: "Code", title: "Website & E-Commerce Development",
+      description: "Fast, responsive websites and online stores designed around conversion and easy management.",
+      imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+      features: ["Custom websites", "WordPress", "WooCommerce", "Landing pages & optimization"]
+    },
+    {
+      id: "svc-4", icon: "Smartphone", title: "Mobile App Development",
+      description: "User-focused mobile products for customer experiences, internal workflows and scalable digital services.",
+      imageUrl: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
+      features: ["iOS & Android", "Cross-platform apps", "UI/UX", "API integrations"]
+    },
+    {
+      id: "svc-5", icon: "Gamepad2", title: "Game Development",
+      description: "Interactive 2D and 3D game experiences built for engagement, entertainment and branded activations.",
+      imageUrl: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80",
+      features: ["2D & 3D games", "Mobile games", "Prototype development", "Game UI & mechanics"]
+    },
+    {
+      id: "svc-6", icon: "Cpu", title: "AI Automation & AI Solutions",
+      description: "Automate repetitive work, connect business systems and add practical AI to your customer and team workflows.",
+      imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+      features: ["AI agents & assistants", "Workflow automation", "CRM integrations", "Custom AI-powered tools"]
+    },
+    {
+      id: "svc-7", icon: "BookOpen", title: "Content, Branding & eBook Creation",
+      description: "Create polished brand assets and long-form content that educate, build authority and support your campaigns.",
+      imageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      features: ["Content creation", "Branding", "eBook writing & design", "Publishing support"]
     }
   ],
   portfolioHeader: {
