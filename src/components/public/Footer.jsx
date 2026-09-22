@@ -57,7 +57,6 @@ export const Footer = () => {
               <li><a href="#about">About</a></li>
               <li><a href="#services">Services</a></li>
               <li><a href="#portfolio">Work</a></li>
-              <li><a href="#process">Process</a></li>
             </ul>
           </div>
 

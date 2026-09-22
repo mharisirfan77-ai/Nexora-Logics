@@ -6,8 +6,6 @@ import { StatsBar } from '../components/public/StatsBar';
 import { About } from '../components/public/About';
 import { Services } from '../components/public/Services';
 import { Portfolio } from '../components/public/Portfolio';
-import { TeamShowcase } from '../components/public/TeamShowcase';
-import { Process } from '../components/public/Process';
 import { WhyUs } from '../components/public/WhyUs';
 import { Testimonials } from '../components/public/Testimonials';
 import { Contact } from '../components/public/Contact';
@@ -26,7 +24,7 @@ export const DynamicPage = ({ page }) => {
     return <BlogPage />;
   }
 
-  if (page.slug === '/upwork-outreach' || page.slug === '/upwork-outreach-management') {
+  if (page.slug === '/' || page.slug === '/upwork-outreach' || page.slug === '/upwork-outreach-management') {
     return <UpworkOutreachPage />;
   }
 
@@ -44,10 +42,6 @@ export const DynamicPage = ({ page }) => {
         return <Services key={`${secId}-${index}`} />;
       case 'portfolio':
         return <Portfolio key={`${secId}-${index}`} />;
-      case 'team':
-        return <TeamShowcase key={`${secId}-${index}`} />;
-      case 'process':
-        return <Process key={`${secId}-${index}`} />;
       case 'whyUs':
         return <WhyUs key={`${secId}-${index}`} />;
       case 'testimonials':

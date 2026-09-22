@@ -187,27 +187,27 @@ body {
       id: "page-home",
       slug: "/",
       title: "Home",
-      metaTitle: "Nexora Logics — Digital Solutions That Drive Growth",
-      metaDescription: "Nexora Logics builds your eBooks, websites, social presence, and ad campaigns under one connected strategy.",
+      metaTitle: "Nexora Logics — Upwork Outreach Management",
+      metaDescription: "Nexora Logics manages your Upwork account end to end — from proposals to booked meetings.",
       isSystem: true,
       inNavbar: true,
       inFooter: true,
       status: "Published",
       date: "2026-08-26",
-      sectionIds: ["hero", "reel", "stats", "about", "services", "portfolio", "team", "process", "whyUs", "testimonials", "contact"]
+      sectionIds: ["upworkOutreach"]
     },
     {
       id: "page-about",
       slug: "/about",
       title: "About Us",
       metaTitle: "About Us — Nexora Logics",
-      metaDescription: "Learn about our agency vision, story, core team, and values.",
+      metaDescription: "Learn about our agency vision, story, and values.",
       isSystem: true,
       inNavbar: true,
       inFooter: true,
       status: "Published",
       date: "2026-08-26",
-      sectionIds: ["about", "stats", "team", "whyUs", "testimonials"]
+      sectionIds: ["about", "stats", "whyUs", "testimonials"]
     },
     {
       id: "page-services",
@@ -220,7 +220,7 @@ body {
       inFooter: true,
       status: "Published",
       date: "2026-08-26",
-      sectionIds: ["services", "process", "contact"]
+      sectionIds: ["services", "contact"]
     },
     {
       id: "page-portfolio",
@@ -234,19 +234,6 @@ body {
       status: "Published",
       date: "2026-08-26",
       sectionIds: ["portfolio", "testimonials", "contact"]
-    },
-    {
-      id: "page-process",
-      slug: "/process",
-      title: "Process",
-      metaTitle: "Our 5-Step Process — Nexora Logics",
-      metaDescription: "Discover our predictable 5-step project execution workflow.",
-      isSystem: true,
-      inNavbar: true,
-      inFooter: true,
-      status: "Published",
-      date: "2026-08-26",
-      sectionIds: ["process", "whyUs", "contact"]
     },
     {
       id: "page-why-us",
@@ -404,10 +391,9 @@ body {
     about: { enabled: true, title: "About Us", order: 2 },
     services: { enabled: true, title: "Our Services", order: 3 },
     portfolio: { enabled: true, title: "Portfolio Showcase", order: 4 },
-    process: { enabled: true, title: "Our 5-Step Process", order: 5 },
-    whyUs: { enabled: true, title: "Why Choose Us", order: 6 },
-    testimonials: { enabled: true, title: "Client Reviews", order: 7 },
-    contact: { enabled: true, title: "Get In Touch", order: 8 }
+    whyUs: { enabled: true, title: "Why Choose Us", order: 5 },
+    testimonials: { enabled: true, title: "Client Reviews", order: 6 },
+    contact: { enabled: true, title: "Get In Touch", order: 7 }
   },
   stats: [
     { id: 1, number: "100+", label: "Projects Delivered" },
@@ -526,44 +512,6 @@ body {
       solution: "Rebuilt targeting funnel with multi-step qualifying landing pages, achieving a 4.2x ROAS.",
       liveLink: "https://example.com/ecosmart"
     }
-  ],
-  team: [
-    {
-      id: 1,
-      name: "Marcus Vance",
-      role: "Creative Director",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 2,
-      name: "Elena Rostova",
-      role: "Head of Design",
-      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 3,
-      name: "David Sterling",
-      role: "Lead Web Engineer",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: 4,
-      name: "Arthur Pendelton",
-      role: "Growth & Paid Ads Strategist",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80"
-    }
-  ],
-  processHeader: {
-    sectionLabel: "How We Work",
-    title: "Our 5-step process",
-    subtitle: "Every project moves through the same clear stages — so you always know what comes next."
-  },
-  processSteps: [
-    { id: 1, stepNumber: "01", title: "Discover", description: "We learn about your business, goals, and target audience." },
-    { id: 2, stepNumber: "02", title: "Plan", description: "We map out the strategy and deliverables before any work begins." },
-    { id: 3, stepNumber: "03", title: "Execute", description: "Our team builds, writes, or launches based on the agreed plan." },
-    { id: 4, stepNumber: "04", title: "Deliver", description: "You review the finished work and we refine based on your feedback." },
-    { id: 5, stepNumber: "05", title: "Support", description: "We stay available for updates, questions, and ongoing optimization." }
   ],
   whyUsHeader: {
     sectionLabel: "Why Nexora Logics",

@@ -255,35 +255,7 @@ export const SectionTextEditor = () => {
         </form>
       </div>
 
-      {/* 5. Process Header Editor */}
-      <div className="admin-card">
-        <h3><Type size={18} inline /> 5. Process Timeline Header</h3>
-        <form onSubmit={(e) => { e.preventDefault(); updateSectionHeader('processHeader', processForm); }}>
-          <div className="admin-form-group">
-            <label>Title</label>
-            <input
-              type="text"
-              className="admin-input"
-              value={processForm.title}
-              onChange={(e) => setProcessForm({ ...processForm, title: e.target.value })}
-            />
-          </div>
 
-          <div className="admin-form-group">
-            <label>Subtitle</label>
-            <textarea
-              className="admin-input"
-              rows="2"
-              value={processForm.subtitle}
-              onChange={(e) => setProcessForm({ ...processForm, subtitle: e.target.value })}
-            ></textarea>
-          </div>
-
-          <button type="submit" className="btn-admin-save">
-            <Save size={16} /> Save Process Header
-          </button>
-        </form>
-      </div>
 
       {/* 6. Why Us & Testimonials Header Editors */}
       <div className="admin-card">

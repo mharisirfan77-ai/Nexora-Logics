@@ -1,7 +1,6 @@
 import React from 'react';
 import { PageHeader } from '../components/public/PageHeader';
 import { Services } from '../components/public/Services';
-import { Process } from '../components/public/Process';
 import { Contact } from '../components/public/Contact';
 import { useCMS } from '../context/CMSContext';
 
@@ -17,7 +16,6 @@ export const ServicesPage = () => {
         categoryLabel="Core Capabilities"
       />
       <Services />
-      <Process />
       <Contact />
     </>
   );
