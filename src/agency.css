@@ -289,3 +289,65 @@
   .agency-site *, .agency-site *::before, .agency-site *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .agency-site .agency-reveal { opacity: 1; transform: none; }
 }
+
+/* Homepage services scroll horizontally; the dedicated Services page keeps its grid. */
+.agency-site .home-services-slider .section-header { margin-bottom: 28px !important; }
+.agency-site .service-slider-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.agency-site .service-slider-controls span {
+  margin-right: 12px;
+  color: var(--agency-grey);
+  font-size: .8rem;
+  letter-spacing: .02em;
+}
+.agency-site .service-slider-controls button {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--agency-line);
+  background: var(--agency-panel);
+  color: #fff;
+  cursor: pointer;
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.agency-site .service-slider-controls button:hover:not(:disabled) {
+  background: var(--agency-blue);
+  border-color: var(--agency-blue);
+  transform: translateY(-2px);
+}
+.agency-site .service-slider-controls button:disabled { opacity: .35; cursor: default; }
+.agency-site .service-slider-controls button:focus-visible,
+.agency-site .home-services-slider .services-grid:focus-visible {
+  outline: 2px solid var(--agency-blue);
+  outline-offset: 3px;
+}
+.agency-site .home-services-slider .services-grid {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 2px 22px;
+}
+.agency-site .home-services-slider .services-grid::-webkit-scrollbar { display: none; }
+.agency-site .home-services-slider .service-card {
+  flex: 0 0 clamp(285px, 29vw, 380px);
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+@media (max-width: 540px) {
+  .agency-site .home-services-slider .service-card { flex-basis: min(84vw, 340px); }
+  .agency-site .service-slider-controls { justify-content: space-between; }
+  .agency-site .service-slider-controls span { margin-right: auto; }
+}
