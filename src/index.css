@@ -3494,3 +3494,24 @@ footer{background:#0B0B0C!important;border-top:1px solid #2A2A2A!important}
   .section-padding{padding:72px 20px!important}
   .xstar-hero-title{font-size:clamp(2.15rem,11vw,3.1rem)!important}
 }
+
+/* Show the supplied full logo as a readable emblem beside the brand name. */
+.brand .logo-chip.nexora-emblem {
+  position: relative;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+.brand .logo-chip.nexora-emblem img,
+.brand .logo-chip.nexora-emblem .logo-chip-img {
+  position: absolute;
+  top: -3px;
+  left: -17px;
+  width: 86px !important;
+  max-width: none !important;
+  height: auto !important;
+  border-radius: 0;
+}

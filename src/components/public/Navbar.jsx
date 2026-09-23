@@ -68,7 +68,7 @@ export const Navbar = () => {
         <div className="xstar-nav-container">
           {/* Nexora Logics Brand Logo Chip & Title */}
           <a href="/" onClick={(e) => handleNavClick(e, '/')} className="brand" title="Nexora Logics Home">
-            <div className="logo-chip">
+            <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
               <img
                 src={logoSource}
                 alt={siteInfo?.brandName || "Nexora Logics"}

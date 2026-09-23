@@ -52,7 +52,7 @@ export const UpworkOutreachPage = () => {
       <header className="upwork-header">
         <div className="wrap nav">
           <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="brand" title="Nexora Logics Home">
-            <div className="logo-chip">
+            <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
               <img src={logoSource} alt={siteInfo?.brandName || "Nexora Logics"} className="logo-chip-img" />
             </div>
             <span className="word">{siteInfo?.brandName || "Nexora Logics"}</span>

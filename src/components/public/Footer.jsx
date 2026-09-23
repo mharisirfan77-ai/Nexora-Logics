@@ -5,6 +5,7 @@ const logoImg = '/nexora-logo.png';
 export const Footer = () => {
   const { data } = useCMS();
   const { siteInfo } = data;
+  const logoSource = siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg;
 
   return (
     <footer>
@@ -12,9 +13,9 @@ export const Footer = () => {
         <div className="footer-grid">
           <div className="footer-col">
             <div className="brand">
-              <div className="logo-chip">
+              <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
                 <img
-                  src={siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg}
+                  src={logoSource}
                   alt={siteInfo.brandName}
                   className="logo-chip-img"
                 />
