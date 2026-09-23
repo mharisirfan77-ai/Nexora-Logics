@@ -30,11 +30,12 @@ export const Services = () => {
         </div>
 
         <div className="services-grid">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <div className="service-card" key={service.id}>
+              <div className="agency-service-index">/ 0{index + 1}</div>
               {service.imageUrl && (
-                <div style={{ height: '160px', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.2rem', background: 'var(--card-bg)' }}>
-                  <img src={service.imageUrl} alt={service.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div className="agency-service-photo">
+                  <img src={service.imageUrl} alt={service.title} loading="lazy" />
                 </div>
               )}
 

@@ -8,16 +8,16 @@ export const Portfolio = () => {
 
   if (!sectionsConfig.portfolio?.enabled) return null;
 
-  const categories = ['All', 'Web Development', 'eBook Creation', 'Social Media', 'Paid Advertising'];
+  const categories = ['All', ...new Set(portfolio.map((project) => project.category).filter(Boolean))];
 
   const filteredProjects = activeCategory === 'All'
     ? portfolio
     : portfolio.filter(p => p.category === activeCategory);
 
   return (
-    <section id="portfolio" className="section-padding" style={{ background: 'var(--bg-dark)' }}>
-      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '3.5rem' }}>
+    <section id="portfolio" className="section-padding agency-portfolio-section">
+      <div className="agency-portfolio-inner">
+        <div className="agency-portfolio-heading">
           <span style={{ fontFamily: 'JetBrains Mono', fontSize: '0.82rem', color: 'var(--lime)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
             ✦ {portfolioHeader?.sectionLabel || "Selected Work"}
           </span>
@@ -39,10 +39,12 @@ export const Portfolio = () => {
           ))}
         </div>
 
-        {/* Split-Screen Horizontal Project Rows */}
-        <div>
+        <div className="agency-portfolio-grid">
           {filteredProjects.map((project, idx) => (
             <div key={project.id} className="split-project-row">
+              <div className="agency-project-image" onClick={() => setActiveProjectModal(project)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') setActiveProjectModal(project); }}>
+                <img src={project.thumbnail} alt={project.title} loading="lazy" />
+              </div>
               <div className="split-project-card" onClick={() => setActiveProjectModal(project)}>
                 <div className="tag-pill-xstar">
                   {project.category} <span>↗</span>
@@ -56,18 +58,6 @@ export const Portfolio = () => {
                 </p>
               </div>
 
-              <div
-                style={{ height: '320px', borderRadius: '8px', overflow: 'hidden', background: 'var(--card-bg)', cursor: 'pointer' }}
-                onClick={() => setActiveProjectModal(project)}
-              >
-                <img
-                  src={project.thumbnail}
-                  alt={project.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
-                  onMouseEnter={(e) => e.target.style.transform = 'scale(1.08)'}
-                  onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-                />
-              </div>
             </div>
           ))}
         </div>

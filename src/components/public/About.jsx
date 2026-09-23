@@ -28,12 +28,12 @@ export const About = () => {
 
           <div className="about-visual">
             {about.aboutImageUrl && (
-              <div style={{ height: '180px', borderRadius: '14px', overflow: 'hidden', marginBottom: '1.4rem', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <img src={about.aboutImageUrl} alt={about.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div className="agency-about-photo">
+                <img src={about.aboutImageUrl} alt="Nexora team working together" loading="lazy" />
+                <span>Built around your ambition <span aria-hidden="true">↗</span></span>
               </div>
             )}
-
-            {about.highlights && about.highlights.map((item) => (
+            <div className="agency-about-highlights">{about.highlights && about.highlights.map((item) => (
               <div className="av-item" key={item.id}>
                 <div className="av-icon">
                   {iconMap[item.icon] || <Code size={24} />}
@@ -43,7 +43,7 @@ export const About = () => {
                   <span className="desc">{item.desc}</span>
                 </div>
               </div>
-            ))}
+            ))}</div>
           </div>
         </div>
       </div>

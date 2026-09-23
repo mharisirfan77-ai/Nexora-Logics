@@ -3515,3 +3515,23 @@ footer{background:#0B0B0C!important;border-top:1px solid #2A2A2A!important}
   height: auto !important;
   border-radius: 0;
 }
+
+/* Use the same brand mark in the outreach footer as on the agency website. */
+.upwork-footer .foot-brand .logo-chip.nexora-emblem {
+  position: relative;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+.upwork-footer .foot-brand .logo-chip.nexora-emblem img {
+  position: absolute;
+  top: -3px;
+  left: -17px;
+  width: 86px !important;
+  max-width: none !important;
+  height: auto !important;
+  border-radius: 0;
+}

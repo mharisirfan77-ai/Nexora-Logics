@@ -960,7 +960,7 @@ export const UpworkOutreachPage = () => {
       <footer className="upwork-footer">
         <div className="wrap foot-row">
           <div className="foot-brand">
-            <div className="logo-chip">
+            <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
               <img src={logoSource} alt={siteInfo?.brandName || "Nexora Logics"} className="logo-chip-img" />
             </div>
             <span className="word">{siteInfo?.brandName || "Nexora Logics"} — Upwork Outreach Management</span>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './agency.css';
 import { CMSProvider, useCMS } from './context/CMSContext';
 import { Navbar } from './components/public/Navbar';
 import { Footer } from './components/public/Footer';
@@ -64,6 +65,21 @@ const MainRouter = () => {
     }
   }, [themeConfig, activeTheme]);
 
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const nodes = document.querySelectorAll('.agency-site main section, .agency-site main .service-card, .agency-site main .split-project-row, .agency-site main .nl-process-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    nodes.forEach((node) => { node.classList.add('agency-reveal'); observer.observe(node); });
+    return () => observer.disconnect();
+  }, [currentPath, data.pages]);
+
   // Normalize path for secret admin slug check
   const normalizedPath = currentPath.replace(/\/$/, '').toLowerCase();
   const isAdminPath = normalizedPath === '/nexora_logics_admin';
@@ -94,7 +110,7 @@ const MainRouter = () => {
   const themeCssToInject = activeTheme.cssContent || themeConfig.customCss || '';
 
   return (
-    <div className="public-app">
+    <div className={`public-app ${isUpworkPage ? 'outreach-site' : 'agency-site'}`}>
       {/* Extracted Theme CSS & Custom Overrides injected dynamically */}
       {themeCssToInject && (
         <style id="wp-active-theme-styles">{themeCssToInject}</style>
