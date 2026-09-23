@@ -22,7 +22,7 @@
 .agency-site .xstar-nav-links { gap: clamp(14px, 2vw, 32px); }
 .agency-site .xstar-nav-links a { transition: color .25s ease, opacity .25s ease; }
 .agency-site .mobile-drawer-header .xstar-brand-logo-img {
-  width: 110px;
+  width: 80px;
   height: auto;
   max-height: none;
   padding: 0;

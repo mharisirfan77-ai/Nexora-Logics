@@ -3499,9 +3499,9 @@ footer{background:#0B0B0C!important;border-top:1px solid #2A2A2A!important}
 .brand .logo-chip.nexora-full-logo,
 .upwork-footer .foot-brand .logo-chip.nexora-full-logo {
   display: block;
-  flex: 0 0 128px;
-  width: 128px;
-  height: 94px;
+  flex: 0 0 90px;
+  width: 90px;
+  height: 67px;
   overflow: visible;
   background: transparent;
   border: 0;
@@ -3511,7 +3511,7 @@ footer{background:#0B0B0C!important;border-top:1px solid #2A2A2A!important}
 .brand .logo-chip.nexora-full-logo .logo-chip-img,
 .upwork-footer .foot-brand .logo-chip.nexora-full-logo img {
   display: block;
-  width: 128px !important;
+  width: 90px !important;
   max-width: none !important;
   height: auto !important;
   border: 0;
@@ -3521,8 +3521,8 @@ footer{background:#0B0B0C!important;border-top:1px solid #2A2A2A!important}
 }
 @media (max-width: 720px) {
   .brand .logo-chip.nexora-full-logo,
-  .upwork-footer .foot-brand .logo-chip.nexora-full-logo { flex-basis: 110px; width: 110px; height: 81px; }
+  .upwork-footer .foot-brand .logo-chip.nexora-full-logo { flex-basis: 80px; width: 80px; height: 59px; }
   .brand .logo-chip.nexora-full-logo img,
   .brand .logo-chip.nexora-full-logo .logo-chip-img,
-  .upwork-footer .foot-brand .logo-chip.nexora-full-logo img { width: 110px !important; }
+  .upwork-footer .foot-brand .logo-chip.nexora-full-logo img { width: 80px !important; }
 }
