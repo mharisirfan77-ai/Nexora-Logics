@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
-import logoImg from '../../assets/logo.jpg';
+const logoImg = '/nexora-logo.png';
 
 export const Footer = () => {
   const { data } = useCMS();
@@ -14,7 +14,7 @@ export const Footer = () => {
             <div className="brand">
               <div className="logo-chip">
                 <img
-                  src={siteInfo?.logoUrl || logoImg}
+                  src={siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg}
                   alt={siteInfo.brandName}
                   className="logo-chip-img"
                 />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCMS } from '../context/CMSContext';
-import logoImg from '../assets/logo.jpg';
+const logoImg = '/nexora-logo.png';
 import { 
   Calendar, 
   Clock, 
@@ -21,7 +21,7 @@ export const UpworkOutreachPage = () => {
   const [activeTab, setActiveTab] = useState('c90k');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const logoSource = siteInfo?.logoUrl || logoImg;
+  const logoSource = siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg;
 
   const handleAuditClick = (e) => {
     e.preventDefault();

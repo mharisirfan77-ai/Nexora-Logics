@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCMS } from '../../context/CMSContext';
 import { Search, Menu, X, ArrowUpRight } from 'lucide-react';
-import logoImg from '../../assets/logo.jpg';
+const logoImg = '/nexora-logo.png';
 
 export const Navbar = () => {
   const { data, currentPath, navigate } = useCMS();
@@ -60,7 +60,7 @@ export const Navbar = () => {
       .map((item) => ({ type: 'Portfolio', title: item.title, path: '/portfolio' }))
   ];
 
-  const logoSource = siteInfo?.logoUrl || logoImg;
+  const logoSource = siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg;
 
   return (
     <>
