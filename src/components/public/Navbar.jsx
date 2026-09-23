@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCMS } from '../../context/CMSContext';
 import { Search, Menu, X, ArrowUpRight } from 'lucide-react';
-const logoImg = '/nexora-logo.png';
+const logoImg = '/nexora-logo-transparent.png';
 
 export const Navbar = () => {
   const { data, currentPath, navigate } = useCMS();
@@ -60,7 +60,7 @@ export const Navbar = () => {
       .map((item) => ({ type: 'Portfolio', title: item.title, path: '/portfolio' }))
   ];
 
-  const logoSource = siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg;
+  const logoSource = siteInfo?.logoUrl && !['/logo.jpg', '/nexora-logo.png'].includes(siteInfo.logoUrl) ? siteInfo.logoUrl : logoImg;
 
   return (
     <>
@@ -68,14 +68,14 @@ export const Navbar = () => {
         <div className="xstar-nav-container">
           {/* Nexora Logics Brand Logo Chip & Title */}
           <a href="/" onClick={(e) => handleNavClick(e, '/')} className="brand" title="Nexora Logics Home">
-            <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
+            <div className={logoSource === logoImg ? "logo-chip nexora-full-logo" : "logo-chip"}>
               <img
                 src={logoSource}
                 alt={siteInfo?.brandName || "Nexora Logics"}
                 className="logo-chip-img"
               />
             </div>
-            <span className="word">{siteInfo?.brandName || "Nexora Logics"}</span>
+            {logoSource !== logoImg && <span className="word">{siteInfo?.brandName || "Nexora Logics"}</span>}
           </a>
 
           {/* XSTAR Desktop Navigation Links (with ↗ arrow prefix) */}

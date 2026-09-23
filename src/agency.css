@@ -21,6 +21,16 @@
 .agency-site .xstar-nav-container { max-width: 1440px; padding-inline: clamp(20px, 4vw, 68px); }
 .agency-site .xstar-nav-links { gap: clamp(14px, 2vw, 32px); }
 .agency-site .xstar-nav-links a { transition: color .25s ease, opacity .25s ease; }
+.agency-site .mobile-drawer-header .xstar-brand-logo-img {
+  width: 110px;
+  height: auto;
+  max-height: none;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  filter: brightness(1.6) drop-shadow(0 2px 10px rgba(46,122,158,.26));
+}
 .agency-site .btn-xstar-touch { background: var(--agency-blue); color: #fff; border-color: var(--agency-blue) !important; }
 .agency-site .btn-xstar-touch:hover { background: #1F5C79 !important; }
 

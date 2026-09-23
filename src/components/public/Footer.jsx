@@ -1,11 +1,11 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
-const logoImg = '/nexora-logo.png';
+const logoImg = '/nexora-logo-transparent.png';
 
 export const Footer = () => {
   const { data } = useCMS();
   const { siteInfo } = data;
-  const logoSource = siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg;
+  const logoSource = siteInfo?.logoUrl && !['/logo.jpg', '/nexora-logo.png'].includes(siteInfo.logoUrl) ? siteInfo.logoUrl : logoImg;
 
   return (
     <footer>
@@ -13,14 +13,14 @@ export const Footer = () => {
         <div className="footer-grid">
           <div className="footer-col">
             <div className="brand">
-              <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
+              <div className={logoSource === logoImg ? "logo-chip nexora-full-logo" : "logo-chip"}>
                 <img
                   src={logoSource}
                   alt={siteInfo.brandName}
                   className="logo-chip-img"
                 />
               </div>
-              <span className="word">{siteInfo.brandName}</span>
+              {logoSource !== logoImg && <span className="word">{siteInfo.brandName}</span>}
             </div>
             <p>{siteInfo.footerBio}</p>
             <div className="footer-social">

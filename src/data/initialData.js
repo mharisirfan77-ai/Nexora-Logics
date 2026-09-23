@@ -172,7 +172,7 @@ body {
   siteInfo: {
     brandName: "Nexora Logics",
     tagline: "Digital Solutions That Drive Growth",
-    logoUrl: "/nexora-logo.png",
+    logoUrl: "/nexora-logo-transparent.png",
     email: "nexoralogics650@gmail.com",
     phone: "+92 300 1234567",
     location: "Serving clients worldwide",

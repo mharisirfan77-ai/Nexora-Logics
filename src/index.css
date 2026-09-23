@@ -3495,43 +3495,34 @@ footer{background:#0B0B0C!important;border-top:1px solid #2A2A2A!important}
   .xstar-hero-title{font-size:clamp(2.15rem,11vw,3.1rem)!important}
 }
 
-/* Show the supplied full logo as a readable emblem beside the brand name. */
-.brand .logo-chip.nexora-emblem {
-  position: relative;
-  flex: 0 0 52px;
-  width: 52px;
-  height: 50px;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #fff;
+/* The complete supplied PNG stays transparent on both sites. */
+.brand .logo-chip.nexora-full-logo,
+.upwork-footer .foot-brand .logo-chip.nexora-full-logo {
+  display: block;
+  flex: 0 0 128px;
+  width: 128px;
+  height: 94px;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  padding: 0;
 }
-.brand .logo-chip.nexora-emblem img,
-.brand .logo-chip.nexora-emblem .logo-chip-img {
-  position: absolute;
-  top: -3px;
-  left: -17px;
-  width: 86px !important;
+.brand .logo-chip.nexora-full-logo img,
+.brand .logo-chip.nexora-full-logo .logo-chip-img,
+.upwork-footer .foot-brand .logo-chip.nexora-full-logo img {
+  display: block;
+  width: 128px !important;
   max-width: none !important;
   height: auto !important;
+  border: 0;
   border-radius: 0;
+  object-fit: contain !important;
+  filter: brightness(1.6) drop-shadow(0 2px 10px rgba(46,122,158,.26));
 }
-
-/* Use the same brand mark in the outreach footer as on the agency website. */
-.upwork-footer .foot-brand .logo-chip.nexora-emblem {
-  position: relative;
-  flex: 0 0 52px;
-  width: 52px;
-  height: 50px;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #fff;
-}
-.upwork-footer .foot-brand .logo-chip.nexora-emblem img {
-  position: absolute;
-  top: -3px;
-  left: -17px;
-  width: 86px !important;
-  max-width: none !important;
-  height: auto !important;
-  border-radius: 0;
+@media (max-width: 720px) {
+  .brand .logo-chip.nexora-full-logo,
+  .upwork-footer .foot-brand .logo-chip.nexora-full-logo { flex-basis: 110px; width: 110px; height: 81px; }
+  .brand .logo-chip.nexora-full-logo img,
+  .brand .logo-chip.nexora-full-logo .logo-chip-img,
+  .upwork-footer .foot-brand .logo-chip.nexora-full-logo img { width: 110px !important; }
 }

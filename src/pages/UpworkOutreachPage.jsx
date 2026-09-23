@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCMS } from '../context/CMSContext';
-const logoImg = '/nexora-logo.png';
+const logoImg = '/nexora-logo-transparent.png';
 import { 
   Calendar, 
   Clock, 
@@ -21,7 +21,7 @@ export const UpworkOutreachPage = () => {
   const [activeTab, setActiveTab] = useState('c90k');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const logoSource = siteInfo?.logoUrl && siteInfo.logoUrl !== '/logo.jpg' ? siteInfo.logoUrl : logoImg;
+  const logoSource = siteInfo?.logoUrl && !['/logo.jpg', '/nexora-logo.png'].includes(siteInfo.logoUrl) ? siteInfo.logoUrl : logoImg;
 
   const handleAuditClick = (e) => {
     e.preventDefault();
@@ -52,10 +52,10 @@ export const UpworkOutreachPage = () => {
       <header className="upwork-header">
         <div className="wrap nav">
           <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="brand" title="Nexora Logics Home">
-            <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
+            <div className={logoSource === logoImg ? "logo-chip nexora-full-logo" : "logo-chip"}>
               <img src={logoSource} alt={siteInfo?.brandName || "Nexora Logics"} className="logo-chip-img" />
             </div>
-            <span className="word">{siteInfo?.brandName || "Nexora Logics"}</span>
+            {logoSource !== logoImg && <span className="word">{siteInfo?.brandName || "Nexora Logics"}</span>}
           </a>
 
           <nav className="nav-links">
@@ -960,10 +960,10 @@ export const UpworkOutreachPage = () => {
       <footer className="upwork-footer">
         <div className="wrap foot-row">
           <div className="foot-brand">
-            <div className={logoSource === logoImg ? "logo-chip nexora-emblem" : "logo-chip"}>
+            <div className={logoSource === logoImg ? "logo-chip nexora-full-logo" : "logo-chip"}>
               <img src={logoSource} alt={siteInfo?.brandName || "Nexora Logics"} className="logo-chip-img" />
             </div>
-            <span className="word">{siteInfo?.brandName || "Nexora Logics"} — Upwork Outreach Management</span>
+            <span className="word">{logoSource !== logoImg && `${siteInfo?.brandName || "Nexora Logics"} — `}Upwork Outreach Management</span>
           </div>
           <span>Results vary by profile strength, niche competitiveness, and closing ability.</span>
         </div>
